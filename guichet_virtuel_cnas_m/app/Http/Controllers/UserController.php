@@ -57,7 +57,7 @@ class UserController extends Controller
         //} else return 'load the manager home';
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
-        return dd($role);
+
         switch ($role) {
             case 'superadmin':
                 return view('superadmin.home');

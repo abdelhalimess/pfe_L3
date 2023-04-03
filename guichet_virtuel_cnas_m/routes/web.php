@@ -22,8 +22,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\LeaveDocController;
 use App\Http\Controllers\ServiceController;
-
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/users_list', [UserController::class, 'show'])->name('users-list')->middleware(['auth', 'role:admin|superadmin']);
 

@@ -13,7 +13,7 @@
 
 @section('page_title')
 <h4>Liste des roles</h4>
-<span>Ajouter, modifer ou supprimer un roles </span>
+<span>Ajouter, modifer ou supprimer un role </span>
 @endsection
 
 @section('breadcrumb')
@@ -340,7 +340,7 @@
                         app.newRole = '';
                         app.selectedRoleName = '';
                         app.selectedRoleIndex = '';
-                        notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                        notify('Succès', response.data.success, 'red', 'bottomCenter', 'bounceInDown');
                     })
                     .catch(function(error) {
                         if (error.response) {
@@ -439,11 +439,12 @@
             },
         },
         created() {
-            console.log('RolesList created..');
-            this.fetch_roles();
-            this.fetch_permissions();
-            console.log(this.permissions);
+         this.fetch_roles();
             this.fetch_permissions()
+            console.log('RolesList created..');
+          
+           
+           
         },
         mounted() {
             $('#optgroup').multiSelect();

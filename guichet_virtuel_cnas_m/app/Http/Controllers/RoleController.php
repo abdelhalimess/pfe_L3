@@ -13,8 +13,9 @@ use HasRoles;
 
 class RoleController extends Controller
 {
-    public function __construct() {
-        $this->middleware(['auth','role:superadmin']);
+    public function __construct()
+    {
+        $this->middleware(['auth', 'role:superadmin']);
     }
 
     /**
@@ -25,7 +26,6 @@ class RoleController extends Controller
     public function index()
     {
         return view('superadmin.roles_list');
-
     }
 
     /**
@@ -56,10 +56,9 @@ class RoleController extends Controller
 
         // return compact('validated');
         return response()->json([
-                'success'=>'Information ajouté avec succès',
-                'role'=>$role
-                ]);
-
+            'success' => 'Information added with success',
+            'role' => $role
+        ]);
     }
 
     /**
@@ -102,9 +101,9 @@ class RoleController extends Controller
         $role->save();
 
         return response()->json([
-                'success'=>'Information modifée avec succès',
-                'role'=>$role
-                ]);
+            'success' => 'Information modifée avec succès',
+            'role' => $role
+        ]);
     }
 
     /**
@@ -117,11 +116,11 @@ class RoleController extends Controller
     {
 
         $role = Role::findById($id);
-        if ($role->name!='superadmin') {
+        if ($role->name != 'superadmin') {
             $role->delete();
-            return response()->json(['success'=>'Le rôle a été supprimé avec succés']);
-        } else if($role->name === 'superadmin'){
-            return response()->json(['error'=>'Ce rôle ne peut pas être supprimé']);
+            return response()->json(['success' => 'Le rôle a été supprimé avec succés']);
+        } else if ($role->name === 'superadmin') {
+            return response()->json(['error' => 'Ce rôle ne peut pas être supprimé']);
         }
     }
     public function getRoles()
@@ -133,8 +132,8 @@ class RoleController extends Controller
     public function assignPermissions(Request $request, $id)
     {
         $validated = $this->validate($request, [
-            'permissions'=>'required',
-            ]);
+            'permissions' => 'required',
+        ]);
         $permissions = $request->permissions;
 
 
@@ -145,16 +144,16 @@ class RoleController extends Controller
 
         $roles = Role::with('permissions')->get();
         return response()->json([
-                'success' => 'Information modifée avec succès',
-                'permissions' => $permissions,
-                'roles' => $roles
-                ]);
+            'success' => 'Information modifée avec succès',
+            'permissions' => $permissions,
+            'roles' => $roles
+        ]);
     }
     public function revokePermission(Request $request, $id)
     {
         $validated = $this->validate($request, [
-            'permission'=>'required',
-            ]);
+            'permission' => 'required',
+        ]);
         $permission = $request->permission;
 
 
@@ -164,14 +163,7 @@ class RoleController extends Controller
         $role->revokePermissionTo($permission);
 
         return response()->json([
-                'success'=>'Information modifée avec succès'
-                ]);
-    }
-
-    public function test()
-    {
-        $permissions = Permission::find($permissions);
-        $role = Role::findOrFail(1);
-        $role->syncPermissions($permissions);
+            'success' => 'Information modifée avec succès'
+        ]);
     }
 }
