@@ -55,7 +55,9 @@ class UserController extends Controller
 
         // return view('admin.home');
         //} else return 'load the manager home';
-        $role = Auth::user()->getRoleNames()->first();
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
+        return dd($role);
         switch ($role) {
             case 'superadmin':
                 return view('superadmin.home');
@@ -87,7 +89,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $role = Auth::user()->getRoleNames()->first();
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
                 $roles = Role::with('permissions')->get();
@@ -105,7 +108,8 @@ class UserController extends Controller
 
     public function user_profile()
     {
-        $role = Auth::user()->getRoleNames()->first();
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
                 return view('superadmin.user_profile');
@@ -124,7 +128,7 @@ class UserController extends Controller
 
     public function update_information(Request $request)
     {
-        $user = Auth::user();
+        $user = User::find(Auth::user()->id);
 
 
 
@@ -176,7 +180,8 @@ class UserController extends Controller
         $user->telephone = $request->telephone;
         $user->email = $request->email;
 
-        $role = Auth::user()->getRoleNames()->first();
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
         if ($role != 'superadmin') {
             $user->structure_id = Auth::user()->structure_id;
         } else {
@@ -199,7 +204,8 @@ class UserController extends Controller
 
     public function show()
     {
-        $role = Auth::user()->getRoleNames()->first();
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
                 $users = User::with('permissions', 'roles')->get();
@@ -225,7 +231,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $this->authorize('edit', $user);
-        $role = Auth::user()->getRoleNames()->first();
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
                 $roles = Role::all();
@@ -262,7 +269,8 @@ class UserController extends Controller
         $user->telephone = $request->telephone;
         $user->email = $request->email;
 
-        $role = Auth::user()->getRoleNames()->first();
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
         if ($role != 'superadmin') {
             $user->structure_id = Auth::user()->structure_id;
         } else {
@@ -316,7 +324,8 @@ class UserController extends Controller
     }
     public function get_users()
     {
-        $role = Auth::user()->getRoleNames()->first();
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
                 $users = User::with('structure')->where('id', '!=', Auth::user()->id)->get();
@@ -327,80 +336,5 @@ class UserController extends Controller
                 return compact('users');
                 break;
         }
-    }
-
-    public function ggg()
-    {
-        // $vehiclesWithExpiredTaxes = Vehicle::where("structure_id", Auth::user()->structure_id)->with('model.brand','annualTaxes')->whereHas('latestAnnualTax', function ($query) {
-        //     $query->whereRaw("DATE_ADD(bought_at, INTERVAL 1 YEAR) <= current_date")
-        //     ->orWhereRaw('DATE_ADD(bought_at, INTERVAL 1 YEAR) <= DATE_ADD(now(), INTERVAL 30 DAY)');
-        // })->orWhereDoesntHave('annualTaxes')->get();
-
-        // // foreach ($vehiclesWithExpiredTaxes as $vehicle) {
-
-        // //     dd($vehicle);
-        // // }
-
-
-        // return $vehiclesWithExpiredTaxes;
-        // $data = User::get();
-
-        $chart = new SampleChart;
-        $chart->labels(['One', 'Two', 'Three', 'Four']);
-        $chart->dataset('My dataset', 'line', [1, 2, 3, 4]);
-        $chart->dataset('My dataset 2', 'line', [4, 3, 2, 1]);
-
-
-
-
-        return view('parc_manager.home', compact('chart'));
-    }
-
-    public function gg()
-    {
-        Auth::user()->notifications()->delete();
-
-        $current_date = Carbon::now();
-
-        $vehiclesWithExpiredInsurances = Vehicle::where("structure_id", Auth::user()->structure_id)->with('insurances')->whereHas('latestInsurance', function ($query) use ($current_date) {
-            $query->where('ended_at', '<=', $current_date)
-                ->orWhereRaw('ended_at < DATE_ADD(current_date, INTERVAL 30 DAY)');
-        })->orWhereDoesntHave('insurances')->get();
-
-        $vehiclesWithExpiredTaxes = Vehicle::where("structure_id", Auth::user()->structure_id)->whereHas('latestAnnualTax', function ($query) {
-            $query->whereRaw("bought_at <= current_date")
-                ->orWhereRaw('bought_at <= DATE_ADD(current_date, INTERVAL 30 DAY)');
-        })->orWhereDoesntHave('annualTaxes')->get();
-
-        $vehiclesWithExpiredControls = Vehicle::where("structure_id", Auth::user()->structure_id)->whereHas('latestTechnicalControl', function ($query) {
-            $query->whereRaw("performed_at <= current_date")
-                ->orWhereRaw('performed_at <= DATE_ADD(current_date, INTERVAL 30 DAY)');
-        })->orWhereDoesntHave('technicalControls')->get();
-
-
-        $driversWithExpiredLicence = Driver::where("structure_id", Auth::user()->structure_id)
-            ->whereRaw("licence_experation_date <= current_date")
-            ->orWhereRaw('licence_experation_date <= DATE_ADD(current_date, INTERVAL 30 DAY)')->get();
-
-        foreach ($driversWithExpiredLicence as $driver) {
-
-            Auth::user()->notify(new DriverLicenceExpired($driver));
-        }
-
-        foreach ($vehiclesWithExpiredControls as $vehicle) {
-
-            Auth::user()->notify(new VehicleControlExpired($vehicle));
-        }
-        foreach ($vehiclesWithExpiredTaxes as $vehicle) {
-
-            Auth::user()->notify(new VehicleTaxExpired($vehicle));
-        }
-        foreach ($vehiclesWithExpiredInsurances as $vehicle) {
-
-            Auth::user()->notify(new VehicleInsuranceExpired($vehicle));
-        }
-
-
-        return compact('vehiclesWithExpiredTaxes', 'vehiclesWithExpiredInsurances', 'vehiclesWithExpiredControls');
     }
 }
