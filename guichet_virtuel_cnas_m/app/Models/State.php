@@ -3,14 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class State extends Model
 {
     protected $table = 'states';
 
-    public function communes()
+    protected $fillable = ['name','code'];
+
+    public function communes(): HasMany
     {
-        return $this->hasMany(Place::class);
+        return $this->hasMany(Commune::class);
     }
 
     

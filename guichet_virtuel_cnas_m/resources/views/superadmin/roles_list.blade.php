@@ -452,8 +452,8 @@
         }
     });
     $('#optgroup').multiSelect({
-        selectableHeader: "<div class='custom-header'>Selectable items</div>",
-        selectionHeader: "<div class='custom-header'>Selection items</div>"
+        selectableHeader: "<div class='custom-header'>Selectable wdqwdqwd</div>",
+        selectionHeader: "<div class='custom-header'>Selection wwwww</div>"
     });
 </script>
 

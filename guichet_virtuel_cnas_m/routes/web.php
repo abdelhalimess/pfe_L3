@@ -22,6 +22,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\LeaveDocController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\StateController;
+use App\Http\Controllers\CommuneController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -83,7 +85,7 @@ Route::get('/getPermissions', [PermissionController::class, 'getPermissions'])->
 
 
 
-Route::resource('photos', PhotoController::class);
+// Route::resource('photos', PhotoController::class);
 
 
 
@@ -110,10 +112,12 @@ Route::get('/getConfirmedLevels', [ConfirmedLevelController::class, 'getConfirme
 
 
 
-
-
-
-
+// Route::resource('states', StateController::class)->middleware(['auth', 'role:superadmin']);
+Route::get('states_list', [StateController::class, 'index'])->name('states-list')->middleware(['auth', 'role:superadmin']);
+Route::get('communes_list', [CommuneController::class, 'index'])->name('communes-list')->middleware(['auth', 'role:superadmin']);
+Route::get('/getStates', [StateController::class, 'getStates'])->name('getStates')->middleware(['auth', 'role:superadmin']);
+Route::delete('/state_delete/{id}', [StateController::class, 'destroy'])->name('state-delete')->middleware(['auth', 'role:superadmin']);
+Route::get('/getCommunes', [CommuneController::class, 'getCommunes'])->name('getCommunes')->middleware(['auth', 'role:superadmin']);
 
 Route::get('/lol', function () {
     $beautymail = app()->make(Snowfire\Beautymail\Beautymail::class);

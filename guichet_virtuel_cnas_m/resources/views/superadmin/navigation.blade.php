@@ -82,5 +82,17 @@
             </li>
         </ul>
     </li>
+    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'states-list' || \Request::route()->getName() == 'communes-list' ) ? 'pcoded-trigger' : '' }}">
+        <a href="javascript:void(0)">
+            <span class="pcoded-micon"><i class="fa fa-map "></i></span>
+            <span class="pcoded-mtext">States - Communes</span>
+        </a>
+        <ul class="pcoded-submenu ">
+            <li class="{{ (\Request::route()->getName() == 'states-list') ? 'active' : '' }}">
+                <a href="/states_list">
+                    <span class="pcoded-mtext">States list </span>
+                </a>
+            </li>
+        </ul>
 </ul>
 @endsection
