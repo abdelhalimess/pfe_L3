@@ -83,7 +83,7 @@ class CommuneController extends Controller
         //
     }
     
-    public function getCommunes($id)
+    public function getCommunes()
     {
         $communes = Commune::all();
         return compact('communes');

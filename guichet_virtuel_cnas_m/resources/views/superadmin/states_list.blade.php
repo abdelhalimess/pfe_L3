@@ -33,8 +33,28 @@
 
 
  {{-- page_content --}}
-
- <div class="col-md-5">
+ <div class="modal fade" id="assign-communes-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title"> Add communes for the state : <span v-if="selectedStateName" class="label label-info"> <strong> @{{selectedStateName}} </strong></span> </h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select multiple="multiple" id="test" v-model="selectedCommunes" style="height:400px">
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="assign_communes()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="row">
+ <div class="col-md-6">
 
     <div class="card">
         <div class="card-header table-card-header">
@@ -54,7 +74,7 @@
         </div>
         <!-- Modal static-->
         <div class="card-block">
-            <div class="dt-responsive table-responsive">
+            <div class="dt-responsive table-responsive" style="max-height:500px;">
 
                 <table id="states-table" class="table table-hover table-bordered nowrap">
                     <thead>
@@ -90,7 +110,56 @@
 
     </div>
 </div>
+<div class="col-md-6">
+        <div class="card">
+            <div class="card-header table-card-header">
 
+                <h5>Communes list for the state : <span class="label label-info" v-if="selectedStateName"> <strong>@{{selectedStateName}} </strong></span> </h5>
+
+                <div class="card-header-right" v-if="selectedStateName">
+                    <ul class="list-unstyled card-option">
+                        <li>
+                            <span data-toggle="tooltip" data-placement="left" data-original-title="Add communes">
+                                <i class="feather icon-plus text-success md-trigger" data-toggle="modal" data-target="#assign-communes-modal" v-on:click="get_selected_communes()">
+                                </i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Modal static-->
+            <div class="card-block">
+                <div class="dt-responsive table-responsive" style="max-height:500px;">
+
+                    <table id="communes-table" class="table table-striped table-bordered nowrap">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width:20px">#</th>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th style="width:50px" class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(commune, index) in state_communes" :key="index">
+                                <td>@{{ index+1}}</td>
+                                <td>@{{ commune.name }}</td>
+                                <td>@{{ commune.code }}</td>
+                                <td>
+                                    <div class="text-center">
+                                        <i class="feather icon-trash text-danger f-18 clickable" data-toggle="tooltip" data-placement="top" data-original-title="Delete" v-on:click="delete_commune(commune.id,index)">
+                                        </i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
 @endsection
 
 @section('page_scripts')
@@ -98,12 +167,12 @@
 <script>
     $(document).ready(function() {
         $('#test').multiSelect({
-            selectableHeader: "<div class='custom-header'>Les permissions disponibles</div>",
-            selectionHeader: "<div class='custom-header'>Les permissions sélectionnées</div>",
+            selectableHeader: "<div class='custom-header'>Available communes</div>",
+            selectionHeader: "<div class='custom-header'>Selected communes</div>",
 
         });
 
-        $('#assign-permissions-modal').on('hide.bs.modal', function() {
+        $('#assign-communes-modal').on('hide.bs.modal', function() {
             $('#test').multiSelect('deselect_all');
         });
     });
@@ -130,7 +199,7 @@
         },
         methods: {
             showCommunes(state, communes) {
-                app.role_communes = communes;
+                app.state_communes = communes;
                 console.log(communes);
                 app.selectedState = state.id;
                 app.selectedStateName = state.name;
@@ -146,10 +215,30 @@
                     })
                     .catch();
             },
+            fetch_communes() {
+                return axios.get('/getCommunes')
+                    // .then(response => this.permissions = response.data.permissions)
+                    .then(function(response) {
+                        this.communes = response.data.communes;
+                        this.communes.forEach(commune => {
+                            $('#test').multiSelect(
+                                'addOption', {
+                                    value: commune.id,
+                                    text: commune.name
+                                },
+                            );
+                        });
+                    })
+                    .catch();
+            },
+            get_selected_communes() {
+                $('#test').multiSelect('select', app.state_communes.map(p => p.id + ''));
+
+            },
             deleteState(id, index) {
                 swal({
                         title: "Are you sure?",
-                        text: "This action is irreversible!",
+                        text: "This will delete the state with its all communes!",
                         type: "warning",
                         showCancelButton: true,
                         confirmButtonColor: "#DD6B55",
@@ -179,6 +268,7 @@
             },
             created() {
          this.fetch_states();
+         this.fetch_communes();
 
           
            
@@ -187,6 +277,7 @@
         mounted() {
             $('#optgroup').multiSelect();
             this.fetch_states();
+            this.fetch_communes();
         }
         
     });

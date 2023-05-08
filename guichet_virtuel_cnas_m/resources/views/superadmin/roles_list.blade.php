@@ -167,7 +167,7 @@
             </div>
             <!-- Modal static-->
             <div class="card-block">
-                <div class="dt-responsive table-responsive">
+                <div class="dt-responsive table-responsive" style="max-height:500px;">
 
                     <table id="permissions-table" class="table table-striped table-bordered nowrap">
                         <thead>
