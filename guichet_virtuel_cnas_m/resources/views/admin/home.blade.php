@@ -25,7 +25,7 @@
                         <i class="icofont icofont-user-alt-1 f-42 text-c-lite-green"></i>
                     </div>
                     <div class="col-auto">
-                        <h6 class="text-muted m-b-10 "># UTILISATEURS</h6>
+                        <h6 class="text-muted m-b-10 "># this is the admin home page</h6>
                         <h2 class="m-b-0">@{{users.length}}</h2>
                     </div>
                 </div>

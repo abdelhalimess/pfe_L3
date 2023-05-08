@@ -45,7 +45,7 @@ height: 40px;
 @endsection
 
 
-@include('parc_manager.navigation')
+@include('superadmin.navigation')
 
 
 @section('page_content')

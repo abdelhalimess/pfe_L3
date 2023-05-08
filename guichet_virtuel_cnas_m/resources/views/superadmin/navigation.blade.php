@@ -31,19 +31,7 @@
 </ul>
 <div class="pcoded-navigatio-lavel">Gestion des tables</div>
 <ul class="pcoded-item pcoded-left-item">
-    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'commune-distances-list' ) ? 'pcoded-trigger' : '' }}">
-        <a href="javascript:void(0)">
-            <span class="pcoded-micon"><i class="fa fa-users"></i></span>
-            <span class="pcoded-mtext">Kilometrage</span>
-        </a>
-        <ul class="pcoded-submenu">
-            <li class="{{ (\Request::route()->getName() == 'commune-distances-list') ? 'active' : '' }}">
-                <a href="/commune_distances_list">
-                    <span class="pcoded-mtext">Tableau de kilometrage</span>
-                </a>
-            </li>
-        </ul>
-    </li>
+    
     <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'users-list' || \Request::route()->getName() == 'create-user' ) ? 'pcoded-trigger' : '' }}">
         <a href="javascript:void(0)">
             <span class="pcoded-micon"><i class="fa fa-users"></i></span>

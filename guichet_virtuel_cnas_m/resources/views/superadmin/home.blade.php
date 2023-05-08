@@ -16,7 +16,7 @@
 
 
 @section('page_content')
- 
+ <h5> This is the superadmin home page !!</h5>
 @endsection
 
 
