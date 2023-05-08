@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commune;
 use App\Models\State;
 use Illuminate\Http\Request;
 use App\Http\Requests\StateStoreRequest;
@@ -98,12 +99,12 @@ class StateController extends Controller
      */
     public function destroy($id)
     {
-        
 
-        $state = State::where('id','=',$id);
+
+        $state = State::where('id', '=', $id);
         $state->delete();
-            $state->delete();
-            return response()->json(['success' => 'The state has been deleted']);
+        $state->delete();
+        return response()->json(['success' => 'The state has been deleted']);
     }
 
     public function getStates()
@@ -112,4 +113,36 @@ class StateController extends Controller
         return compact('states');
     }
 
+    public function addCommunes(Request $request, $id)
+    {
+        $validated = $this->validate($request, [
+            'communes' => 'required',
+        ]);
+        $communes = $request->communes;
+
+
+        $communes = Commune::find($communes);
+
+        $state = State::where("id", "=", $id)->with("communes")->firstOrFail();
+
+
+
+        $state->communes()->update(['state_id' => null]);
+        $state->save();
+        $state->communes()->saveMany($communes);
+        // for ($i = 0; $i < sizeof($communes); $i++) {
+        //     // $state->communes->associate($communes);
+        //     $communes[$i]->state->associate($state);
+        // }
+
+        // $role->syncPermissions($permissions);
+
+        $states = State::with('communes');
+        return response()->json([
+            'success' => 'Information modifée avec succès',
+            'communes' => $communes,
+            'communesResult' => $state,
+            'states' => $states
+        ]);
+    }
 }

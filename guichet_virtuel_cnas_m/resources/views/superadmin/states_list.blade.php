@@ -32,108 +32,108 @@
 @section('page_content')
 
 
- {{-- page_content --}}
- <div class="modal fade" id="add-state-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add a state</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter state name..." maxlength="25" v-model="newState" required v-on:input="errors.name=null" />
-                    <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
-                    <br>
-                    <input type="text" :class="[errors.code ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter state code..." maxlength="25" v-model="newStateCode" required v-on:input="errors.code=null" />
-                    <p class="text-danger m-t-5" v-if="errors.code">@{{errors.code.toString()}}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_state()">Save</button>
-                </div>
+{{-- page_content --}}
+<div class="modal fade" id="add-state-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add a state</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter state name..." maxlength="25" v-model="newState" required v-on:input="errors.name=null" />
+                <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
+                <br>
+                <input type="text" :class="[errors.code ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter state code..." maxlength="25" v-model="newStateCode" required v-on:input="errors.code=null" />
+                <p class="text-danger m-t-5" v-if="errors.code">@{{errors.code.toString()}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_state()">Save</button>
             </div>
         </div>
-    </div>
- <div class="modal fade" id="assign-communes-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title"> Add communes for the state : <span v-if="selectedStateName" class="label label-info"> <strong> @{{selectedStateName}} </strong></span> </h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <select multiple="multiple" id="test" v-model="selectedCommunes" style="height:400px">
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="assign_communes()">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-<div class="row">
- <div class="col-md-6">
-
-    <div class="card">
-        <div class="card-header table-card-header">
-
-            <h5>States List</h5>
-
-            <div class="card-header-right">
-                <ul class="list-unstyled card-option">
-                    <li>
-                        <span data-toggle="tooltip" data-placement="top" data-original-title="Add a State">
-                            <i class="feather icon-plus text-success md-trigger" data-toggle="modal" data-target="#add-state-modal">
-                            </i>
-                        </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- Modal static-->
-        <div class="card-block">
-            <div class="dt-responsive table-responsive" style="max-height:500px;">
-
-                <table id="states-table" class="table table-hover table-bordered nowrap">
-                    <thead>
-                        <tr>
-                            <th class="text-center" style="width:20px">#</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(state, index) in states" v-bind:key="index" :class="{'selected-row': selectedStateName === state.name}" v-on:click="showCommunes(state, state.communes),selectedStateIndex = index">
-                            <td>@{{ index+1}}</td>
-                            <td>@{{ state.name }}</td>
-                            <td>@{{ state.code }}</td>
-                            <td>
-                                <div class="text-center">
-                                    <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
-                                        <i class="feather icon-edit text-custom f-18 clickable md-trigger" data-toggle="modal" data-target="#edit-state-modal" v-on:click="stateName=state.name">
-                                        </i>
-                                    </span>
-                                    <i class="feather icon-trash text-danger f-18 clickable" v-on:click="deleteState(state.id, index)" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
-                                    </i>
-                                    <i class="feather icon-lock text-warning f-18 clickable" v-on:click="showCommunes(state, state.communes)" data-toggle="tooltip" data-placement="top" data-original-title="Show Communes">
-                                    </i>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
     </div>
 </div>
-<div class="col-md-6">
+<div class="modal fade" id="assign-communes-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title"> Add communes for the state : <span v-if="selectedStateName" class="label label-info"> <strong> @{{selectedStateName}} </strong></span> </h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select multiple="multiple" id="test" v-model="selectedCommunes" style="height:400px">
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_communes()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+
+        <div class="card">
+            <div class="card-header table-card-header">
+
+                <h5>States List</h5>
+
+                <div class="card-header-right">
+                    <ul class="list-unstyled card-option">
+                        <li>
+                            <span data-toggle="tooltip" data-placement="top" data-original-title="Add a State">
+                                <i class="feather icon-plus text-success md-trigger" data-toggle="modal" data-target="#add-state-modal">
+                                </i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Modal static-->
+            <div class="card-block">
+                <div class="dt-responsive table-responsive" style="max-height:500px;">
+
+                    <table id="states-table" class="table table-hover table-bordered nowrap">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width:20px">#</th>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(state, index) in states" v-bind:key="index" :class="{'selected-row': selectedStateName === state.name}" v-on:click="showCommunes(state, state.communes),selectedStateIndex = index">
+                                <td>@{{ index+1}}</td>
+                                <td>@{{ state.name }}</td>
+                                <td>@{{ state.code }}</td>
+                                <td>
+                                    <div class="text-center">
+                                        <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
+                                            <i class="feather icon-edit text-custom f-18 clickable md-trigger" data-toggle="modal" data-target="#edit-state-modal" v-on:click="stateName=state.name">
+                                            </i>
+                                        </span>
+                                        <i class="feather icon-trash text-danger f-18 clickable" v-on:click="deleteState(state.id, index)" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
+                                        </i>
+                                        <i class="feather icon-lock text-warning f-18 clickable" v-on:click="showCommunes(state, state.communes)" data-toggle="tooltip" data-placement="top" data-original-title="Show Communes">
+                                        </i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-6">
         <div class="card">
             <div class="card-header table-card-header">
 
@@ -182,7 +182,7 @@
 
         </div>
     </div>
-    </div>
+</div>
 @endsection
 
 @section('page_scripts')
@@ -229,13 +229,13 @@
                 app.selectedStateName = state.name;
                 console.log(app.selectedState);
             },
-            
+
             fetch_states() {
                 return axios.get('/getStates')
                     .then(response => {
                         this.states = response.data.states;
                         console.log('States fetched successfully');
-                        console.log(this.states );
+                        console.log(this.states);
                     })
                     .catch();
             },
@@ -267,6 +267,35 @@
                         app.newStateCode = '';
                         app.selectedStateName = '';
                         app.selectedStateIndex = '';
+                        notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                    })
+                    .catch(function(error) {
+                        if (error.response) {
+                            app.$set(app, 'errors', error.response.data.errors);
+                        } else if (error.request) {
+                            console.log(error.request);
+                        } else {
+                            console.log('Error', error.message);
+                        }
+                    });
+            },
+            add_communes() {
+                this.selectedCommunes = $('#test').multiSelect().val();
+                var communes = this.selectedCommunes.toString().split(',').map(Number);
+                axios.post('/stateAddCommunes/' + this.selectedState, {
+                        'communes': communes
+                    })
+                    .then(function(response) {
+                        // app.$set(app.roles,index,response.data.role);
+                        // app.fetch_roles();
+                        $('#assign-communes-modal').modal('toggle');
+                        app.state_communes = response.data.communes;
+                        // console.log(response.data.states);
+                        // console.log(app.states);
+
+                        app.states = response.data.states;
+                        console.log(response.data);
+                        app.selectedCommunes = '';
                         notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                     })
                     .catch(function(error) {
@@ -313,21 +342,21 @@
                 );
 
             },
-            },
-            created() {
-         this.fetch_states();
-         this.fetch_communes();
+        },
+        created() {
+            this.fetch_states();
+            this.fetch_communes();
 
-          
-           
-           
+
+
+
         },
         mounted() {
             $('#optgroup').multiSelect();
             this.fetch_states();
             this.fetch_communes();
         }
-        
+
     });
 </script>
 

@@ -119,6 +119,7 @@ Route::get('communes_list', [CommuneController::class, 'index'])->name('communes
 Route::get('/getStates', [StateController::class, 'getStates'])->name('getStates')->middleware(['auth', 'role:superadmin']);
 Route::delete('/state_delete/{id}', [StateController::class, 'destroy'])->name('state-delete')->middleware(['auth', 'role:superadmin']);
 Route::get('/getCommunes', [CommuneController::class, 'getCommunes'])->name('getCommunes')->middleware(['auth', 'role:superadmin']);
+Route::post('/stateAddCommunes/{id}', [StateController::class, 'addCommunes'])->name('addCommunes')->middleware(['auth', 'role:superadmin']);
 
 Route::get('/lol', function () {
     $beautymail = app()->make(Snowfire\Beautymail\Beautymail::class);
