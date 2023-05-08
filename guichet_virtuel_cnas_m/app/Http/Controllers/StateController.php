@@ -137,7 +137,7 @@ class StateController extends Controller
 
         // $role->syncPermissions($permissions);
 
-        $states = State::with('communes');
+        $states = State::with('communes')->get();
         return response()->json([
             'success' => 'Information modifée avec succès',
             'communes' => $communes,
