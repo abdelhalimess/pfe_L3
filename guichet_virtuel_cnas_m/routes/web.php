@@ -90,6 +90,7 @@ Route::get('/getPermissions', [PermissionController::class, 'getPermissions'])->
 
 
 Route::resource('permissions', PermissionController::class);
+Route::resource('states', StateController::class);
 Route::resource('services', ServiceController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 Route::resource('agents', AgentController::class)->middleware(['auth', 'role_or_permission:user']);
 Route::resource('missions', MissionController::class)->middleware(['auth', 'role_or_permission:user']);

@@ -33,6 +33,29 @@
 
 
  {{-- page_content --}}
+ <div class="modal fade" id="add-state-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a state</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter state name..." maxlength="25" v-model="newState" required v-on:input="errors.name=null" />
+                    <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
+                    <br>
+                    <input type="text" :class="[errors.code ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter state code..." maxlength="25" v-model="newStateCode" required v-on:input="errors.code=null" />
+                    <p class="text-danger m-t-5" v-if="errors.code">@{{errors.code.toString()}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_state()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
  <div class="modal fade" id="assign-communes-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -65,7 +88,7 @@
                 <ul class="list-unstyled card-option">
                     <li>
                         <span data-toggle="tooltip" data-placement="top" data-original-title="Add a State">
-                            <i class="feather icon-plus text-success md-trigger" data-toggle="modal" data-target="#add-role-modal">
+                            <i class="feather icon-plus text-success md-trigger" data-toggle="modal" data-target="#add-state-modal">
                             </i>
                         </span>
                     </li>
@@ -186,6 +209,7 @@
                 StateName: '',
                 StateCode: '',
                 newState: '',
+                newStateCode: '',
                 selectedStateName: '',
                 selectedStateIndex: '',
                 state_communes: [],
@@ -230,6 +254,30 @@
                         });
                     })
                     .catch();
+            },
+            add_state() {
+                axios.post('/states', {
+                        'name': app.newState,
+                        'code': app.newStateCode,
+                    })
+                    .then(function(response) {
+                        app.states.push(response.data.state);
+                        $('#add-state-modal').modal('toggle');
+                        app.newState = '';
+                        app.newStateCode = '';
+                        app.selectedStateName = '';
+                        app.selectedStateIndex = '';
+                        notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                    })
+                    .catch(function(error) {
+                        if (error.response) {
+                            app.$set(app, 'errors', error.response.data.errors);
+                        } else if (error.request) {
+                            console.log(error.request);
+                        } else {
+                            console.log('Error', error.message);
+                        }
+                    });
             },
             get_selected_communes() {
                 $('#test').multiSelect('select', app.state_communes.map(p => p.id + ''));

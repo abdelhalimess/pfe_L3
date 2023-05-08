@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\State;
 use Illuminate\Http\Request;
+use App\Http\Requests\StateStoreRequest;
 
 class StateController extends Controller
 {
@@ -37,13 +38,14 @@ class StateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StateStoreRequest $request)
     {
         $validated = $request->validated();
 
 
         $state = new State();
         $state->name = $request->name;
+        $state->code = $request->code;
 
         $state->save();
 
