@@ -52,11 +52,9 @@
                                 <th>Email</th>
                                 <th>Adresse</th>
                                 <th>Téléphone</th>
-                                <th>Etat</th>
-                                <th>Adresse-ip</th>
-                                <th>Last-adresse-ip</th>
-                                <th>Agence</th>
-                                <th>Code-wilaya</th>
+                               
+                               
+                               
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -69,16 +67,10 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->telephone }}</td>
-                                @if ($user->isOnline())
-                            <td>{{  Cache::get('user-ip-address-' .Auth::user()->id) }}</td>
-                                    
-                                @else
-                                <td>offline</td>    
-                                @endif
-                                <td>{{ $user->ip_address }}</td>
-                                <td>{{ $user->last_ip_address }}</td>
-                                <td>{{ $user->structure['name'] }}</td>
-                                <td>{{ $user->structure['state'] }}</td>
+                               
+                    
+                              
+                              
                                 <td>
                                     <div class="text-center">
                                         {{-- <a href="{{ route('edit-user', $user->id) }}"> --}}
