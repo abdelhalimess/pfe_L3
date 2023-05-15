@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Commune extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['name', 'code', 'state_id'];
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);

@@ -128,6 +128,7 @@ class StateController extends Controller
 
     public function addCommunes(Request $request, $id)
     {
+
         $validated = $this->validate($request, [
             'communes' => 'required',
         ]);
@@ -139,14 +140,15 @@ class StateController extends Controller
         $state = State::where("id", "=", $id)->with("communes")->firstOrFail();
 
 
-
         $state->communes()->update(['state_id' => null]);
-        $state->save();
-        $state->communes()->saveMany($communes);
-        // for ($i = 0; $i < sizeof($communes); $i++) {
-        //     // $state->communes->associate($communes);
-        //     $communes[$i]->state->associate($state);
-        // }
+        // $communes->update(['state_id' => $state->id]);
+        for ($i = 0; $i < sizeof($communes); $i++) {
+            // $state->communes->associate($communes);
+            $communes[$i]->state_id =  $id;
+            $communes[$i]->save();
+        }
+        // $communes->saveMany();
+        // $state->save();
 
         // $role->syncPermissions($permissions);
 
@@ -155,7 +157,9 @@ class StateController extends Controller
             'success' => 'Information modifée avec succès',
             'communes' => $communes,
             'communesResult' => $state,
-            'states' => $states
+            'states' => $states,
+            '$id' => $id,
+            'state_id' => $state->id,
         ]);
     }
 }
