@@ -6,6 +6,7 @@ use App\Models\Commune;
 use App\Models\State;
 use Illuminate\Http\Request;
 use App\Http\Requests\StateStoreRequest;
+use App\Http\Requests\StateUpdateRequest;
 
 class StateController extends Controller
 {
@@ -88,10 +89,10 @@ class StateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validated();
+        // $validated = $request->validated();
 
 
-        $state = State::findById($id);
+        $state = State::with("communes")->findOrFail($id);
         $state->name = $request->name;
         $state->code = $request->code;
 

@@ -95,7 +95,7 @@ class RoleController extends Controller
         $validated = $request->validated();
 
 
-        $role = Role::findById($id);
+        $role = Role::with("permissions")->findOrFail($id);
         $role->name = $request->name;
 
         $role->save();

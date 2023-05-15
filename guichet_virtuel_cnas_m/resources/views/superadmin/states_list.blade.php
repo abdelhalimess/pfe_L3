@@ -86,15 +86,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" maxlength="25" required v-on:input="errors.name=null" :placeholder="selectedStateName" v-model="StateName" />
+                <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" maxlength="25" required v-on:input="errors.name=null" :placeholder="selectedStateName" v-model="stateName" />
                 <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
                 <br>
-                <input type="text" :class="[errors.code ? 'form-control form-control-danger' : 'form-control form-control-success']" maxlength="25" required v-on:input="errors.name=null" :placeholder="selectedStateCode" v-model="StateCode" />
+                <input type="text" :class="[errors.code ? 'form-control form-control-danger' : 'form-control form-control-success']" maxlength="25" required v-on:input="errors.name=null" :placeholder="selectedStateCode" v-model="stateCode" />
                 <p class="text-danger m-t-5" v-if="errors.code">@{{errors.code.toString()}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="update_state(StateName,StateCode,selectedStateIndex)">Save</button>
+                <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="update_state(stateName,stateCode,selectedStateIndex)">Save</button>
             </div>
         </div>
     </div>
@@ -132,14 +132,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(state, index) in states" v-bind:key="index" :class="{'selected-row': selectedStateName === state.name}" v-on:click="showCommunes(state, state.communes),selectedStateIndex = index">
+                            <tr v-for="(state, index) in states" v-bind:key="index"   :class="{'selected-row': selectedStateName === state.name}" v-on:click="showCommunes(state, state.communes),selectedStateIndex = index">
                                 <td>@{{ index+1}}</td>
                                 <td>@{{ state.name }}</td>
                                 <td>@{{ state.code }}</td>
                                 <td>
                                     <div class="text-center">
                                         <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
-                                            <i class="feather icon-edit text-custom f-18 clickable md-trigger" data-toggle="modal" data-target="#edit-state-modal" v-on:click="stateName=state.name">
+                                            <i class="feather icon-edit text-custom f-18 clickable md-trigger" data-toggle="modal" data-target="#edit-state-modal" v-on:click="stateName=state.name, stateCode=state.code">
                                             </i>
                                         </span>
                                         <i class="feather icon-trash text-danger f-18 clickable" v-on:click="deleteState(state.id, index)" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
@@ -229,8 +229,8 @@
         data() {
             return {
                 selectedState: '',
-                StateName: '',
-                StateCode: '',
+                stateName: '',
+                stateCode: '',
                 newState: '',
                 newStateCode: '',
                 selectedStateName: '',
@@ -250,6 +250,7 @@
                 app.state_communes = communes;
                 console.log(communes);
                 app.selectedState = state.id;
+               
                 app.selectedStateName = state.name;
                 console.log(app.selectedState);
             },
@@ -367,15 +368,15 @@
 
             },
             update_state(name, code, index) {
-                axios.put('/state_edit/' + this.selectedState, {
+                axios.put('/states/' + this.selectedState, {
                         'name': name,
                         'code': code,
                     })
                     .then(function(response) {
                         app.$set(app.states, index, response.data.state);
                         $('#edit-state-modal').modal('toggle');
-                        app.StateName = '';
-                        app.StateCode = '';
+                        app.stateName = '';
+                        app.stateCode = '';
                         notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                     })
                     .catch(function(error) {
