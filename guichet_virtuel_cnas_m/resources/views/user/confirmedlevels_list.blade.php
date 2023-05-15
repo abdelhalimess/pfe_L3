@@ -734,9 +734,7 @@
                         
                         app.notifications_fetched =  true;
                         if (app.notifications.length > 0) {
-                            ion.sound.play("ding_ding", {
-                                loop: 2
-                            });
+                           
                         }
                     });
             },

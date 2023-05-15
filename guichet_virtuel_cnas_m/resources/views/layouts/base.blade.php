@@ -525,16 +525,16 @@
     {{-- <script src="{{ asset('js/app.min.js') }}"></script> --}}
     <script src="{{ asset('js/block-ui.js') }}"></script>
     <script>
-        ion.sound({
-            sounds: [{
-                    name: "ding_ding",
-                },
+        // ion.sound({
+        //     sounds: [{
+        //             name: "ding_ding",
+        //         },
 
-            ],
-            volume: 1,
-            path: "sounds/",
-            preload: true
-        });
+        //     ],
+        //     volume: 1,
+        //     path: "sounds/",
+        //     preload: true
+        // });
     </script>
     @yield('page_scripts')
 

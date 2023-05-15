@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rubriques_values', function (Blueprint $table) {
-            $table->id();
-            $table->date('day');
-            $table->double('value');
-            $table->unsignedBigInteger('rubrique_id');
-            $table->foreign('rubrique_id')->references('id')->on('rubriques');
+        Schema::create('services', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('description');
+
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rubriques_values');
+        Schema::dropIfExists('services');
     }
 };

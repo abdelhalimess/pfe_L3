@@ -264,9 +264,7 @@ const app = new Vue({
                         .then(function (response) {
                             app.notifications = response.data.notifications;
                             if (app.notifications.length > 0 ) {
-                                ion.sound.play("ding_ding", {
-                                    loop: 2
-                                });
+                                
                             }
                         });
                 },

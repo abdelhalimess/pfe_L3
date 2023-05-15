@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rubriques', function (Blueprint $table) {
-            $table->id();
+        Schema::create('centers', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name');
+            $table->string('code');
+            $table->string('address');
 
-            $table->foreignId('service_id')->constrained();
-
-
-
-
+            $table->unsignedInteger('structure_id')->nullable();
+            $table->foreign('structure_id')
+                ->references('id')->on('structures')
+                ->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rubriques');
+        Schema::dropIfExists('centers');
     }
 };
