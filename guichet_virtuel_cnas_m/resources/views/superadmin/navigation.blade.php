@@ -81,6 +81,11 @@
                     <span class="pcoded-mtext">States list </span>
                 </a>
             </li>
+            <li class="{{ (\Request::route()->getName() == 'communes-list') ? 'active' : '' }}">
+                <a href="/communes_list">
+                    <span class="pcoded-mtext">Communes list </span>
+                </a>
+            </li>
         </ul>
 </ul>
 @endsection

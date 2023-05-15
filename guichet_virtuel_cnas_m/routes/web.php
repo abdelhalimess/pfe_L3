@@ -71,11 +71,14 @@ Route::get('/getPermissions', [PermissionController::class, 'getPermissions'])->
 Route::resource('permissions', PermissionController::class);
 Route::resource('services', ServiceController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 
+
 Route::resource('states', StateController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
+Route::resource('communes', CommuneController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 
 Route::get('states_list', [StateController::class, 'index'])->name('states-list')->middleware(['auth', 'role:superadmin']);
 Route::get('communes_list', [CommuneController::class, 'index'])->name('communes-list')->middleware(['auth', 'role:superadmin']);
 Route::get('/getStates', [StateController::class, 'getStates'])->name('getStates')->middleware(['auth', 'role:superadmin']);
 Route::delete('/state_delete/{id}', [StateController::class, 'destroy'])->name('state-delete')->middleware(['auth', 'role:superadmin']);
+Route::delete('/commune_delete/{id}', [CommuneController::class, 'destroy'])->name('commune-delete')->middleware(['auth', 'role:superadmin']);
 Route::get('/getCommunes', [CommuneController::class, 'getCommunes'])->name('getCommunes')->middleware(['auth', 'role:superadmin']);
 Route::post('/stateAddCommunes/{id}', [StateController::class, 'addCommunes'])->name('addCommunes')->middleware(['auth', 'role:superadmin']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommuneStoreRequest;
 use App\Models\Commune;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class CommuneController extends Controller
      */
     public function index()
     {
-        //
+        return view('superadmin.communes_list');
     }
 
     /**
@@ -33,9 +34,21 @@ class CommuneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommuneStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $commune = new Commune();
+        $commune->name = $request->name;
+        $commune->code = $request->code;
+
+        $commune->save();
+
+        // return compact('validated');
+        return response()->json([
+            'success' => 'Information added with success',
+            'commune' => $commune
+        ]);
     }
 
     /**
@@ -69,7 +82,17 @@ class CommuneController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
+        $commune = Commune::findOrFail($id);
+        $commune->name = $request->name;
+        $commune->code = $request->code;
+
+        $commune->save();
+
+        return response()->json([
+            'success' => 'State updated with success',
+            'commune' => $commune
+        ]);
     }
 
     /**
@@ -80,7 +103,10 @@ class CommuneController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $commune = Commune::where('id', '=', $id);
+        $commune->delete();
+        return response()->json(['success' => 'The commune has been deleted']);
     }
     
     public function getCommunes()
