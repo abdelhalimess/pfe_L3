@@ -132,21 +132,25 @@ class StateController extends Controller
         $validated = $this->validate($request, [
             'communes' => 'required',
         ]);
-        $communes = $request->communes;
 
 
-        $communes = Commune::find($communes);
 
         $state = State::where("id", "=", $id)->with("communes")->firstOrFail();
 
 
         $state->communes()->update(['state_id' => null]);
+        $communes = $request->communes;
+        $communes = Commune::find($communes);
         // $communes->update(['state_id' => $state->id]);
         for ($i = 0; $i < sizeof($communes); $i++) {
             // $state->communes->associate($communes);
             $communes[$i]->state_id =  $id;
             $communes[$i]->save();
         }
+
+        // foreach ($arr as &$value) {
+        //     $value = $value * 2;
+        // }
         // $communes->saveMany();
         // $state->save();
 
