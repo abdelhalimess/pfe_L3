@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('questions_documents', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('question_id');
+            $table->unsignedInteger('document_id');
+
+            $table->foreign('question_id')->references('id')
+                 ->on('questions')->onDelete('cascade');
+            $table->foreign('document_id')->references('id')
+                ->on('documents')->onDelete('cascade');
             $table->timestamps();
         });
     }

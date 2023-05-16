@@ -157,7 +157,7 @@ const app = new Vue({
                 documentName: '',
                 documentCode: '',
                 newDocumentName: '',
-                newDocumentCode: '',
+                newDocumentUrl: '',
                 selectedDocumentName: '',
                 selectedDocumentCode: '',
                 selectedDocumentIndex: '',
@@ -211,13 +211,13 @@ const app = new Vue({
             add_document() {
                 axios.post('/documents', {
                         'name': app.newDocumentName,
-                        'code': app.newDocumentCode,
+                        'url': app.newDocumentUrl,
                     })
                     .then(function(response) {
                         app.documents.push(response.data.document);
                         $('#add-document-modal').modal('toggle');
                         app.newDocumentName = '';
-                        app.newDocumentCode = '';
+                        app.newDocumentUrl = '';
                         app.selectedDocumentName = '';
                         app.selectedDocumentIndex = '';
                         notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');

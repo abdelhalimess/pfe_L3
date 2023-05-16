@@ -15,6 +15,8 @@ class Document extends Model
 
     public function questions(): BelongsToMany
     {
-        return $this->belongsToMany(Question::class);
+        return $this->belongsToMany(Question::class, 'questions_documents', 'document_id', 'question_id');
     }
+
+    
 }

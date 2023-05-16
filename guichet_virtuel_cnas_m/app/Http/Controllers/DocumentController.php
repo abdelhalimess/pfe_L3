@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -34,7 +35,17 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $document = new Document();
+        $document->name = $request->name;
+        $document->url = $request->url;
+
+        $document->save();
+
+        // return compact('validated');
+        return response()->json([
+            'success' => 'Information added with success',
+            'document' => $document
+        ]);
     }
 
     /**
@@ -80,5 +91,11 @@ class DocumentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDocuments()
+    {
+        $documents = Document::all();
+        return compact('documents');
     }
 }

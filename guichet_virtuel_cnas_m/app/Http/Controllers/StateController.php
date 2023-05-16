@@ -145,13 +145,7 @@ class StateController extends Controller
             $communes[$i]->save();
         }
 
-        // foreach ($arr as &$value) {
-        //     $value = $value * 2;
-        // }
-        // $communes->saveMany();
-        // $state->save();
-
-        // $role->syncPermissions($permissions);
+        
 
         $states = State::with('communes')->get();
         return response()->json([

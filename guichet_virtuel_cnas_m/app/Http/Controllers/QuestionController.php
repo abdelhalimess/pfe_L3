@@ -34,7 +34,18 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $question = new Question();
+        $question->question = $request->question;
+        $question->service_id = $request->service_id;
+        $question->question_id = $request->question_id;
+
+        $question->save();
+
+        // return compact('validated');
+        return response()->json([
+            'success' => 'Information added with success',
+            'question' => $question
+        ]);
     }
 
     /**
@@ -86,5 +97,29 @@ class QuestionController extends Controller
     {
         $questions = Question::all();
         return compact('questions');
+    }
+
+    public function attachDocuments(Request $request, $id)
+    {
+
+        $validated = $this->validate($request, [
+            'documents' => 'required',
+        ]);
+
+
+
+        $question = Question::where("id", "=", $id)->with("documents")->firstOrFail();
+        $documents = $request->documents;
+        $question->documents()->sync($documents);
+
+       
+
+        
+
+        $questions = Question::with('documents')->get();
+        return response()->json([
+            'success' => 'Information modifée avec succès',
+            'questions' => $questions,
+        ]);
     }
 }
