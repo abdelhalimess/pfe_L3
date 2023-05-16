@@ -133,7 +133,7 @@
                                         <p class="text-inverse text-left"><b class="f-w-600">V 1.0.0</b></p>
                                     </div>
                                     <div class="col-md-2">
-                                        <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="Logo-small-bottom.png">
+                                        <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="Logo-small-bottom.png" style="width: 50px ; height:50px">
                                     </div>
                                 </div>
                             </div>
