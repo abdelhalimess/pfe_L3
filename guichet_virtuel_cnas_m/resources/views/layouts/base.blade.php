@@ -268,7 +268,7 @@
                                             <li>
                                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
-                                                    <i class="feather icon-log-out"></i> Déconnexion
+                                                    <i class="feather icon-log-out"></i> Logout
                                                 </a>
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                     @csrf
@@ -294,13 +294,13 @@
 
                                 @yield('navigation_bar')
 
-                                <div class="pcoded-navigatio-lavel">Déxonnexion</div>
+                                <div class="pcoded-navigatio-lavel">Logout</div>
                                 <ul class="pcoded-item pcoded-left-item">
                                     <li class="">
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                             <span class="pcoded-micon"><i class="fa fa-power-off"></i></span>
-                                            <span class="pcoded-mtext">Déconnexion</span>
+                                            <span class="pcoded-mtext">Logout</span>
                                         </a>
                                     </li>
                                 </ul>
