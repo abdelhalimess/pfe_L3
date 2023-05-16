@@ -107,7 +107,7 @@ class ServiceController extends Controller
 
     public function getServices()
     {
-        $services = Service::with('questions')->get();
+        $services = Service::with('questions.documents')->get();
         return compact('services');       
     }
 

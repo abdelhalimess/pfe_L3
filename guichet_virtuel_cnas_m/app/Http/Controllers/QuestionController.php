@@ -95,7 +95,7 @@ class QuestionController extends Controller
 
     public function getQuestions()
     {
-        $questions = Question::all();
+        $questions = Question::with('questions')->get();
         return compact('questions');
     }
 

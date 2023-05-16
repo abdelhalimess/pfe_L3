@@ -86,28 +86,7 @@
 
 
 
-    <div class="modal fade" id="assign-questions-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title"> Add question for the service : <span v-if="selectedServiceName"
-                            class="label label-info"> <strong> @{{ selectedServiceName }} </strong></span> </h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <select multiple="multiple" id="test" v-model="selectedQuestions" style="height:400px">
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light"
-                        v-on:click="add_questions()">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
 
 
     <div class="modal fade" id="edit-service-modal" tabindex="-1" role="dialog">
@@ -283,31 +262,46 @@
                         <div class="cf nestable-lists">
                             <div class="dd" id="nestable2">
                                 <ol class="dd-list">
-                                    <li class="dd-item dd3-item" data-id="13">
+
+                                        
+
+                                    <li v-for="(question, index) in service_questions" :key="index"class="dd-item dd3-item" data-id="index" v-if="question.question_id == null">
                                         <div class="dd-handle dd3-handle"></div>
-                                        <div class="dd3-content">Item 13</div>
+                                        <div  class="dd3-content">@{{ question.content }}</div>
+                                        <ol class="dd-list">
+                                            
+                                            <li v-for="(question, indexx) in question.questions" :key="index"class="dd-item dd3-item" data-id="index"  class="dd-item dd3-item" data-id="indexx">
+                                                <div class="dd-handle dd3-handle"></div>
+                                                <div class="dd3-content">@{{ question.content }}</div>
+                                            </li>
+                                            
+                                        </ol> 
                                     </li>
-                                    <li class="dd-item dd3-item" data-id="14">
-                                        <div class="dd-handle dd3-handle"></div>
-                                        <div class="dd3-content">Item 14</div>
-                                    </li>
-                                    <li class="dd-item dd3-item" data-id="15">
+                                    
+                                    {{-- <li class="dd-item dd3-item" data-id="15">
                                         <div class="dd-handle dd3-handle"></div>
                                         <div class="dd3-content">Item 15</div>
                                         <ol class="dd-list">
                                             <li class="dd-item dd3-item" data-id="16">
-                                                <div class="dd-handle dd3-handle"></div>
                                                 <div class="dd3-content">Item 16</div>
-                                            </li>
-                                            <li class="dd-item dd3-item" data-id="17">
                                                 <div class="dd-handle dd3-handle"></div>
-                                                <div class="dd3-content">Item 17</div>
+                                                <ol class="dd-list">
+                                                    <li class="dd-item dd3-item" data-id="17">
+                                                        <div class="dd-handle dd3-handle"></div>
+                                                        <div class="dd3-content">Item 17</div>
+                                                    </li>
+                                                   
+                                                </ol>
                                             </li>
                                             <li class="dd-item dd3-item" data-id="18">
                                                 <div class="dd-handle dd3-handle"></div>
                                                 <div class="dd3-content">Item 18</div>
                                             </li>
-                                        </ol>
+                                            <li class="dd-item dd3-item" data-id="19">
+                                                <div class="dd-handle dd3-handle"></div>
+                                                <div class="dd3-content">Item 19</div>
+                                            </li>
+                                        </ol> --}}
                                     </li>
                                 </ol>
                             </div>
@@ -327,17 +321,17 @@
     <script type="text/javascript" src="{{ asset('pages/nestable/custom-nestable.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
-            $('#test').multiSelect({
-                selectableHeader: "<div class='custom-header'>Available communes</div>",
-                selectionHeader: "<div class='custom-header'>Selected communes</div>",
+        // $(document).ready(function() {
+        //     $('#test').multiSelect({
+        //         selectableHeader: "<div class='custom-header'>Available communes</div>",
+        //         selectionHeader: "<div class='custom-header'>Selected communes</div>",
 
-            });
+        //     });
 
-            $('#assign-communes-modal').on('hide.bs.modal', function() {
-                $('#test').multiSelect('deselect_all');
-            });
-        });
+        //     $('#assign-communes-modal').on('hide.bs.modal', function() {
+        //         $('#test').multiSelect('deselect_all');
+        //     });
+        // });
     </script>
 
     <script>
@@ -388,14 +382,16 @@
                     return axios.get('/getQuestions')
                         .then(function(response) {
                             this.questions = response.data.questions;
-                            this.questions.forEach(question => {
-                                $('#test').multiSelect(
-                                    'addOption', {
-                                        value: question.id,
-                                        text: question.question
-                                    },
-                                );
-                            });
+                            console.log("hna");
+                            console.log( response.data.questions);
+                            // this.questions.forEach(question => {
+                            //     $('#test').multiSelect(
+                            //         'addOption', {
+                            //             value: question.id,
+                            //             text: question.question
+                            //         },
+                            //     );
+                            // });
                         })
                         .catch();
                 },
@@ -425,7 +421,7 @@
                 },
                 add_question() {
                     axios.post('/questions', {
-                            'question': app.newQuestion,
+                            'content': app.newQuestion,
                             'service_id': app.selectedService,
                             'question_id': null,
                         })

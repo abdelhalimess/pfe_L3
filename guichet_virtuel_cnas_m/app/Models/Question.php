@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Question extends Model
 {
     use HasFactory;
-    protected $fillable = ['question','service_id'];
+    protected $fillable = ['content','service_id'];
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
@@ -19,5 +20,15 @@ class Question extends Model
     public function documents(): BelongsToMany
     {
         return $this->belongsToMany(Document::class, 'questions_documents', 'question_id', 'document_id');
+    }
+
+    public function question(): BelongsTo
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+    public function questions(): HasMany
+    {
+        return $this->hasMany(Question::class);
     }
 }
