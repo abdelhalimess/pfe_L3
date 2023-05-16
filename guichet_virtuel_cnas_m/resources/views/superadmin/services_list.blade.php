@@ -250,7 +250,7 @@
         },
         methods: {
             showQuestions(service, question) {
-                app.service_questions = questions;
+                app.service_questions = service.questions;
                 console.log(questions);
                 app.selectedService = service.id;         
                 app.selectedServiceName = service.name;
@@ -304,6 +304,10 @@
                             console.log('Error', error.message);
                         }
                     });
+            },
+            get_selected_questions() {
+                $('#test').multiSelect('select', app.service_questions.map(p => p.id + ''));
+
             },
             // add_communes() {
             //     this.selectedCommunes = $('#test').multiSelect().val();
