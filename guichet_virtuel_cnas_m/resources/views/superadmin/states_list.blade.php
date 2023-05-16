@@ -144,7 +144,7 @@
                                         </span>
                                         <i class="feather icon-trash text-danger f-18 clickable" v-on:click="deleteState(state.id, index)" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
                                         </i>
-                                        <i class="feather icon-lock text-warning f-18 clickable" v-on:click="showCommunes(state, state.communes)" data-toggle="tooltip" data-placement="top" data-original-title="Show Communes">
+                                        <i class="feather icon-eye text-warning f-18 clickable" v-on:click="showCommunes(state, state.communes)" data-toggle="tooltip" data-placement="top" data-original-title="Show Communes">
                                         </i>
                                     </div>
                                 </td>

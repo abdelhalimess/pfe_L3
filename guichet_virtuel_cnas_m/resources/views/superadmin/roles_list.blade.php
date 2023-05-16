@@ -12,8 +12,8 @@
 @endsection
 
 @section('page_title')
-<h4>Liste des roles</h4>
-<span>Ajouter, modifer ou supprimer un role </span>
+<h4>Roles list</h4>
+<span>Add, edit and delete a role</span>
 @endsection
 
 @section('breadcrumb')
@@ -36,7 +36,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Ajouter un rôle</h5>
+                    <h5 class="modal-title">Add a role</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -46,8 +46,8 @@
                     <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_role()">Sauvgarder</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_role()">Save</button>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modifer un rôle</h5>
+                    <h5 class="modal-title">Edit a role</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -66,8 +66,8 @@
                     <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="update_role(roleName,selectedRoleIndex)">Sauvgarder</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="update_role(roleName,selectedRoleIndex)">Save</button>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title"> Atrribuer des permissions pour le rôle : <span v-if="selectedRoleName" class="label label-info"> <strong> @{{selectedRoleName}} </strong></span> </h6>
+                    <h6 class="modal-title"> Assign permissions for the role: <span v-if="selectedRoleName" class="label label-info"> <strong> @{{selectedRoleName}} </strong></span> </h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -86,8 +86,8 @@
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="assign_permissions()">Sauvgarder</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="assign_permissions()">Save</button>
                 </div>
             </div>
         </div>
@@ -98,12 +98,12 @@
         <div class="card">
             <div class="card-header table-card-header">
 
-                <h5>Liste des rôles</h5>
+                <h5>Roles list</h5>
 
                 <div class="card-header-right">
                     <ul class="list-unstyled card-option">
                         <li>
-                            <span data-toggle="tooltip" data-placement="top" data-original-title="Ajouter un rôle">
+                            <span data-toggle="tooltip" data-placement="top" data-original-title="Add a role">
                                 <i class="feather icon-plus text-success md-trigger" data-toggle="modal" data-target="#add-role-modal">
                                 </i>
                             </span>
@@ -119,7 +119,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center" style="width:20px">#</th>
-                                <th>Rôle</th>
+                                <th>Role</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -129,13 +129,13 @@
                                 <td>@{{ role.name }}</td>
                                 <td>
                                     <div class="text-center">
-                                        <span data-toggle="tooltip" data-placement="top" data-original-title="Modifier">
+                                        <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
                                             <i class="feather icon-edit text-custom f-18 clickable md-trigger" data-toggle="modal" data-target="#edit-role-modal" v-on:click="roleName=role.name">
                                             </i>
                                         </span>
-                                        <i class="feather icon-trash text-danger f-18 clickable" v-on:click="deleteRole(role.id, index)" data-toggle="tooltip" data-placement="top" data-original-title="Supprimer">
+                                        <i class="feather icon-trash text-danger f-18 clickable" v-on:click="deleteRole(role.id, index)" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
                                         </i>
-                                        <i class="feather icon-lock text-warning f-18 clickable" v-on:click="showPermissions(role, role.permissions)" data-toggle="tooltip" data-placement="top" data-original-title="Afficher les Permissions">
+                                        <i class="feather icon-eye text-warning f-18 clickable" v-on:click="showPermissions(role, role.permissions)" data-toggle="tooltip" data-placement="top" data-original-title="Show permissions">
                                         </i>
                                     </div>
                                 </td>
@@ -152,7 +152,7 @@
         <div class="card">
             <div class="card-header table-card-header">
 
-                <h5>Liste des permissions associées pour le rôle: <span class="label label-info" v-if="selectedRoleName"> <strong>@{{selectedRoleName}} </strong></span> </h5>
+                <h5>List of permissions for the role: <span class="label label-info" v-if="selectedRoleName"> <strong>@{{selectedRoleName}} </strong></span> </h5>
 
                 <div class="card-header-right" v-if="selectedRoleName">
                     <ul class="list-unstyled card-option">

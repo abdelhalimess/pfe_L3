@@ -112,10 +112,7 @@ class StateController extends Controller
      */
     public function destroy($id)
     {
-
-
         $state = State::where('id', '=', $id);
-        $state->delete();
         $state->delete();
         return response()->json(['success' => 'The state has been deleted']);
     }

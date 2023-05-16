@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Service;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('superadmin.services_list');
+        return view('superadmin.questions_list');
     }
 
     /**
@@ -35,17 +34,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $service = new Service();
-        $service->name = $request->name;
-        $service->description = $request->description;
-
-        $service->save();
-
-        // return compact('validated');
-        return response()->json([
-            'success' => 'Information added with success',
-            'service' => $service
-        ]);
+        //
     }
 
     /**
@@ -79,17 +68,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $service = Service::with("questions")->findOrFail($id);
-        $service->name = $request->name;
-        $service->description = $request->description;
-
-        $service->save();
-
-        return response()->json([
-            'success' => 'Service updated with success',
-            'service' => $service
-        ]);
+        //
     }
 
     /**
@@ -100,16 +79,12 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        $service = Service::where('id', '=', $id);
-        $service->delete();
-        return response()->json(['success' => 'The service has been deleted']);
+        //
     }
 
-    public function getServices()
+    public function getQuestions()
     {
-        $services = Service::with('questions')->get();
-        return compact('services');       
+        $questions = Question::all();
+        return compact('questions');
     }
-
-
 }

@@ -87,5 +87,23 @@
                 </a>
             </li>
         </ul>
+
+        <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'services-list' || \Request::route()->getName() == 'questions-list' ) ? 'pcoded-trigger' : '' }}">
+            <a href="javascript:void(0)">
+                <span class="pcoded-micon"><i class="fa fa-map "></i></span>
+                <span class="pcoded-mtext">Services - Questions</span>
+            </a>
+            <ul class="pcoded-submenu ">
+                <li class="{{ (\Request::route()->getName() == 'services-list') ? 'active' : '' }}">
+                    <a href="/services_list">
+                        <span class="pcoded-mtext">Services list </span>
+                    </a>
+                </li>
+                <li class="{{ (\Request::route()->getName() == 'questions-list') ? 'active' : '' }}">
+                    <a href="/questions_list">
+                        <span class="pcoded-mtext">Questions list </span>
+                    </a>
+                </li>
+            </ul>
 </ul>
 @endsection

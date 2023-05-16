@@ -9,11 +9,10 @@ class Service extends Model
 {
     use HasFactory;
     protected $table = 'services';
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name'];
 
-
-    public function questions()
+    public function rubriques()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Rubrique::class);
     }
 }
