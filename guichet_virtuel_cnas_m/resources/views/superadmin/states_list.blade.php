@@ -375,6 +375,7 @@
                     .then(function(response) {
                         app.$set(app.states, index, response.data.state);
                         $('#edit-state-modal').modal('toggle');
+                        app.selectedStateName = app.stateName;
                         app.stateName = '';
                         app.stateCode = '';
                         notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');

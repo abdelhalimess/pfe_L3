@@ -359,6 +359,7 @@
                     .then(function(response) {
                         app.$set(app.roles, index, response.data.role);
                         $('#edit-role-modal').modal('toggle');
+                        app.selectedRoleName = app.roleName;
                         app.roleName = '';
                         notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
                     })

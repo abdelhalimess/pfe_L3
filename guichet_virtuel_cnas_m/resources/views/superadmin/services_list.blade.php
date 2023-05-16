@@ -376,6 +376,7 @@
                     .then(function(response) {
                         app.$set(app.services, index, response.data.service);
                         $('#edit-service-modal').modal('toggle');
+                        app.selectedServiceName = app.serviceName;
                         app.serviceName = '';
                         app.serviceDescription = '';
                         notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
