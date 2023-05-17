@@ -8,7 +8,12 @@ class Structure extends Model
 {
     protected $table = 'structures';
 
-    protected $fillable = ['name', 'state'];
+    protected $fillable = ['name', 'state_id','structure_type_id' ];
+    
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
 
     public function mechanics()
     {

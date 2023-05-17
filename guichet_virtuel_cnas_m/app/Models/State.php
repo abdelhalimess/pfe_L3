@@ -18,4 +18,9 @@ class State extends Model
     {
         return $this->hasMany(Commune::class);
     }
+
+    public function structure()
+    {
+        return $this->hasOne(Structure::class);
+    }
 }

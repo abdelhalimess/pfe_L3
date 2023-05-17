@@ -108,12 +108,6 @@
                                 <i class="icofont icofont-sub-listing"></i>
                             </span>
                         </div>
-                        <div class="col-sm-3  input-group input-group-inverse">
-                            <input type="text" class="form-control" placeholder="Code wilaya" readonly>
-                            {{-- <span class="input-group-addon">
-                                <i class="icofont icofont-wifi"></i>
-                            </span> --}}
-                        </div>
                         <div :class="[errors.username ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">
                             <input type="text" class="form-control" placeholder="Nom d'utilisateur"
                             data-toggle="tooltip" data-placement="top"

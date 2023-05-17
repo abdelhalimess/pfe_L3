@@ -277,7 +277,7 @@
                                             
                                             <li  :key="index" class="dd-item dd3-item" data-id="index"  class="dd-item dd3-item" data-id="index">
                                                 <div class="dd-handle dd3-handle"></div>
-                                                <div class="dd3-content">@{{ question.children_questions.questions }}</div>
+                                                <div class="dd3-content">@{{ question.children_questions[index].content }}</div>
                                             </li>
                                             
                                         </ol> 
@@ -368,7 +368,7 @@
                 showQuestions(service, question) {
                     app.service = service;
                     app.service_questions = service.questions;
-                    console.log(questions);
+                    console.log(this.service_questions);
                     app.selectedService = service.id;
                     app.selectedServiceName = service.name;
                     console.log(app.selectedService);
@@ -408,7 +408,7 @@
                         .then(function(response) {
                             app.services.push(response.data.service);
                             $('#add-service-modal').modal('toggle');
-                            app.newService = '';
+                            app.newServiceName = '';
                             app.newServiceDescription = '';
                             app.selectedServiceName = '';
                             app.selectedServiceIndex = '';
