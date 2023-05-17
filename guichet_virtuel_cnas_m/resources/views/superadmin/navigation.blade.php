@@ -31,7 +31,24 @@
 </ul>
 <div class="pcoded-navigatio-lavel">Tables management</div>
 <ul class="pcoded-item pcoded-left-item">
-    
+    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'structures-list' || \Request::route()->getName() == 'structuretypes-list' ) ? 'pcoded-trigger' : '' }}">
+        <a href="javascript:void(0)">
+            <span class="pcoded-micon"><i class="fa fa-map "></i></span>
+            <span class="pcoded-mtext">Structures Table</span>
+        </a>
+        <ul class="pcoded-submenu ">
+            <li class="{{ (\Request::route()->getName() == 'structures-list') ? 'active' : '' }}">
+                <a href="/structures_list">
+                    <span class="pcoded-mtext">Structures Table</span>
+                </a>
+            </li>
+            <li class="{{ (\Request::route()->getName() == 'structuretypes-list') ? 'active' : '' }}">
+                <a href="/structuretypes_list">
+                    <span class="pcoded-mtext">Structure Types Table</span>
+                </a>
+            </li>
+        </ul>
+    </li>
     <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'users-list' || \Request::route()->getName() == 'create-user' ) ? 'pcoded-trigger' : '' }}">
         <a href="javascript:void(0)">
             <span class="pcoded-micon"><i class="fa fa-users"></i></span>
@@ -58,14 +75,14 @@
         <ul class="pcoded-submenu ">
             <li class="{{ (\Request::route()->getName() == 'roles-list') ? 'active' : '' }}">
                 <a href="/roles_list">
-                    <span class="pcoded-mtext">Roles List</span>
+                    <span class="pcoded-mtext">Roles Table</span>
                 </a>
             </li>
         </ul>
         <ul class="pcoded-submenu ">
             <li class="{{ (\Request::route()->getName() == 'permissions-list') ? 'active' : '' }}">
                 <a href="/permissions_list">
-                    <span class="pcoded-mtext">Permissions List </span>
+                    <span class="pcoded-mtext">Permissions Table </span>
                 </a>
             </li>
         </ul>
@@ -78,16 +95,16 @@
         <ul class="pcoded-submenu ">
             <li class="{{ (\Request::route()->getName() == 'states-list') ? 'active' : '' }}">
                 <a href="/states_list">
-                    <span class="pcoded-mtext">States List</span>
+                    <span class="pcoded-mtext">States Table</span>
                 </a>
             </li>
             <li class="{{ (\Request::route()->getName() == 'communes-list') ? 'active' : '' }}">
                 <a href="/communes_list">
-                    <span class="pcoded-mtext">Communes List </span>
+                    <span class="pcoded-mtext">Communes Table </span>
                 </a>
             </li>
         </ul>
-
+    </li>    
         <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'services-list' || \Request::route()->getName() == 'questions-list' ) ? 'pcoded-trigger' : '' }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="fa fa-map "></i></span>
@@ -96,12 +113,12 @@
             <ul class="pcoded-submenu ">
                 <li class="{{ (\Request::route()->getName() == 'services-list') ? 'active' : '' }}">
                     <a href="/services_list">
-                        <span class="pcoded-mtext">Services List </span>
+                        <span class="pcoded-mtext">Services Table </span>
                     </a>
                 </li>
                 <li class="{{ (\Request::route()->getName() == 'questions-list') ? 'active' : '' }}">
                     <a href="/questions_list">
-                        <span class="pcoded-mtext">Questions List </span>
+                        <span class="pcoded-mtext">Questions Table </span>
                     </a>
                 </li>
             </ul>

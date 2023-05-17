@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\StructureType;
+use App\Models\StructureType;
 use Illuminate\Http\Request;
 
 class StructureTypeController extends Controller
@@ -14,7 +14,7 @@ class StructureTypeController extends Controller
      */
     public function index()
     {
-        //
+        return view('superadmin.structuretypes_list');
     }
 
     /**
@@ -35,16 +35,25 @@ class StructureTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $structuretype = new StructureType();
+        $structuretype->name = $request->name;
+
+        $structuretype->save();
+
+        // return compact('validated');
+        return response()->json([
+            'success' => 'Information added with success',
+            'structuretype' => $structuretype
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\StructureType  $structureType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(StructureType $structureType)
+    public function show($id)
     {
         //
     }
@@ -52,10 +61,10 @@ class StructureTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\StructureType  $structureType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(StructureType $structureType)
+    public function edit($id)
     {
         //
     }
@@ -64,22 +73,38 @@ class StructureTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\StructureType  $structureType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StructureType $structureType)
+    public function update(Request $request, $id)
     {
-        //
+        $structuretype = StructureType::findOrFail($id);
+        $structuretype->name = $request->name;
+
+        $structuretype->save();
+
+        return response()->json([
+            'success' => 'Structure updated with success',
+            'structuretype' => $structuretype
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\StructureType  $structureType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StructureType $structureType)
+    public function destroy($id)
     {
-        //
+        $structuretype = StructureType::where('id', '=', $id);
+        $structuretype->delete();
+        return response()->json(['success' => 'The structure type has been deleted']);
+    }
+
+    public function getTypes()
+    {
+        $structuretypes = StructureType::all();
+        return compact('structuretypes');
     }
 }

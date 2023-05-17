@@ -15,6 +15,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\StructureController;
+use App\Http\Controllers\StructureTypeController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\QuestionController;
@@ -98,3 +100,13 @@ Route::get('/getQuestions', [QuestionController::class, 'getQuestions'])->name('
 Route::get('/attachDocuments', [QuestionController::class, 'attachDocuments'])->name('attachDocuments')->middleware(['auth', 'role:superadmin']);
 Route::post('/servicesAddQuestion/{id}', [ServiceController::class, 'addQuestions'])->name('addQuestions')->middleware(['auth', 'role:superadmin']);
 
+Route::get('structures_list', [StructureController::class, 'index'])->name('structures-list')->middleware(['auth', 'role:superadmin']);
+Route::resource('structures', StructureController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
+Route::resource('structuretypes', StructureTypeController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);Route::get('states_list', [StateController::class, 'index'])->name('states-list')->middleware(['auth', 'role:superadmin']);
+
+Route::get('/getStructures', [StructureController::class, 'getStructures'])->name('getStructures')->middleware(['auth', 'role:superadmin']);
+Route::delete('/structure_delete/{id}', [StructureController::class, 'destroy'])->name('structure-delete')->middleware(['auth', 'role:superadmin']);
+
+Route::get('structuretypes_list', [StructureTypeController::class, 'index'])->name('structuretypes-list')->middleware(['auth', 'role:superadmin']);
+Route::delete('/structuretype_delete/{id}', [StructureTypeController::class, 'destroy'])->name('structuretype-delete')->middleware(['auth', 'role:superadmin']);
+Route::get('/getTypes', [StructureTypeController::class, 'getTypes'])->name('getTypes')->middleware(['auth', 'role:superadmin']);

@@ -8,6 +8,8 @@ class Structure extends Model
 {
     protected $table = 'structures';
 
+    protected $fillable = ['name', 'state'];
+
     public function mechanics()
     {
         return $this->hasMany(Mechanic::class);

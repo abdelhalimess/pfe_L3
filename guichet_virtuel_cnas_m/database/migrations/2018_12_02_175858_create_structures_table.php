@@ -16,7 +16,10 @@ class CreateStructuresTable extends Migration
         Schema::create('structures', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 150)->nullable();
-            $table->string('state', 3)->nullable();
+            $table->unsignedInteger('state_id')->nullable();
+            $table->foreign('state_id')
+                ->references('id')->on('states')
+                ->onDelete('set null');
 
 
             $table->unsignedInteger('structure_type_id')->nullable();
