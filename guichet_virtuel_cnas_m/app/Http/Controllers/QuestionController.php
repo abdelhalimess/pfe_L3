@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Question;
 use Illuminate\Http\Request;
 
@@ -95,8 +96,15 @@ class QuestionController extends Controller
 
     public function getQuestions()
     {
-        $questions = Question::with('questions')->get();
-        return compact('questions');
+        $questions = Question::whereNull('question_id')
+            ->with('childrenQuestions')
+            ->get();
+        return  compact('questions');
+
+
+
+        // $questions = Question::with('')->get();
+        // return compact('questions');
     }
 
     public function attachDocuments(Request $request, $id)
@@ -112,9 +120,9 @@ class QuestionController extends Controller
         $documents = $request->documents;
         $question->documents()->sync($documents);
 
-       
 
-        
+
+
 
         $questions = Question::with('documents')->get();
         return response()->json([

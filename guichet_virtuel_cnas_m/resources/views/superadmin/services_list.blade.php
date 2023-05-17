@@ -27,6 +27,11 @@
 
 
 @section('page_content')
+
+
+
+
+
     {{-- Modal static --}}
     <div class="modal fade" id="add-service-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -270,9 +275,9 @@
                                         <div  class="dd3-content">@{{ question.content }}</div>
                                         <ol class="dd-list">
                                             
-                                            <li v-for="(question, indexx) in question.questions" :key="index"class="dd-item dd3-item" data-id="index"  class="dd-item dd3-item" data-id="indexx">
+                                            <li  :key="index" class="dd-item dd3-item" data-id="index"  class="dd-item dd3-item" data-id="index">
                                                 <div class="dd-handle dd3-handle"></div>
-                                                <div class="dd3-content">@{{ question.content }}</div>
+                                                <div class="dd3-content">@{{ question.children_questions.questions }}</div>
                                             </li>
                                             
                                         </ol> 
@@ -538,7 +543,7 @@
             },
             created() {
                 this.fetch_services();
-                this.fetch_questions();
+                // this.fetch_questions();
 
 
 
