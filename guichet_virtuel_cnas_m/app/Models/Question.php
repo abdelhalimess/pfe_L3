@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+
 class Question extends Model
 {
     use HasFactory;
+
+
+
     protected $fillable = ['content', 'service_id'];
     public function service(): BelongsTo
     {
@@ -20,17 +24,5 @@ class Question extends Model
     public function documents(): BelongsToMany
     {
         return $this->belongsToMany(Document::class, 'questions_documents', 'question_id', 'document_id');
-    }
-
-
-
-    public function questions(): HasMany
-    {
-        return $this->hasMany(Question::class);
-    }
-
-    public function childrenQuestions(): HasMany
-    {
-        return $this->hasMany(Question::class)->with('questions');
     }
 }

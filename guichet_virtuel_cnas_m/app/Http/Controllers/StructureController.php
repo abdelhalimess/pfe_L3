@@ -17,8 +17,8 @@ class StructureController extends Controller
     public function index()
     {
         $structureTypes = StructureType::with('structures')->get();
-        $states = StructureType::with('structures')->get();
-        return view('superadmin.structures_list' ,compact( 'states','structureTypes'));
+        $states = State::with('communes')->get();
+        return view('superadmin.structures_list', compact('states', 'structureTypes'));
     }
 
     /**
@@ -45,7 +45,7 @@ class StructureController extends Controller
         $structure->structure_type_id = $request->structure_type_id;
 
         $structure->save();
-        $structure = Structure::with('state','structureType')->findOrFail($structure->id);
+        $structure = Structure::with('state', 'structureType')->findOrFail($structure->id);
         // return compact('validated');
         return response()->json([
             'success' => 'Information added with success',
@@ -84,7 +84,7 @@ class StructureController extends Controller
      */
     public function update(Request $request, $id)
     {
-              
+
         $structure = Structure::with('state')->findOrFail($id);
         $structure->name = $request->name;
         $structure->state_id = $request->state_id;
@@ -114,10 +114,7 @@ class StructureController extends Controller
 
     public function getStructures()
     {
-        $structures = Structure::with('state','structureType')->get();
+        $structures = Structure::with('state', 'structureType')->get();
         return compact('structures');
     }
-
-
-
 }

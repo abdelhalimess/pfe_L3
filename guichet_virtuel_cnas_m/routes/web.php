@@ -28,6 +28,8 @@ Route::get('/users_list', [UserController::class, 'show'])->name('users-list')->
 
 Auth::routes();
 Route::get('/', [UserController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/landing', [UserController::class, 'landing'])->name('landing');
+
 Route::get('/user_profile', [UserController::class, 'user_profile'])->name('user-profile')->middleware('auth');
 Route::post('/change_password', [UserController::class, 'change-password'])->name('change-password')->middleware('auth');
 Route::put('/update_information', [UserController::class, 'update_information'])->name('update-profile')->middleware('auth');
@@ -97,12 +99,14 @@ Route::get('/getServices', [ServiceController::class, 'getServices'])->name('get
 // Route::delete('/service_delete/{id}', [ServiceController::class, 'destroy'])->name('service-delete')->middleware(['auth', 'role:superadmin']);
 Route::delete('/question_delete/{id}', [QuestionController::class, 'destroy'])->name('question-delete')->middleware(['auth', 'role:superadmin']);
 Route::get('/getQuestions', [QuestionController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin']);
+Route::get('/getQuestions/{id}', [UserController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin']);
 Route::get('/attachDocuments', [QuestionController::class, 'attachDocuments'])->name('attachDocuments')->middleware(['auth', 'role:superadmin']);
 Route::post('/servicesAddQuestion/{id}', [ServiceController::class, 'addQuestions'])->name('addQuestions')->middleware(['auth', 'role:superadmin']);
 
 Route::get('structures_list', [StructureController::class, 'index'])->name('structures-list')->middleware(['auth', 'role:superadmin']);
 Route::resource('structures', StructureController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
-Route::resource('structuretypes', StructureTypeController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);Route::get('states_list', [StateController::class, 'index'])->name('states-list')->middleware(['auth', 'role:superadmin']);
+Route::resource('structuretypes', StructureTypeController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
+Route::get('states_list', [StateController::class, 'index'])->name('states-list')->middleware(['auth', 'role:superadmin']);
 
 Route::get('/getStructures', [StructureController::class, 'getStructures'])->name('getStructures')->middleware(['auth', 'role:superadmin']);
 Route::delete('/structure_delete/{id}', [StructureController::class, 'destroy'])->name('structure-delete')->middleware(['auth', 'role:superadmin']);

@@ -22,6 +22,8 @@ use App\Notifications\DriverLicenceExpired;
 use Carbon\Carbon;
 use File;
 use App\Charts\SampleChart;
+use App\Models\Question;
+use App\Models\Service;
 use Charts;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\UploadedFile;
@@ -336,5 +338,31 @@ class UserController extends Controller
                 return compact('users');
                 break;
         }
+    }
+
+    public function landing()
+    {
+
+
+
+        // $questions = Question::whereNull('question_id')
+        //     ->with('childrenQuestions')
+        //     ->get();
+        $services = Service::all();
+        $questionCount = Question::query()->count();
+        $questions = Question::all();
+        return view('user.home', compact(
+            'services',
+            'questionCount',
+            'questions'
+        ));
+    }
+
+
+
+    public function getQuestions(Request $request)
+    {
+        $questions = Question::where('question_id', '=', $request->id)->get();
+        return compact('questions');
     }
 }

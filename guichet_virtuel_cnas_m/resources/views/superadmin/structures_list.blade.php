@@ -46,7 +46,7 @@
                         <p class="text-danger m-t-5" v-if="errors.name">@{{ errors.name.toString() }}</p>
                     </div>
 
-                    <label for="structure-state" class="col-sm-3 col-form-label">State</label>
+                    <label for="structure-state1" class="col-sm-3 col-form-label">State</label>
                     <div class="col-sm-10">
                         <select name="select" class="form-control" id="structure-state1" v-model="newStructureState"
                             required>
@@ -61,7 +61,7 @@
                           <option value="">Select State</option>
                           <option v-for="state in states" :key="state.id" :value="state.id">@{{ state.name }}</option>
                         </select> --}}
-                    <label for="structure-type" class="col-sm-3 col-form-label">Type</label>
+                    <label for="structure-type1" class="col-sm-3 col-form-label">Type</label>
                     <div class="col-sm-10">
                         <select name="select" class="form-control" id="structure-type1" v-model="newStructureType" required>
                             <option value="">Select Type</option>

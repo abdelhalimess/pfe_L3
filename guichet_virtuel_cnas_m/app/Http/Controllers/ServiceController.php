@@ -79,7 +79,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $service = Service::with("questions")->findOrFail($id);
         $service->name = $request->name;
         $service->description = $request->description;
@@ -107,9 +107,7 @@ class ServiceController extends Controller
 
     public function getServices()
     {
-        $services = Service::with('questions.documents')->get();
-        return compact('services');       
+        $services = Service::with('questions')->get();
+        return compact('services');
     }
-
-
 }
