@@ -42,7 +42,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Entrer le nom du rôle..." maxlength="25" v-model="newRole" required v-on:input="errors.name=null" />
+                    <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter Role Name..." maxlength="25" v-model="newRole" required v-on:input="errors.name=null" />
                     <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
                 </div>
                 <div class="modal-footer">
@@ -183,7 +183,7 @@
                                 <td>@{{ permission.name }}</td>
                                 <td>
                                     <div class="text-center">
-                                        <i class="feather icon-trash text-danger f-18 clickable" data-toggle="tooltip" data-placement="top" data-original-title="Supprimer" v-on:click="revoke_permission(permission.id,index)">
+                                        <i class="feather icon-trash text-danger f-18 clickable" data-toggle="tooltip" data-placement="top" data-original-title="Delete" v-on:click="revoke_permission(permission.id,index)">
                                         </i>
                                     </div>
                                 </td>
@@ -197,27 +197,6 @@
     </div>
 
 
-    {{-- <div class="col-sm-5">
-            <select name="from" id="optgroup" class="form-control" size="8" multiple="multiple">
-
-        <option v-for="(permission, index) in permissions" value="permission.id">@{{permission.name}}</option>
-
-
-    </select>
-</div>
-
-<div class="col-sm-2">
-    <button type="button" id="optgroup_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
-    <button type="button" id="optgroup_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
-    <button type="button" id="optgroup_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
-    <button type="button" id="optgroup_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
-</div>
-
-<div class="col-sm-5">
-    <select name="to" id="optgroup_to" class="form-control" size="8" multiple="multiple">
-    </select>
-</div> --}}
-
 
 
 </div>
@@ -230,8 +209,8 @@
 <script>
     $(document).ready(function() {
         $('#test').multiSelect({
-            selectableHeader: "<div class='custom-header'>Les permissions disponibles</div>",
-            selectionHeader: "<div class='custom-header'>Les permissions sélectionnées</div>",
+            selectableHeader: "<div class='custom-header'>Available Permissions</div>",
+            selectionHeader: "<div class='custom-header'>Selected Permissions</div>",
 
         });
 
@@ -340,7 +319,7 @@
                         app.newRole = '';
                         app.selectedRoleName = '';
                         app.selectedRoleIndex = '';
-                        notify('Succès', response.data.success, 'red', 'bottomCenter', 'bounceInDown');
+                        notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
                     })
                     .catch(function(error) {
                         if (error.response) {

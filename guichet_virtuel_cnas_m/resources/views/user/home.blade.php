@@ -300,9 +300,10 @@
                           services:[],
                           questions:[],
                           selectedQuestion:'',
-                          previousQuestion:'',
+                          previousQuestions:[],
                           selectedService:'',
                           password:'',
+
                           password_confirmation:'',
                           errors:[],
                           notifications: [],
@@ -311,7 +312,7 @@
                   },
                   methods: {
                     select_service(service) {
-                              this.questions = service.questions.filter(question => question.question_id==null);
+                              this.questions = service.questions.filter(question => question.question_id==null );
                     
                            
                           },
@@ -328,9 +329,9 @@
                                   .catch();
                           },
                     fetch_questions(question) {
+                      this.previousQuestions.push(question.id);
                               return axios.get('/getQuestions/'+question.id)
                                   .then(response => {
-                                    previousQuestion = question;
                                       // this.questions = response.data.questions;
                                       this.questions =  response.data.questions;
                                       // selectedQuestion = services[0].question;
@@ -340,7 +341,12 @@
                                   .catch();
                           },
                     fetch_previous_questions() {
-                              return axios.get('/getQuestions/'+previousQuestion.id)
+                      console.log('hnaaaa');
+                      console.log(this.previousQuestions);
+                      this.previousQuestions.pop();
+                      console.log(this.previousQuestions);
+     if(this.previousQuestions.length == 0) {this.select_service(this.selectedService); return;}
+                              return axios.get('/getQuestions/'+this.previousQuestions[this.previousQuestions.length-1])
                                   .then(response => {
                               
                                       // this.questions = response.data.questions;

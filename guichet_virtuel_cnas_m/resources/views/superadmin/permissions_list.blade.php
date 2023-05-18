@@ -12,8 +12,8 @@
 @endsection
 
 @section('page_title')
-<h4>Liste des permissions</h4>
-<span>Ajouter, modifer ou supprimer une permission </span>
+<h4>Permissions List</h4>
+<span>Add, edit or delete a permission </span>
 @endsection
 
 @section('breadcrumb')
@@ -21,7 +21,7 @@
 <a href="{{ route('home') }}"> <i class="feather icon-home"></i></a>
 </li>
 <li class="breadcrumb-item">
-<a href="{{ route('permissions-list') }}">Liste des permissions</a>
+<a href="{{ route('permissions-list') }}">Permissions List</a>
 </li>
 @endsection
 
@@ -48,8 +48,8 @@
                 <p class="text-danger m-t-5" v-if="errors.name" >@{{errors.name.toString()}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_permission()" >Sauvgarder</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_permission()" >Save</button>
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="modal-dialog" permission="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modifer une permission</h5>
+                    <h5 class="modal-title">Edit a permission</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -70,8 +70,8 @@
                 <p class="text-danger m-t-5" v-if="errors.name" >@{{errors.name.toString()}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="update_permission(permissionName,selectedPermissionIndex)" >Sauvgarder</button>
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="update_permission(permissionName,selectedPermissionIndex)" >Save</button>
                 </div>
             </div>
         </div>
@@ -82,12 +82,12 @@
         <div class="card">
             <div class="card-header table-card-header">
 
-                <h5>Liste des permissions</h5>
+                <h5>Permissions List</h5>
 
                 <div class="card-header-right">
                     <ul class="list-unstyled card-option">
                         <li>
-                            <span data-toggle="tooltip" data-placement="top" data-original-title="Ajouter une permission">
+                            <span data-toggle="tooltip" data-placement="top" data-original-title="Add Permission">
                                 <i class="feather icon-plus text-success md-trigger" data-toggle="modal"
                                    data-target="#add-permission-modal">
                                 </i>
@@ -115,14 +115,14 @@
                                 <td>@{{ permission.name }}</td>
                                 <td>
                                     <div class="text-center">
-                                        <span data-toggle="tooltip" data-placement="top" data-original-title="Modifier">
+                                        <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
                                             <i class="feather icon-edit text-custom f-18 clickable md-trigger"
                                                 data-toggle="modal" data-target="#edit-permission-modal"
                                                 v-on:click="permissionName=permission.name,selectedPermission=permission.id">
                                             </i>
                                         </span>
                                         <i class="feather icon-trash text-danger f-18 clickable" v-on:click="deletePermission(permission.id, index)"
-                                            data-toggle="tooltip" data-placement="top" data-original-title="Supprimer">
+                                            data-toggle="tooltip" data-placement="top" data-original-title="Delete">
                                         </i>
                                     </div>
                                 </td>

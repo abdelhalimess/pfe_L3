@@ -31,8 +31,8 @@ height: 40px;
 @endsection
 
 @section('page_title')
-<h4>Mon profile</h4>
-<span>Changer vos informations</span>
+<h4>My Profile</h4>
+<span>Edit your Infomation</span>
 @endsection
 
 @section('breadcrumb')
@@ -40,12 +40,12 @@ height: 40px;
 <a href="{{ route('home') }}"> <i class="feather icon-home"></i></a>
 </li>
 <li class="breadcrumb-item">
-<a href="{{ route('user-profile') }}">Mon profile</a>
+<a href="{{ route('user-profile') }}">My Profile</a>
 </li>
 @endsection
 
 
-@include('parc_manager.navigation')
+@include('superadmin.navigation')
 
 
 @section('page_content')
@@ -53,18 +53,18 @@ height: 40px;
     <div class="col-lg-12 ">
         <div class="card" id="user-profile-form">
             <div class="card-header">
-                <h5 class="text-danger">Veuillez remplir tous les champs obligatoires (*)</h5>
+                <h5 class="text-danger">Please fill all the required fields(*)</h5>
                 <div v-if="errors.length"> @{{ errors }}</div>
             </div>
             <div class="card-block">
 
-                <h6 class="sub-title">Informations personnelles <span class="text-danger">(*)</span> </h6>
+                <h6 class="sub-title">Personal Information<span class="text-danger">(*)</span> </h6>
                 <form>
                     <div class="row">
                     <div class="form-group col-sm-3">
-                            <label for="username" class="block">Nom d'utilisateur </label>
+                            <label for="username" class="block">Username</label>
                             <div :class="[errors.username ? 'input-group input-group-danger' : 'input-group input-group-inverse']">
-                            <input type="text" class="form-control" placeholder="Nom d'utilisateur"
+                            <input type="text" class="form-control" placeholder="Username"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.username" v-model="username" disabled="disabled">
                             <span class="input-group-addon">
@@ -73,9 +73,9 @@ height: 40px;
                             </div>
                      </div>
                     <div class="form-group col-sm-4">
-                            <label for="fullname" class="block">Nom et Prénom <span class="text-danger">(*)</span></label>
+                            <label for="fullname" class="block">Fullname <span class="text-danger">(*)</span></label>
                             <div :class="[errors.fullname ? 'input-group input-group-danger' : 'input-group input-group-inverse']">
-                            <input id="fullname" type="text" class="form-control" placeholder="Nom et Prénom..." 
+                            <input id="fullname" type="text" class="form-control" placeholder="Fullname..." 
                             v-model="fullname" data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.fullname" >
                             <span class="input-group-addon">
@@ -96,9 +96,9 @@ height: 40px;
                      </div>
 
                      <div class="form-group col-sm-4">
-                            <label for="telephone" class="block">Numéro de téléphone <span class="text-danger">(*)</span></label>
+                            <label for="telephone" class="block">Phone Number<span class="text-danger">(*)</span></label>
                             <div :class="[errors.telephone ? 'input-group input-group-danger' : 'input-group input-group-inverse']">
-                            <input type="text" class="form-control" placeholder="Numéro de téléphone" v-model="telephone"
+                            <input type="text" class="form-control" placeholder="Phone Number" v-model="telephone"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.telephone">
                             <span class="input-group-addon">
@@ -108,9 +108,9 @@ height: 40px;
                      </div>
 
                      <div class="form-group col-sm-8">
-                            <label for="address" class="block">Adresse <span class="text-danger">(*)</span></label>
+                            <label for="address" class="block">Address <span class="text-danger">(*)</span></label>
                             <div :class="[errors.address ? 'input-group input-group-danger' : 'input-group input-group-inverse']">
-                            <input type="text" class="form-control" placeholder="Adresse" v-model="address"
+                            <input type="text" class="form-control" placeholder="Address" v-model="address"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.address">
                             <span class="input-group-addon">
@@ -119,11 +119,11 @@ height: 40px;
                             </div>
                      </div>
                      <div class="form-group col-sm-6">
-                            <label for="password" class="block">Mot de passe <span class="text-danger">(*)</span></label>
+                            <label for="password" class="block">Password <span class="text-danger">(*)</span></label>
                             <div :class="[errors.password ? 'input-group input-group-danger' : 'input-group input-group-inverse']"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.password">
-                           <input type="password" class="form-control" placeholder="Mot de passe" v-model="password">
+                           <input type="password" class="form-control" placeholder="Password" v-model="password">
                             <span class="input-group-addon">
                                 <i class="icofont icofont-lock"></i>
                             </span>
