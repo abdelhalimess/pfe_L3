@@ -17,7 +17,7 @@ class StructureController extends Controller
     public function index()
     {
         $structureTypes = StructureType::with('structures')->get();
-        $states = StructureType::with('structures')->get();
+        $states = State::all();
         return view('superadmin.structures_list' ,compact( 'states','structureTypes'));
     }
 

@@ -46,35 +46,38 @@
                         <p class="text-danger m-t-5" v-if="errors.name">@{{ errors.name.toString() }}</p>
                     </div>
 
-                    <label for="structure-state" class="col-sm-3 col-form-label">State</label>
+                    <label for="structure-state1" class="col-sm-3 col-form-label">State</label>
                     <div class="col-sm-10">
-                        <select name="select" class="form-control" id="structure-state1" v-model="newStructureState"
-                            required>
-                            <option value="">Select State</option>
-                            <option v-for="state in states" :key="state.id" :value="state.id">
-                                @{{ state.name }}</option>
-                        </select>
+                        <div :class="[errors.state_id ? 'col-sm-10 m-b-5 input-group input-group-danger' : 'col-sm-10 m-b-5 input-group input-group-inverse']"
+                        data-toggle="tooltip" data-placement="top"
+                        :data-original-title="errors.state_id">
+                            <select id="structure-state1" class="selectpicker show-tick" title="Select State..." v-model="newStructureState"
+                            >
+                                @foreach ($states as $state)
+                                    <option value="{{$state->id}}">{{$state->name}}</option>
+                                @endforeach
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="icofont icofont-listing-box"></i>
+                            </span>
+                        </div>
                     </div>
-
-                    {{-- {{-- <label for="structure-state">Structure State</label>
-                        <select class="form-control" id="structure-state" v-model="newStructureState" required>
-                          <option value="">Select State</option>
-                          <option v-for="state in states" :key="state.id" :value="state.id">@{{ state.name }}</option>
-                        </select> --}}
-                    <label for="structure-type" class="col-sm-3 col-form-label">Type</label>
+                    <label for="structure-type1" class="col-sm-3 col-form-label">Type</label>
                     <div class="col-sm-10">
-                        <select name="select" class="form-control" id="structure-type1" v-model="newStructureType" required>
-                            <option value="">Select Type</option>
-                            <option v-for="type in types" :key="type.id" :value="type.id">
-                                @{{ type.name }}</option>
-                        </select>
+                        <div :class="[errors.structure_id ? 'col-sm-10 m-b-5 input-group input-group-danger' : 'col-sm-10 m-b-5 input-group input-group-inverse']"
+                        data-toggle="tooltip" data-placement="top"
+                        :data-original-title="errors.structure_id">
+                            <select id="structure-type1" class="selectpicker show-tick" title="Select Type..." v-model="newStructureType"
+                            >
+                                @foreach ($structureTypes as $structureType)
+                                    <option value="{{$structureType->id}}">{{$structureType->name}}</option>
+                                @endforeach
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="icofont icofont-listing-box"></i>
+                            </span>
+                        </div>
                     </div>
-                    {{-- <label for="structure-type">Structure Type</label>
-                        <select class="form-control" id="structure-type" v-model="newStructureType" required>
-                          <option value="">Select Type</option>
-                          <option v-for="type in types" :key="type.id" :value="type.id">@{{ type.name }}</option>
-                        </select> --}}
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light"
@@ -135,7 +138,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light"
-                            v-on:click="update_structure(newStructureName,newStructureState,newStructureType,selectedStructureIndex)">Save</button>
+                            v-on:click="update_structure(structureName,structureState,structureType,selectedStructureIndex)">Save</button>
                     </div>
                 </div>
             </div>
@@ -220,19 +223,17 @@
 <script>
 
     $(document).ready(function() {
-    
-    
-        $('#structure-type1').selectpicker({
-            placeholder: "Type du structure.."
-        });
         $('#structure-state1').selectpicker({
             placeholder: "Nom du structure.."
         });
-        $('#structure-type').selectpicker({
+        $('#structure-type1').selectpicker({
             placeholder: "Type du structure.."
         });
         $('#structure-state').selectpicker({
             placeholder: "Nom du structure.."
+        });
+        $('#structure-type').selectpicker({
+            placeholder: "Type du structure.."
         });
     
     
@@ -342,6 +343,8 @@
                             app.structures.push(response.data.structure);
                             $('#add-structure-modal').modal('toggle');
                             app.newStructureName = '';
+                            $('#structure-state1').selectpicker('val','');
+                            $('#structure-type1').selectpicker('val','');
                             app.newStructureState = '';
                             app.newStructureType = '';
                             app.selectedStructureName = '';
@@ -367,9 +370,9 @@
                         .then(function(response) {
                             app.$set(app.structures, index, response.data.structure);
                             $('#edit-structure-modal').modal('toggle');
-                            app.newStructureName = '';
-                            app.newStructureState = '';
-                            app.newStructureType = '';
+                            app.structureName = '';
+                            app.structureState = '';
+                            app.structureType = '';
                             notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                         })
                         .catch(function(error) {
