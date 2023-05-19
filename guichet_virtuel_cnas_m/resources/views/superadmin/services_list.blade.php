@@ -226,7 +226,7 @@
                             <tbody>
                                 <tr v-for="(question, index) in service_questions" :key="index">
                                     <td>@{{ index + 1 }}</td>
-                                    <td>@{{ question.question }}</td>
+                                    <td>@{{ question.content }}</td>
                                     <td>
                                         <div class="text-center">
                                             <i class="feather icon-trash text-danger f-18 clickable" data-toggle="tooltip"
@@ -245,7 +245,7 @@
         </div>
     </div>
 
-    <div class="col-md-12">
+    {{-- <div class="col-md-12">
 
         <div class="card-header">
             <h5>Nestable</h5>
@@ -254,8 +254,8 @@
             <div class="card-header">
                 <h5>Nestable</h5>
 
-            </div>
-            <div class="card-block">
+            </div> --}}
+            {{-- <div class="card-block">
                 <div id="nestable-menu" class="m-b-10">
                     <button type="button" class="btn btn-primary waves-effect waves-light m-b-10 m-r-20" data-action="expand-all">Expand All</button>
                     <button type="button" class="btn btn-success waves-effect waves-light m-b-10" data-action="collapse-all">Collapse All</button>
@@ -281,7 +281,7 @@
                                             </li>
                                             
                                         </ol> 
-                                    </li>
+                                    </li> --}}
                                     
                                     {{-- <li class="dd-item dd3-item" data-id="15">
                                         <div class="dd-handle dd3-handle"></div>
@@ -307,7 +307,7 @@
                                                 <div class="dd3-content">Item 19</div>
                                             </li>
                                         </ol> --}}
-                                    </li>
+                                    {{-- </li>
                                 </ol>
                             </div>
                         </div>
@@ -316,7 +316,7 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
 @endsection
 
 @section('page_scripts')

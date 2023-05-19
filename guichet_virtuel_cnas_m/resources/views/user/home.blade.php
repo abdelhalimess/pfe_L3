@@ -23,7 +23,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" >@{{ fullname }}</a>
+                <a class="navbar-brand" >CNAS - VIRTUAL COUNTER</a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -79,9 +79,9 @@
                             <div class="card" style="width: 18rem;">
                               
                               <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary" v-on:click="selectedService=service,select_service(service)">Go somewhere</a>
+                                <h5 class="card-title">@{{ service.name }}</h5>
+                                <p class="card-text">@{{ service.description }}</p>
+                                <a class="btn btn-primary" v-on:click="selectedService=service,select_service(service)">Select Service</a>
                               </div>
                             </div>
                         </div>

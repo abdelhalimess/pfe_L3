@@ -80,7 +80,7 @@
         </div>
     </div>        
 
-    <div class="col-md-5">
+    <div class="col-md-6">
 
         <div class="card">
             <div class="card-header table-card-header">
@@ -107,7 +107,7 @@
                     <table id="permissions-table" class="table table-hover table-bordered nowrap">
                         <thead>
                             <tr>
-                                <th class="text-center" style="width:20px">#</th>
+                                <th class="text-center" style="width:25px">#</th>
                                 <th>Commune</th>
                                 <th>Code</th>
                                 <th class="text-center">Action</th>

@@ -97,13 +97,13 @@
                 </div>
             </div>
             <!-- Modal static-->
-            <div class="card-block">
-                <div class="dt-responsive table-responsive">
+            <div class="card-block" >
+                <div class="dt-responsive table-responsive" style="max-height:500px;">
 
-                    <table id="permissions-table" class="table table-hover table-bordered nowrap">
+                    <table id="permissions-table" class="table table-hover table-bordered nowrap" >
                         <thead>
                             <tr>
-                                <th class="text-center" style="width:20px">#</th>
+                                <th class="text-center" style="width:25px">#</th>
                                 <th>Permission</th>
                                 <th class="text-center">Action</th>
                             </tr>

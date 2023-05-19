@@ -193,7 +193,7 @@
                                 <td>@{{ commune.code }}</td>
                                 <td>
                                     <div class="text-center">
-                                        <i class="feather icon-trash text-danger f-18 clickable" data-toggle="tooltip" data-placement="top" data-original-title="Delete" v-on:click="delete_commune(commune.id,index)">
+                                        <i class="feather icon-trash text-danger f-18 clickable" data-toggle="tooltip" data-placement="top" data-original-title="Delete" v-on:click="deleteCommune(commune.id,index)">
                                         </i>
                                     </div>
                                 </td>
@@ -357,6 +357,34 @@
                                         app.states.splice(index, 1)
                                         app.selectedStateName = '';
                                         app.selectedStateIndex = '';
+                                        notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                                    } else {
+                                        notify('Error', response.data.error, 'red', 'topCenter', 'bounceInDown');
+                                    }
+                                });
+                        }
+                    }
+                );
+
+            },
+            deleteCommune(id, index) {
+                swal({
+                        title: "Are you sure?",
+                        text: "This will delete this commune!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Delete",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: true,
+                        closeOnCancel: true
+                    },
+                    function(isConfirm) {
+                        if (isConfirm) {
+                            axios.delete('/commune_delete/' + id)
+                                .then(function(response) {
+                                    if (response.data.success) {
+                                        app.state_communes.splice(index, 1)
                                         notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                                     } else {
                                         notify('Error', response.data.error, 'red', 'topCenter', 'bounceInDown');
