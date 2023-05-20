@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Support\Facades\Auth;
+use \Spatie\Permission\Models\Role;
 class RegisterController extends Controller
 {
     /*
@@ -66,11 +68,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'username' => $data['username'],
             'fullname' => $data['fullname'],
+            'telephone' => $data['PhoneNumber'],
+            'address' => $data['address'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+
         ]);
+        $user->assignRole(4);
+        return $user;
     }
+
+
+
 }

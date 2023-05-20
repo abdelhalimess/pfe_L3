@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
         <div class="modal fade" id="edit-commune-modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -78,9 +78,9 @@
                 </div>
             </div>
         </div>
-    </div>        
+    </div>
 
-    <div class="col-md-6">
+    <div class="col-xl-12 la-sm-12">
 
         <div class="card">
             <div class="card-header table-card-header">

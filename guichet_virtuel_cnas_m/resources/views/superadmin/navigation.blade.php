@@ -16,7 +16,7 @@
         <ul class="pcoded-submenu">
         <li class="{{ (\Request::route()->getName() == 'user-profile') ? 'active' : '' }}">
                 <a href="/user_profile">
-                    <span class="pcoded-mtext">Mon profile</span>
+                    <span class="pcoded-mtext">My Profile</span>
                 </a>
             </li>
             {{-- <li class=" ">
@@ -104,7 +104,7 @@
                 </a>
             </li>
         </ul>
-    </li>    
+    </li>
         <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'services-list' || \Request::route()->getName() == 'questions-list' ) ? 'pcoded-trigger' : '' }}">
             <a href="javascript:void(0)">
                 <span class="pcoded-micon"><i class="fa fa-map "></i></span>

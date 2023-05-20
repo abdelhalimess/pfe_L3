@@ -185,9 +185,10 @@ class UserController extends Controller
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
         if ($role != 'superadmin') {
-            $user->structure_id = Auth::user()->structure_id;
+            $user->structure_id = Auth::user()->commune_id;
         } else {
-            $user->structure_id = $request->structure_id;
+
+            $user->commune_id = $request->commune_id;
         }
 
 

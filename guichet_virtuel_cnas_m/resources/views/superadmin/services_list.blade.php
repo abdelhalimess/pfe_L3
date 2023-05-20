@@ -91,7 +91,7 @@
 
 
 
-   
+
 
 
     <div class="modal fade" id="edit-service-modal" tabindex="-1" role="dialog">
@@ -261,28 +261,28 @@
                     <button type="button" class="btn btn-success waves-effect waves-light m-b-10" data-action="collapse-all">Collapse All</button>
                 </div>
                 <div class="row">
-                    
-                  
+
+
                     <div class="col-lg-4 col-sm-12">
                         <div class="cf nestable-lists">
                             <div class="dd" id="nestable2">
                                 <ol class="dd-list">
 
-                                        
+
 
                                     <li v-for="(question, index) in service_questions" :key="index"class="dd-item dd3-item" data-id="index" v-if="question.question_id == null">
                                         <div class="dd-handle dd3-handle"></div>
                                         <div  class="dd3-content">@{{ question.content }}</div>
                                         <ol class="dd-list">
-                                            
+
                                             <li  :key="index" class="dd-item dd3-item" data-id="index"  class="dd-item dd3-item" data-id="index">
                                                 <div class="dd-handle dd3-handle"></div>
                                                 <div class="dd3-content">@{{ question.children_questions[index].content }}</div>
                                             </li>
-                                            
-                                        </ol> 
+
+                                        </ol>
                                     </li> --}}
-                                    
+
                                     {{-- <li class="dd-item dd3-item" data-id="15">
                                         <div class="dd-handle dd3-handle"></div>
                                         <div class="dd3-content">Item 15</div>
@@ -295,7 +295,7 @@
                                                         <div class="dd-handle dd3-handle"></div>
                                                         <div class="dd3-content">Item 17</div>
                                                     </li>
-                                                   
+
                                                 </ol>
                                             </li>
                                             <li class="dd-item dd3-item" data-id="18">

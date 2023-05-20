@@ -9,8 +9,8 @@
 @endsection
 
 @section('page_title')
-<h4>Ajouter un utilisateur</h4>
-<span>Veuillez remplir le formulaire suivant</span>
+<h4>Add a User</h4>
+<span>Please fill the necessary fields</span>
 @endsection
 
 @section('breadcrumb')
@@ -18,7 +18,7 @@
 <a href="{{ route('home') }}"> <i class="feather icon-home"></i></a>
 </li>
 <li class="breadcrumb-item">
-<a href="{{ route('create-user') }}">Ajouter un utilisateur</a>
+<a href="{{ route('create-user') }}">Add a User</a>
 </li>
 @endsection
 
@@ -30,18 +30,18 @@
 <div class="row">
 <div class="col-lg-12 ">
         <!-- Flying Word card start -->
-        <div class="card">
+        <div class="card" id="add_user-modal">
             <div class="card-header">
-                <h5 class="text-danger">Veuillez remplir tous les champs obligatoires (*)</h5>
+                <h5 class="text-danger"> Please fill the necessary fields (*)</h5>
             <div v-if="errors.length"> @{{ errors}}</div>
             </div>
             <div class="card-block">
-                <h6 class="sub-title">Détails personnels <span class="text-danger">(*)</span> </h6>
+                <h6 class="sub-title">Personal details <span class="text-danger">(*)</span> </h6>
                 <form >
                     <div class="form-group row">
                         <div :class="[errors.fullname ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">
                             {{-- <i class="text-danger m-t-5" v-if="errors.fullname" >@{{errors.fullname.toString()}}</i> --}}
-                            <input id="fullname" type="text" class="form-control" placeholder="Nom et Prénom" v-model="fullname" data-toggle="tooltip" data-placement="top"
+                            <input id="fullname" type="text" class="form-control" placeholder="Fullname" v-model="fullname" data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.fullname" >
                             <span class="input-group-addon">
                                 <i class="icofont icofont-user" data-toggle="tooltip" data-placement="top" :data-original-title="errors.fullname"></i>
@@ -56,7 +56,7 @@
                             </span>
                         </div>
                         <div :class="[errors.telephone ? 'col-sm-4 input-group input-group-danger' : 'col-sm-4 input-group input-group-inverse']">
-                            <input type="text" class="form-control" placeholder="Numéro de télételephone" v-model="telephone"
+                            <input type="text" class="form-control" placeholder="Phone Number" v-model="telephone"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.telephone">
                             <span class="input-group-addon">
@@ -64,7 +64,7 @@
                             </span>
                         </div>
                         <div :class="[errors.address ? 'col-sm-12 input-group input-group-danger' : 'col-sm-12 input-group input-group-inverse']">
-                            <input type="text" class="form-control" placeholder="Adresse" v-model="address"
+                            <input type="text" class="form-control" placeholder="Adress" v-model="address"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.address">
                             <span class="input-group-addon">
@@ -80,7 +80,7 @@
                         <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.structure_id">
-                            <select id="structure-types" class="selectpicker show-tick" title="Type du structure.."
+                            <select id="structure-types" class="selectpicker show-tick" title="Structure type.."
                             >
                                 @foreach ($structureTypes as $structureType)
                                     <option value="{{$structureType->id}}">{{$structureType->name}}</option>
@@ -94,7 +94,7 @@
                         <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.structure_id">
-                            <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Nom du structure" data-width="100%" data-size="8">
+                            <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
 
                                 @foreach ($structureTypes as $structureType)
                                     <optgroup label="{{$structureType->name}}" >
@@ -109,7 +109,7 @@
                             </span>
                         </div>
                         <div :class="[errors.username ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">
-                            <input type="text" class="form-control" placeholder="Nom d'utilisateur"
+                            <input type="text" class="form-control" placeholder="Username"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.username" v-model="username">
                             <span class="input-group-addon">
@@ -119,7 +119,7 @@
                         <div :class="[errors.password ? 'col-sm-4 input-group input-group-danger' : 'col-sm-4 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.password">
-                            <input type="password" class="form-control" placeholder="Mot de passe" v-model="password">
+                            <input type="password" class="form-control" placeholder="Password" v-model="password">
                             <span class="input-group-addon">
                                 <i class="icofont icofont-lock"></i>
                             </span>
@@ -127,7 +127,7 @@
                         <div :class="[errors.password ? 'col-sm-4 input-group input-group-danger' : 'col-sm-4 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.password">
-                            <input type="password" class="form-control" placeholder="Confirmation du mot de passe" v-model="password_confirmation">
+                            <input type="password" class="form-control" placeholder="Password Confirmation" v-model="password_confirmation">
                             <span class="input-group-addon">
                                 <i class="icofont icofont-lock"></i>
                             </span>
@@ -135,10 +135,10 @@
                     </div>
                 </form>
                 <hr>
-                <h5 class="sub-title">Rôle et permissions <span class="text-danger">(*)</span></h5>
+                <h5 class="sub-title">Roles and permissions <span class="text-danger">(*)</span></h5>
                 <form class="row">
                     <div class="form-radio col-md-3">
-                        <h4 class="sub-title">Sélectionner un rôle <span class="text-danger">(*)</span></h4>
+                        <h4 class="sub-title">Select a Role <span class="text-danger">(*)</span></h4>
                         <p class="text-danger text-center m-t-5" v-if="errors.role_id" >@{{errors.role_id.toString()}}</p>
                         @foreach ($roles as $role)
                             <div class="radio radiofill  radio-inverse m-l-10 ">
@@ -151,7 +151,7 @@
 
                     </div>
                     <div class="col-md-9">
-                        <h4 class="sub-title text-center ">Sélectionner des permissions <span class="text-danger">(*)</span></h4>
+                        <h4 class="sub-title text-center ">Select a Permission <span class="text-danger">(*)</span></h4>
                         <p class="text-danger text-center m-t-5" v-if="errors.permissions" >@{{errors.permissions.toString()}}</p>
                         <select  multiple id="permissions">
                             @foreach ($roles as $role)
@@ -174,8 +174,8 @@
             <div class="card-footer">
                 <div class="row">
                     <div class="col-sm-12 text-right">
-                        <button type="submit" class="btn btn-primary m-r-10" v-on:click="add_user()">Sauvguarder</button>
-                        <button type="submit" class="btn btn-default" v-on:click="reset_form()">Réinitialiser</button>
+                        <button type="submit" class="btn btn-primary m-r-10" v-on:click="add_user()">Save</button>
+                        <button type="submit" class="btn btn-default" v-on:click="reset_form()">Restore</button>
                     </div>
                 </div>
             </div>
@@ -259,7 +259,7 @@ const app = new Vue({
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
-                    notify('Erreurs!','Veuillez vérifier les informations introduites','red', 'topCenter','bounceInDown');
+                    notify('Erreurs!','Please check your information','red', 'topCenter','bounceInDown');
                     } else if (error.request) {
                         console.log(error.request);
                     } else {

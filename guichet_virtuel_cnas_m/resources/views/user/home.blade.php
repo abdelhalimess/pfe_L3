@@ -13,7 +13,7 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        
+
         <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/animate.css/css/animate.css') }}">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{ asset('pages/user/css/styles.css') }}" rel="stylesheet" />
@@ -55,7 +55,7 @@
             </div>
         </header>
 
- 
+
 
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
@@ -76,8 +76,9 @@
                             {{-- <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
                             </div> --}}
-                            <div class="card" style="width: 18rem;">
-                              
+
+                            <div v-on:click="selectedService=service,select_service(service)" class="card" style="width: 18rem;">
+
                               <div class="card-body">
                                 <h5 class="card-title">@{{ service.name }}</h5>
                                 <p class="card-text">@{{ service.description }}</p>
@@ -86,7 +87,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </section>
@@ -243,12 +244,12 @@
                                     </div>
                                     <div class="row justify-content-center">
                                       <div class="col-10 card align-items-center">
-                                       
+
                                         <div class="col-8 list-group card-body text-center " id="list-tab" role="tablist">
-                                          <a v-for="(question,index) in questions" 
-                                          :key="index" :class="[ selectedQuestion == index? 'list-group-item list-group-item-action active' :  'list-group-item list-group-item-action']" 
+                                          <a v-for="(question,index) in questions"
+                                          :key="index" :class="[ selectedQuestion == index? 'list-group-item list-group-item-action active' :  'list-group-item list-group-item-action']"
                                           id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home" v-on:click="fetch_questions(question)">@{{question.content}}</a>
-                                          
+
                                         </div>
                                       </div>
                                       <br/>
@@ -270,10 +271,10 @@
                 </div>
             </div>
         </div>
-   
-  
-      
-  
+
+
+
+
         <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bower_components/jquery/js/jquery.min.js') }}"></script>
@@ -289,7 +290,7 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         {{-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> --}}
-    
+
             <script>
               const app = new Vue({
                   el: '#app',
@@ -313,8 +314,8 @@
                   methods: {
                     select_service(service) {
                               this.questions = service.questions.filter(question => question.question_id==null );
-                    
-                           
+
+
                           },
                     fetch_services() {
                               return axios.get('/getServices')
@@ -348,7 +349,7 @@
      if(this.previousQuestions.length == 0) {this.select_service(this.selectedService); return;}
                               return axios.get('/getQuestions/'+this.previousQuestions[this.previousQuestions.length-1])
                                   .then(response => {
-                              
+
                                       // this.questions = response.data.questions;
                                       this.questions =  response.data.questions;
                                       // selectedQuestion = services[0].question;
@@ -359,20 +360,20 @@
                           },
                       fetch_notifications() {
                           var app = this;
-                          
+
                           app.notifications_fetched =  false;
                           return axios.get('/getNotifications')
                               .then(function (response) {
                                   app.notifications = response.data.notifications;
                                   app.notifications_fetched =  true;
                                   if (app.notifications.length > 0) {
-                                     
+
                                   }
                               });
                       },
                           update_information(){
                           var app = this;
-          
+
                           axios.put('/update_information', {
                               'fullname':app.fullname,
                               'email':app.email,
@@ -388,13 +389,13 @@
                           app.telephone=response.data.user.telephone;
                           app.address=response.data.user.address;
                           app.reset_form();
-          
+
                           })
                           .catch(function (error) {
                               if (error.response) {
                                   //app.errors = error.response.data.errors;
                                   console.log(error.response.data.errors);
-          
+
                                   app.$set(app,'errors', error.response.data.errors);
                               notify('Erreurs!','Veuillez vérifier les informations introduites','red', 'topCenter','bounceInDown');
                               } else if (error.request) {
@@ -405,19 +406,19 @@
                           });
                       },
                       reset_form(){
-                      
-                         
+
+
                           this.password='';
                           this.password_confirmation='';
                           this.errors=[];
-                          
+
                       },
-                 
+
                       handleFilesUpload() {
                           this.decision_file = this.$refs.files.files;
                           this.decision_file_name = this.decision_file[0].name;
                           $('#decision-file').val(this.decision_file_name);
-          
+
                       },
                       block(element) {
                           $('#' + element).block({
@@ -441,7 +442,7 @@
                       unblock(element) {
                           $('#' + element).unblock();
                       },
-          
+
                   },
                   mounted() {
                       this.fetch_services();
@@ -449,10 +450,10 @@
                   created() {
                       this.fetch_services();
                   }
-          
-          
+
+
               });
-          
+
           </script>
       </div>
     </body>

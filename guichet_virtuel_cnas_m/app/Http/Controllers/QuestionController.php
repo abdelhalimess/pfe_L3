@@ -36,7 +36,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $question = new Question();
-        $question->question = $request->question;
+        $question->content = $request->content;
         $question->service_id = $request->service_id;
         $question->question_id = $request->question_id;
 

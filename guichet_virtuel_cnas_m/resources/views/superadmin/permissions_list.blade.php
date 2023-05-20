@@ -36,14 +36,14 @@
         <div class="modal-dialog" permission="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Ajouter une permission</h5>
+                    <h5 class="modal-title">Add a permission</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']"
-                    placeholder="Entrer le nom du rôle..." maxlength="25"
+                    placeholder="Enter the permission" maxlength="25"
                     v-model="newPermission" required v-on:input="errors.name=null"/>
                 <p class="text-danger m-t-5" v-if="errors.name" >@{{errors.name.toString()}}</p>
                 </div>
@@ -77,7 +77,7 @@
         </div>
     </div>
 
-    <div class="col-md-5">
+    <div class="col-xl-12 la-sm-12">
 
         <div class="card">
             <div class="card-header table-card-header">
@@ -97,8 +97,8 @@
                 </div>
             </div>
             <!-- Modal static-->
-            <div class="card-block" >
-                <div class="dt-responsive table-responsive" style="max-height:500px;">
+            <div class="card-block " >
+                <div class="dt-responsive table-responsive " style="max-height:500px;">
 
                     <table id="permissions-table" class="table table-hover table-bordered nowrap" >
                         <thead>

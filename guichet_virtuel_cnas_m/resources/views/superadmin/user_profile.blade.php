@@ -75,7 +75,7 @@ height: 40px;
                     <div class="form-group col-sm-4">
                             <label for="fullname" class="block">Fullname <span class="text-danger">(*)</span></label>
                             <div :class="[errors.fullname ? 'input-group input-group-danger' : 'input-group input-group-inverse']">
-                            <input id="fullname" type="text" class="form-control" placeholder="Fullname..." 
+                            <input id="fullname" type="text" class="form-control" placeholder="Fullname..."
                             v-model="fullname" data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.fullname" >
                             <span class="input-group-addon">
@@ -139,7 +139,7 @@ height: 40px;
                             </span>
                             </div>
                      </div>
-                        
+
                     </div>
                 </form>
             </div>
@@ -147,9 +147,9 @@ height: 40px;
                 <div class="row">
                     <div class="col-sm-12 text-right">
                         <button type="submit" class="btn btn-primary m-r-10" v-on:click="update_information()">
-                            Sauvgarder
+                            Svae
                         </button>
-                        <button type="submit" class="btn btn-default" v-on:click="reset_form()">Réinitialiser</button>
+                        <button type="submit" class="btn btn-default" v-on:click="reset_form()">Restore</button>
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@ height: 40px;
 @section('page_scripts')
 <script>
     $(document).ready(function () {
-        
+
     });
 </script>
 <script>
@@ -189,7 +189,7 @@ height: 40px;
                         .then(function (response) {
                             app.notifications = response.data.notifications;
                             if (app.notifications.length > 0 ) {
-                                
+
                             }
                         });
                 },
@@ -219,7 +219,7 @@ height: 40px;
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
-                    notify('Erreurs!','Veuillez vérifier les informations introduites','red', 'topCenter','bounceInDown');
+                    notify('Erreurs!','Please verify your details !!','red', 'topCenter','bounceInDown');
                     } else if (error.request) {
                         console.log(error.request);
                     } else {
@@ -228,14 +228,14 @@ height: 40px;
                 });
             },
             reset_form(){
-            
-               
+
+
                 this.password='';
                 this.password_confirmation='';
                 this.errors=[];
-                
+
             },
-       
+
             handleFilesUpload() {
                 this.decision_file = this.$refs.files.files;
                 this.decision_file_name = this.decision_file[0].name;

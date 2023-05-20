@@ -44,7 +44,7 @@
                         </div>
                         <div class="modal-body " >
                                         <!-- Flying Word card start -->
-                                         
+
                                                 <h6 class="sub-title">Détails personnels <span class="text-danger">(*)</span> </h6>
                                                 <form >
                                                     <div class="form-group row">
@@ -115,18 +115,18 @@
                                                         @foreach ($roles as $role)
                                                             <div class="radio radiofill  radio-inverse m-l-10 ">
                                                                 <label class="clickable">
-                                                                <input type="radio" name="role" value="{{$role->id}}" 
+                                                                <input type="radio" name="role" value="{{$role->id}}"
                                                                 @foreach ($user->roles as $r)
                                                                     @if ($r->id === $role->id )
                                                                         checked
-                                                                    @endif 
+                                                                    @endif
                                                                 @endforeach
                                                                 >
                                                                 <i class="helper"></i> {{$role->name}}
                                                                 </label>
                                                             </div>
                                                         @endforeach
-                                
+
                                                     </div>
                                                     <div class="col-md-8">
                                                         <h4 class="sub-title text-center ">Sélectionner des permissions <span class="text-danger">(*)</span></h4>
@@ -135,7 +135,7 @@
                                                             @foreach ($roles as $role)
                                                         <optgroup label="{{$role->name}}">
                                                             @foreach ($role->permissions as $permission)
-                                                            <option value="{{$permission->id}}"  
+                                                            <option value="{{$permission->id}}"
                                                               @foreach ($user->permissions as $p)
                                                                   @if ($p->id === $permission->id)
                                                                       selected ="selected"
@@ -143,9 +143,9 @@
                                                               @endforeach
                                                                 >{{$permission->name }}</option>
                                                             @endforeach
-                                
+
                                                         </optgroup>
-                                
+
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -245,11 +245,11 @@
                         @foreach ($roles as $role)
                             <div class="radio radiofill  radio-inverse m-l-10 ">
                                 <label class="clickable">
-                                <input type="radio" name="role" value="{{$role->id}}" 
+                                <input type="radio" name="role" value="{{$role->id}}"
                                 @foreach ($user->roles as $r)
                                     @if ($r->id === $role->id )
                                         checked
-                                    @endif 
+                                    @endif
                                 @endforeach
                                 >
                                 <i class="helper"></i> {{$role->name}}
@@ -265,7 +265,7 @@
                             @foreach ($roles as $role)
                         <optgroup label="{{$role->name}}">
                             @foreach ($role->permissions as $permission)
-                            <option value="{{$permission->id}}"  
+                            <option value="{{$permission->id}}"
                               @foreach ($user->permissions as $p)
                                   @if ($p->id === $permission->id)
                                       selected ="selected"
@@ -292,7 +292,7 @@
         </div>
     </div> --}}
 </div>
-  
+
 @endsection
 
 
@@ -306,7 +306,7 @@ $(document).ready(function() {
         selectableOptgroup: true,
         keepOrder: true
     });
-  
+
 
 
 });
@@ -318,7 +318,7 @@ const app = new Vue({
             return {
                 fullname:'<?php echo $user->fullname ?>',
                 email:'<?php echo $user->email ?>',
-                teletelephone:'<?php echo $user->teletelephone ?>',
+                teletelephone:'<?php echo $user->telephone ?>',
                 address:'<?php echo $user->address ?>',
                 username:'<?php echo $user->username ?>',
                 password:'',
@@ -387,9 +387,9 @@ const app = new Vue({
                 this.role_id='<?php echo $user->role_id ?>';
                 this.errors=[];
                // $('#permissions').multiSelect('deselect_all');
-                
+
             },
-       
+
 
         },
         created(){
