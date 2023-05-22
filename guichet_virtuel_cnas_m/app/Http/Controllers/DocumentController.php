@@ -93,9 +93,9 @@ class DocumentController extends Controller
         //
     }
 
-    public function getDocuments()
+    public function getDocuments($id)
     {
-        $documents = Document::all();
+        $documents = Document::where('question_id', '=', $id)->get();
         return compact('documents');
     }
 }

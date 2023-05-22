@@ -130,4 +130,12 @@ class QuestionController extends Controller
             'questions' => $questions,
         ]);
     }
+
+    public function getDocuments($id)
+    {
+        $question = Question::with('documents')->findOrFail($id);
+        return response()->json([
+            'question' => $question
+        ]);
+    }
 }

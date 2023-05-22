@@ -19,6 +19,7 @@ use App\Http\Controllers\StructureController;
 use App\Http\Controllers\StructureTypeController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\CommuneController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -114,3 +115,5 @@ Route::delete('/structure_delete/{id}', [StructureController::class, 'destroy'])
 Route::get('structuretypes_list', [StructureTypeController::class, 'index'])->name('structuretypes-list')->middleware(['auth', 'role:superadmin']);
 Route::delete('/structuretype_delete/{id}', [StructureTypeController::class, 'destroy'])->name('structuretype-delete')->middleware(['auth', 'role:superadmin']);
 Route::get('/getTypes', [StructureTypeController::class, 'getTypes'])->name('getTypes')->middleware(['auth', 'role:superadmin']);
+
+Route::get('/getDocuments/{id}', [QuestionController::class, 'getDocuments'])->name('getDocuments')->middleware(['auth', 'role:superadmin|user']);
