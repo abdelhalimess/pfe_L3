@@ -85,13 +85,13 @@ class StructureController extends Controller
     public function update(Request $request, $id)
     {
 
-        $structure = Structure::with('state')->findOrFail($id);
+        $structure = Structure::with('state','structureType')->findOrFail($id);
         $structure->name = $request->name;
         $structure->state_id = $request->state_id;
-        $structure->structure_type_id = $request->structure_id;
+        $structure->structure_type_id = $request->structure_type_id;
 
         $structure->save();
-
+        $structure = Structure::with('state','structureType')->findOrFail($id);
         return response()->json([
             'success' => 'Structure updated with success',
             'structure' => $structure
