@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Staudenmeir\EloquentAdjacencyList\Queries\RecursiveQuery;
+
 
 class QuestionController extends Controller
 {
@@ -96,17 +98,54 @@ class QuestionController extends Controller
 
     public function getQuestions()
     {
-        $questions = Question::whereNull('question_id')
-            ->with('childrenQuestions')
-            ->get();
-        return  compact('questions');
+
+        $qts = Question::tree()->get();
+
+        $tree = $qts->toTree();
+       
+        $questions = Question::all();
+        return  compact('questions','tree');
 
 
 
         // $questions = Question::with('')->get();
         // return compact('questions');
     }
+    // public function getServicesQuestions($id)
+    // {
 
+    //     $query = Question::where('service_id', $id)->orderBy('id');
+
+    //     $tree = $query->get()->toTree();
+    
+    //     return compact('tree');
+
+    // }
+    public function getServicesQuestions($id)
+    {
+        $qts = Question::with('children')->where('service_id', $id)->get();
+    
+        $tree = $this->buildTree($qts, null);
+    
+        return compact('tree');
+    }
+    
+    private function buildTree($questions, $parentId = null)
+    {
+        $tree = [];
+    
+        foreach ($questions as $question) {
+            if ($question->question_id === $parentId) {
+                $children = $this->buildTree($questions, $question->id);
+                if ($children->isNotEmpty()) {
+                    $question->children = $children;
+                }
+                $tree[] = $question;
+            }
+        }
+    
+        return collect($tree);
+    }
     public function attachDocuments(Request $request, $id)
     {
 
@@ -138,4 +177,6 @@ class QuestionController extends Controller
             'question' => $question
         ]);
     }
+
+   
 }

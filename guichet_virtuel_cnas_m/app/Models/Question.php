@@ -12,10 +12,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Question extends Model
 {
     use HasFactory;
-
+    use \Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 
     protected $fillable = ['content', 'service_id'];
+
+    public function getParentKeyName()
+    {
+        return 'question_id';
+    }
+
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
@@ -24,5 +30,10 @@ class Question extends Model
     public function documents(): BelongsToMany
     {
         return $this->belongsToMany(Document::class, 'questions_documents', 'question_id', 'document_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Question::class, 'question_id')->with('children');
     }
 }

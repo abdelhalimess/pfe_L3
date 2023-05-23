@@ -4,6 +4,7 @@
       var updateOutput = function(e) {
           var list = e.length ? e : $(e.target),
               output = list.data('output');
+            
           if (window.JSON) {
               output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
           } else {
@@ -15,7 +16,8 @@
      
       // activate Nestable for list 2
       $('#nestable2').nestable({
-              group: 1
+              group: 1,
+              handleClass:'123',
           })
           .on('change', updateOutput);
 

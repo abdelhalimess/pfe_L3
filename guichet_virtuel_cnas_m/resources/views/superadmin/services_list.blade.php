@@ -161,7 +161,7 @@
                             <tbody>
                                 <tr v-for="(service, index) in services" v-bind:key="index"
                                     :class="{ 'selected-row': selectedServiceName === service.name }"
-                                    v-on:click="showQuestions(service, service.questions), selectedServiceIndex = index">
+                                    v-on:click="fetch_services_questions(service)">
                                     <td>@{{ index + 1 }}</td>
                                     <td>@{{ service.name }}</td>
                                     <td>@{{ service.description }}</td>
@@ -178,7 +178,7 @@
                                                 data-placement="top" data-original-title="Delete">
                                             </i>
                                             <i class="feather icon-eye text-warning f-18 clickable"
-                                                v-on:click="showQuestions(service, service.questions)"
+                                                v-on:click="showQuestions(service, service.questions), fetch_questions()"
                                                 data-toggle="tooltip" data-placement="top"
                                                 data-original-title="Show Questions">
                                             </i>
@@ -245,17 +245,17 @@
         </div>
     </div>
 
-    {{-- <div class="col-md-12">
+     <div class="col-md-12">
 
         <div class="card-header">
             <h5>Nestable</h5>
         </div>
         <div class="card">
             <div class="card-header">
-                <h5>Nestable</h5>
+                <h5>Nestable @{{ tree.length}}</h5>
 
-            </div> --}}
-            {{-- <div class="card-block">
+            </div> 
+            <div class="card-block">
                 <div id="nestable-menu" class="m-b-10">
                     <button type="button" class="btn btn-primary waves-effect waves-light m-b-10 m-r-20" data-action="expand-all">Expand All</button>
                     <button type="button" class="btn btn-success waves-effect waves-light m-b-10" data-action="collapse-all">Collapse All</button>
@@ -263,60 +263,54 @@
                 <div class="row">
 
 
+                    <div class="col-lg-12 col-sm-12">
+                        <div class="cf nestable-lists">
+                            <div class="dd" id="nestable2">
+                                <tree-component :tree="tree"></tree-component>
+                             
+                            </div>
+                        </div>
+                    </div>
+{{-- 
                     <div class="col-lg-4 col-sm-12">
                         <div class="cf nestable-lists">
                             <div class="dd" id="nestable2">
                                 <ol class="dd-list">
-
-
-
-                                    <li v-for="(question, index) in service_questions" :key="index"class="dd-item dd3-item" data-id="index" v-if="question.question_id == null">
+                                    <li class="dd-item dd3-item" data-id="13">
                                         <div class="dd-handle dd3-handle"></div>
-                                        <div  class="dd3-content">@{{ question.content }}</div>
-                                        <ol class="dd-list">
-
-                                            <li  :key="index" class="dd-item dd3-item" data-id="index"  class="dd-item dd3-item" data-id="index">
-                                                <div class="dd-handle dd3-handle"></div>
-                                                <div class="dd3-content">@{{ question.children_questions[index].content }}</div>
-                                            </li>
-
-                                        </ol>
-                                    </li> --}}
-
-                                    {{-- <li class="dd-item dd3-item" data-id="15">
+                                        <div class="dd3-content">Item 13</div>
+                                    </li>
+                                    <li class="dd-item dd3-item" data-id="14">
+                                        <div class="dd-handle dd3-handle"></div>
+                                        <div class="dd3-content">Item 14</div>
+                                    </li>
+                                    <li class="dd-item dd3-item" data-id="15">
                                         <div class="dd-handle dd3-handle"></div>
                                         <div class="dd3-content">Item 15</div>
                                         <ol class="dd-list">
                                             <li class="dd-item dd3-item" data-id="16">
-                                                <div class="dd3-content">Item 16</div>
                                                 <div class="dd-handle dd3-handle"></div>
-                                                <ol class="dd-list">
-                                                    <li class="dd-item dd3-item" data-id="17">
-                                                        <div class="dd-handle dd3-handle"></div>
-                                                        <div class="dd3-content">Item 17</div>
-                                                    </li>
-
-                                                </ol>
+                                                <div class="dd3-content">Item 16</div>
+                                            </li>
+                                            <li class="dd-item dd3-item" data-id="17">
+                                                <div class="dd-handle dd3-handle"></div>
+                                                <div class="dd3-content">Item 17</div>
                                             </li>
                                             <li class="dd-item dd3-item" data-id="18">
                                                 <div class="dd-handle dd3-handle"></div>
                                                 <div class="dd3-content">Item 18</div>
                                             </li>
-                                            <li class="dd-item dd3-item" data-id="19">
-                                                <div class="dd-handle dd3-handle"></div>
-                                                <div class="dd3-content">Item 19</div>
-                                            </li>
-                                        </ol> --}}
-                                    {{-- </li>
+                                        </ol>
+                                    </li>
                                 </ol>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
 
-    </div> --}}
+    </div> 
 @endsection
 
 @section('page_scripts')
@@ -326,20 +320,68 @@
     <script type="text/javascript" src="{{ asset('pages/nestable/custom-nestable.js') }}"></script>
 
     <script>
-        // $(document).ready(function() {
-        //     $('#test').multiSelect({
-        //         selectableHeader: "<div class='custom-header'>Available communes</div>",
-        //         selectionHeader: "<div class='custom-header'>Selected communes</div>",
+        
 
-        //     });
-
-        //     $('#assign-communes-modal').on('hide.bs.modal', function() {
-        //         $('#test').multiSelect('deselect_all');
-        //     });
-        // });
+    
     </script>
 
     <script>
+       Vue.component('tree-component', {
+      props: {
+        tree: {
+          type: Array,
+          default: () => []
+        }
+      },
+      template: `
+        <ol class="dd-list">
+          <li v-for="question in tree" :key="question.id" class="dd-item dd3-item" :data-id="question.id" :data-children="question.children && question.children.length ? 'true' : 'false'">
+            <div class="dd-handle dd3-handle" ></div>
+            <div class="dd3-content" style="display: flex;
+  flex-direction: row;
+  justify-content: space-between;">@{{ question.content }} 
+               
+                                                           
+  <div class="text-center" style="display: flex;
+  flex-direction: row;
+  justify-content: space-between;">
+  <div class="col-lg-2 col-sm-2" style="display: flex;
+  flex-direction: row;
+  justify-content: space-between;">
+                                            <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
+                                                <i class="feather icon-edit text-custom f-18 clickable md-trigger"
+                                                    data-toggle="modal" data-target="#edit-service-modal"
+                                                    v-on:click="questionContecnt=question.content">
+                                                </i>
+                                            </span>&nbsp;&nbsp;
+                                            <i class="feather icon-trash text-danger f-18 clickable"
+                                                v-on:click="deleteQuestion(question.id, index)" data-toggle="tooltip"
+                                                data-placement="top" data-original-title="Delete">
+                                            </i>
+                                        </div> 
+                                            <div class="col-lg-1 col-sm-1" v-if="question.children && question.children.length==0">
+                                            <i class="feather icon-file text-warning f-18 clickable"
+                                                v-on:click="showDocuments(question)"
+                                                data-toggle="tooltip" data-placement="top"
+                                                data-original-title="Show Questions" >
+                                            </i>
+
+                                                               
+                                        </div> 
+                                        <div class="col-lg-1 col-sm-1" v-else>                     
+                                        </div>                            
+                                        </div>                            
+                                     
+                                      
+                                                          
+                                                      
+                                        </div>
+            <tree-component v-if="question.children && question.children.length" :tree="question.children"></tree-component>
+          </li>
+        </ol>
+      `
+    });
+
         const app = new Vue({
             el: '#app',
             data() {
@@ -358,6 +400,7 @@
                     question_documents: [],
                     services: [],
                     questions: [],
+                    tree: [],
                     selectedQuestions: [],
                     errors: [],
                     notifications: [],
@@ -388,7 +431,63 @@
                         .then(function(response) {
                             this.questions = response.data.questions;
                             console.log("hna");
-                            console.log( response.data.questions);
+                            app.tree = response.data.tree;
+                            console.log(app.tree);
+                            
+                            // this.questions.forEach(question => {
+                            //     $('#test').multiSelect(
+                            //         'addOption', {
+                            //             value: question.id,
+                            //             text: question.question
+                            //         },
+                            //     );
+                            // });
+                        })
+                        .catch();
+                },
+                fetch_services_questions(service) {
+                    return axios.get('/getServicesQuestions/'+service.id)
+                        .then(function(response) {
+                            // this.questions = response.data.questions;
+                            console.log("hna");
+                            app.tree = response.data.tree;
+                            console.log(app.tree);
+                            var updateOutput = function(e) {
+          var list = e.length ? e : $(e.target),
+              output = list.data('output');
+            
+          if (window.JSON) {
+              output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
+          } else {
+              output.val('JSON browser support required for this demo.');
+          }
+      };
+
+  
+     
+      // activate Nestable for list 2
+      $('#nestable2').nestable({
+              group: 1,
+              handleClass:'123',
+          })
+          .on('change', updateOutput);
+
+   
+
+      // output initial serialised data
+      updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+      $('#nestable-menu').on('click', function(e) {
+          var target = $(e.target),
+              action = target.data('action');
+          if (action === 'expand-all') {
+              $('.dd').nestable('expandAll');
+          }
+          if (action === 'collapse-all') {
+              $('.dd').nestable('collapseAll');
+
+          }
+      });
                             // this.questions.forEach(question => {
                             //     $('#test').multiSelect(
                             //         'addOption', {
