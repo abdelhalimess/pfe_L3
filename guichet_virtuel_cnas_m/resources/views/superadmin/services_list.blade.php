@@ -335,9 +335,9 @@
       },
       template: `
         <ol class="dd-list">
-          <li v-for="question in tree" :key="question.id" class="dd-item dd3-item" :data-id="question.id" :data-children="question.children && question.children.length ? 'true' : 'false'">
+          <li v-for="question in tree" :key="question.id" class="dd-item dd3-item" :data-id="question.id" :data-children="question.children && question.children.length ? 'true' : 'false'" >
             <div class="dd-handle dd3-handle" ></div>
-            <div class="dd3-content" style="display: flex;
+            <div class="dd3-content" style="display: flex; height:40px;
   flex-direction: row;
   justify-content: space-between;">@{{ question.content }} 
                
@@ -345,31 +345,41 @@
   <div class="text-center" style="display: flex;
   flex-direction: row;
   justify-content: space-between;">
-  <div class="col-lg-2 col-sm-2" style="display: flex;
-  flex-direction: row;
-  justify-content: space-between;">
-                                            <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
-                                                <i class="feather icon-edit text-custom f-18 clickable md-trigger"
-                                                    data-toggle="modal" data-target="#edit-service-modal"
-                                                    v-on:click="questionContecnt=question.content">
-                                                </i>
-                                            </span>&nbsp;&nbsp;
-                                            <i class="feather icon-trash text-danger f-18 clickable"
-                                                v-on:click="deleteQuestion(question.id, index)" data-toggle="tooltip"
-                                                data-placement="top" data-original-title="Delete">
-                                            </i>
-                                        </div> 
-                                            <div class="col-lg-1 col-sm-1" v-if="question.children && question.children.length==0">
-                                            <i class="feather icon-file text-warning f-18 clickable"
-                                                v-on:click="showDocuments(question)"
-                                                data-toggle="tooltip" data-placement="top"
-                                                data-original-title="Show Questions" >
-                                            </i>
 
-                                                               
-                                        </div> 
-                                        <div class="col-lg-1 col-sm-1" v-else>                     
-                                        </div>                            
+
+
+
+
+
+  <div class="dropdown-secondary dropdown ">
+                                        <button
+                                            class="btn btn-inverse btn-mini dropdown-toggle waves-light b-none txt-muted "
+                                            type="button" id="dropdown11" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false"><i class="icofont icofont-options f-16"></i></button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown11"
+                                            data-dropdown-in="fadeIn" data-dropdown-out="fadeOut"
+                                            x-placement="top-start"
+                                            style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                            <a data-toggle="modal" data-target="#mission-modal"
+                                                class="dropdown-item waves-light waves-effect clickable"
+                                                v-on:click="edit_mission(mission,index)"><i
+                                                    class="icofont icofont-ui-edit f-18"></i> Edit</a>
+                                            
+                                            <a class="dropdown-item waves-light waves-effect clickable" v-on:click="show_docoments(question)"
+                                            ><i
+                                                    class="icofont icofont-print f-18"></i> Show documents</a>
+                                            <a class="dropdown-item waves-light waves-effect clickable" v-on:click="add_nested_question(question);"><i
+                                                    class="icofont icofont-ui-calculator f-18"></i> Add Question</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item waves-light waves-effect clickable text-danger"
+                                                v-on:click="delete_question(question.id,index)"><i
+                                                    class="feather icon-trash text-danger f-18"></i> Delete</a>
+                                        </div>
+                                        <!-- end of dropdown menu -->
+                                    </div>
+
+                                           
+                                                                   
                                         </div>                            
                                      
                                       
@@ -446,6 +456,9 @@
                         .catch();
                 },
                 fetch_services_questions(service) {
+                    app.service = service;
+  app.selectedService = service.id;
+                    app.selectedServiceName = service.name;
                     return axios.get('/getServicesQuestions/'+service.id)
                         .then(function(response) {
                             // this.questions = response.data.questions;
