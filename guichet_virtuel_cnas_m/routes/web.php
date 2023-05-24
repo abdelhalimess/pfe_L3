@@ -93,6 +93,7 @@ Route::post('/stateAddCommunes/{id}', [StateController::class, 'addCommunes'])->
 Route::resource('services', ServiceController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 Route::resource('questions', QuestionController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 Route::resource('documents', DocumentController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
+Route::post('updateDocument/{id}', [DocumentController::class,"update"])->middleware(['auth', 'role_or_permission:admin|superadmin']);
 Route::get('services_list', [ServiceController::class, 'index'])->name('services-list')->middleware(['auth', 'role:superadmin']);
 Route::put('/services_edit/{id}', [ServiceController::class, 'update'])->name('service-update')->middleware(['auth', 'role:superadmin']);
 

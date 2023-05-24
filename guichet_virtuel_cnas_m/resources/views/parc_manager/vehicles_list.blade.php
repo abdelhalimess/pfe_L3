@@ -726,7 +726,7 @@ const app = new Vue({
                         });
                 },
         handleFilesUpload() {
-                this.decision_file = this.$refs.files.files;
+                app.decision_file = app.$refs.files.files;
                 this.decision_file_name = this.decision_file[0].name;
                 $('#decision-file').val(this.decision_file_name);
 

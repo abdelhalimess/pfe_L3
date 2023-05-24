@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
@@ -36,8 +37,12 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         $document = new Document();
+        if ($request->hasFile('document_file')) {
+            $document_file = $request->file('document_file')->store('DOCUMENTS');
+            $document->url =$document_file;
+        }
         $document->name = $request->name;
-        $document->url = $request->url;
+        // $document->url = $request->url;
 
         $document->save();
 
@@ -83,13 +88,17 @@ class DocumentController extends Controller
 
         $document = Document::where('id', '=', $id)->first();
         $document->name = $request->name;
-        $document->url = $request->url;
+        if ($request->hasFile('document_file')) {
+            $document_file = $request->file('document_file')->store('DOCUMENTS');
+            $document->url =$document_file;
+        }
 
         $document->save();
 
         return response()->json([
-            'success' => 'Service updated with success',
-            'document' => $document
+            'success' => 'Document updated with success',
+            'document' => $document,
+            'request' => $request
         ]);
     }
 
