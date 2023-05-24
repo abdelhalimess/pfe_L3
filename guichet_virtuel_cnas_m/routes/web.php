@@ -104,6 +104,7 @@ Route::get('/getServicesQuestions/{id}', [QuestionController::class, 'getService
 Route::get('/getQuestions/{id}', [UserController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin']);
 Route::get('/attachDocuments', [QuestionController::class, 'attachDocuments'])->name('attachDocuments')->middleware(['auth', 'role:superadmin']);
 Route::post('/servicesAddQuestion/{id}', [ServiceController::class, 'addQuestions'])->name('addQuestions')->middleware(['auth', 'role:superadmin']);
+Route::post('/addNestedQuestion', [QuestionController::class, 'addNestedQuestion'])->name('addNestedQuestion')->middleware(['auth', 'role:superadmin']);
 
 Route::get('structures_list', [StructureController::class, 'index'])->name('structures-list')->middleware(['auth', 'role:superadmin']);
 Route::resource('structures', StructureController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);

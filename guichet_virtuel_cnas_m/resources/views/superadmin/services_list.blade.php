@@ -27,11 +27,6 @@
 
 
 @section('page_content')
-
-
-
-
-
     {{-- Modal static --}}
     <div class="modal fade" id="add-service-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -67,7 +62,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add a Question</h5>
+                    <h5 class="modal-title">Add a Question for : <span class="label label-info" v-if="selectedQuestion">@{{ selectedQuestion.content }} </span> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -83,7 +78,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary waves-effect waves-light"
-                        v-on:click="add_question()">Save</button>
+                        v-on:click="add_nested_question(selectedQuestion)">Save</button>
                 </div>
             </div>
         </div>
@@ -245,20 +240,22 @@
         </div>
     </div>
 
-     <div class="col-md-12">
+    <div class="col-md-12">
 
         <div class="card-header">
             <h5>Nestable</h5>
         </div>
         <div class="card">
             <div class="card-header">
-                <h5>Nestable @{{ tree.length}}</h5>
+                <h5>Nestable @{{ tree.length }}</h5>
 
-            </div> 
+            </div>
             <div class="card-block">
                 <div id="nestable-menu" class="m-b-10">
-                    <button type="button" class="btn btn-primary waves-effect waves-light m-b-10 m-r-20" data-action="expand-all">Expand All</button>
-                    <button type="button" class="btn btn-success waves-effect waves-light m-b-10" data-action="collapse-all">Collapse All</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light m-b-10 m-r-20"
+                        data-action="expand-all">Expand All</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light m-b-10"
+                        data-action="collapse-all">Collapse All</button>
                 </div>
                 <div class="row">
 
@@ -267,11 +264,11 @@
                         <div class="cf nestable-lists">
                             <div class="dd" id="nestable2">
                                 <tree-component :tree="tree"></tree-component>
-                             
+
                             </div>
                         </div>
                     </div>
-{{-- 
+                    {{-- 
                     <div class="col-lg-4 col-sm-12">
                         <div class="cf nestable-lists">
                             <div class="dd" id="nestable2">
@@ -310,7 +307,7 @@
             </div>
         </div>
 
-    </div> 
+    </div>
 @endsection
 
 @section('page_scripts')
@@ -319,78 +316,59 @@
     <script type="text/javascript" src="{{ asset('pages/nestable/jquery.nestable.js') }}"></script>
     <script type="text/javascript" src="{{ asset('pages/nestable/custom-nestable.js') }}"></script>
 
-    <script>
-        
-
-    
-    </script>
+    <script></script>
 
     <script>
-       Vue.component('tree-component', {
-      props: {
-        tree: {
-          type: Array,
-          default: () => []
-        }
-      },
-      template: `
-        <ol class="dd-list">
-          <li v-for="question in tree" :key="question.id" class="dd-item dd3-item" :data-id="question.id" :data-children="question.children && question.children.length ? 'true' : 'false'" >
-            <div class="dd-handle dd3-handle" ></div>
-            <div class="dd3-content" style="display: flex; height:40px;
-  flex-direction: row;
-  justify-content: space-between;">@{{ question.content }} 
-               
-                                                           
-  <div class="text-center" style="display: flex;
-  flex-direction: row;
-  justify-content: space-between;">
+        Vue.component('tree-component', {
+            props: {
+                tree: {
+                    type: Array,
+                    default: () => []
+                }
+            },
+            template: `
+            <ol class="dd-list">
+    <li v-for="question in tree" :key="question.id" class="dd-item dd3-item" :data-id="question.id"
+        :data-children="question.children && question.children.length ? 'true' : 'false'">
+        <div class="dd-handle dd3-handle"></div>
+        <div class="dd3-content" style="display: flex; height:40px;
+                flex-direction: row;
+                justify-content: space-between;">@{{ question.content }}
+            <div class="text-center" style="display: flex;
+                flex-direction: row;
+                justify-content: space-between;">
+                <div class="dropdown-secondary dropdown ">
+                    <button class="btn btn-inverse btn-mini dropdown-toggle waves-light b-none txt-muted " type="button" style="    margin-top: -5px"
+                        id="dropdown11" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                            class="icofont icofont-options f-16"></i></button>
+                    <div class="dropdown-menu" aria-labelledby="dropdown11" data-dropdown-in="fadeIn"
+                        data-dropdown-out="fadeOut" x-placement="top-start"
+                        style="position: absolute; transform: translate3d(0px, -2px, 0px); top: -10px; left: 0px; will-change: transform;">
+                        <a data-toggle="modal" data-target="#mission-modal"
+                            class="dropdown-item waves-light waves-effect clickable"
+                            v-on:click="edit_mission(mission,index)"><i class="icofont icofont-ui-edit f-18"></i>
+                            Edit</a>
 
-
-
-
-
-
-  <div class="dropdown-secondary dropdown ">
-                                        <button
-                                            class="btn btn-inverse btn-mini dropdown-toggle waves-light b-none txt-muted "
-                                            type="button" id="dropdown11" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false"><i class="icofont icofont-options f-16"></i></button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown11"
-                                            data-dropdown-in="fadeIn" data-dropdown-out="fadeOut"
-                                            x-placement="top-start"
-                                            style="position: absolute; transform: translate3d(0px, -2px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                            <a data-toggle="modal" data-target="#mission-modal"
-                                                class="dropdown-item waves-light waves-effect clickable"
-                                                v-on:click="edit_mission(mission,index)"><i
-                                                    class="icofont icofont-ui-edit f-18"></i> Edit</a>
-                                            
-                                            <a class="dropdown-item waves-light waves-effect clickable" v-on:click="show_docoments(question)"
-                                            ><i
-                                                    class="icofont icofont-print f-18"></i> Show documents</a>
-                                            <a class="dropdown-item waves-light waves-effect clickable" v-on:click="add_nested_question(question);"><i
-                                                    class="icofont icofont-ui-calculator f-18"></i> Add Question</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item waves-light waves-effect clickable text-danger"
-                                                v-on:click="delete_question(question.id,index)"><i
-                                                    class="feather icon-trash text-danger f-18"></i> Delete</a>
-                                        </div>
-                                        <!-- end of dropdown menu -->
-                                    </div>
-
-                                           
-                                                                   
-                                        </div>                            
-                                     
-                                      
-                                                          
-                                                      
-                                        </div>
-            <tree-component v-if="question.children && question.children.length" :tree="question.children"></tree-component>
-          </li>
-        </ol>
-      `
-    });
+                        <a class="dropdown-item waves-light waves-effect clickable" v-if=" question.children.length==0"
+                            v-on:click="show_docoments(question)"><i class="icofont icofont-print f-18"></i> Show
+                            documents</a>
+                        <a class="dropdown-item waves-light waves-effect clickable" data-toggle="modal" data-target="#add-question-modal"
+                            v-on:click="app.selectedQuestion = question"><i
+                                class="icofont icofont-ui-calculator f-18"></i> Add Question</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item waves-light waves-effect clickable text-danger"
+                            v-on:click="app.deleteQuestion(question.id)"><i
+                                class="feather icon-trash text-danger f-18"></i> Delete</a>
+                    </div>
+                    <!-- end of dropdown menu -->
+                </div>
+            </div>
+        </div>
+        <tree-component v-if="question.children && question.children.length" :tree="question.children"></tree-component>
+    </li>
+</ol>
+                `
+        });
 
         const app = new Vue({
             el: '#app',
@@ -415,6 +393,7 @@
                     errors: [],
                     notifications: [],
                     notifications_fetched: false,
+                    selectedQuestion :'',
                 }
             },
             methods: {
@@ -443,7 +422,7 @@
                             console.log("hna");
                             app.tree = response.data.tree;
                             console.log(app.tree);
-                            
+
                             // this.questions.forEach(question => {
                             //     $('#test').multiSelect(
                             //         'addOption', {
@@ -457,50 +436,51 @@
                 },
                 fetch_services_questions(service) {
                     app.service = service;
-  app.selectedService = service.id;
+                    app.selectedService = service.id;
                     app.selectedServiceName = service.name;
-                    return axios.get('/getServicesQuestions/'+service.id)
+                    return axios.get('/getServicesQuestions/' + service.id)
                         .then(function(response) {
                             // this.questions = response.data.questions;
                             console.log("hna");
                             app.tree = response.data.tree;
                             console.log(app.tree);
                             var updateOutput = function(e) {
-          var list = e.length ? e : $(e.target),
-              output = list.data('output');
-            
-          if (window.JSON) {
-              output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
-          } else {
-              output.val('JSON browser support required for this demo.');
-          }
-      };
+                                var list = e.length ? e : $(e.target),
+                                    output = list.data('output');
 
-  
-     
-      // activate Nestable for list 2
-      $('#nestable2').nestable({
-              group: 1,
-              handleClass:'123',
-          })
-          .on('change', updateOutput);
+                                if (window.JSON) {
+                                    output.val(window.JSON.stringify(list.nestable(
+                                        'serialize'))); //, null, 2));
+                                } else {
+                                    output.val('JSON browser support required for this demo.');
+                                }
+                            };
 
-   
 
-      // output initial serialised data
-      updateOutput($('#nestable2').data('output', $('#nestable2-output')));
 
-      $('#nestable-menu').on('click', function(e) {
-          var target = $(e.target),
-              action = target.data('action');
-          if (action === 'expand-all') {
-              $('.dd').nestable('expandAll');
-          }
-          if (action === 'collapse-all') {
-              $('.dd').nestable('collapseAll');
+                            // activate Nestable for list 2
+                            $('#nestable2').nestable({
+                                    group: 1,
+                                    handleClass: '123',
+                                })
+                                .on('change', updateOutput);
 
-          }
-      });
+
+
+                            // output initial serialised data
+                            updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+                            $('#nestable-menu').on('click', function(e) {
+                                var target = $(e.target),
+                                    action = target.data('action');
+                                if (action === 'expand-all') {
+                                    $('.dd').nestable('expandAll');
+                                }
+                                if (action === 'collapse-all') {
+                                    $('.dd').nestable('collapseAll');
+
+                                }
+                            });
                             // this.questions.forEach(question => {
                             //     $('#test').multiSelect(
                             //         'addOption', {
@@ -544,6 +524,30 @@
                         })
                         .then(function(response) {
                             app.service.questions.push(response.data.question);
+                            $('#add-question-modal').modal('toggle');
+                            app.newQuestion = '';
+
+                            notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                        })
+                        .catch(function(error) {
+                            if (error.response) {
+                                app.$set(app, 'errors', error.response.data.errors);
+                            } else if (error.request) {
+                                console.log(error.request);
+                            } else {
+                                console.log('Error', error.message);
+                            }
+                        });
+                },
+                add_nested_question() {
+                    axios.post('/addNestedQuestion', {
+                            'content': app.newQuestion,
+                            'service_id': app.selectedService,
+                            'question_id': app.selectedQuestion.id,
+                        })
+                        .then(function(response) {
+                            // app.service.questions.push(response.data.question);
+                            app.fetch_services_questions(app.service);
                             $('#add-question-modal').modal('toggle');
                             app.newQuestion = '';
 
@@ -612,6 +616,36 @@
                                             app.services.splice(index, 1)
                                             app.selectedServiceName = '';
                                             app.selectedServiceIndex = '';
+                                            notify('Success', response.data.success, 'green', 'topCenter',
+                                                'bounceInDown');
+                                        } else {
+                                            notify('Error', response.data.error, 'red', 'topCenter',
+                                                'bounceInDown');
+                                        }
+                                    });
+                            }
+                        }
+                    );
+
+                },
+                deleteQuestion(id) {
+                    swal({
+                            title: "Are you sure?",
+                            text: "This action is irreversible!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Delete",
+                            cancelButtonText: "Cancel",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        },
+                        function(isConfirm) {
+                            if (isConfirm) {
+                                axios.delete('/questions/' + id)
+                                    .then(function(response) {
+                                        if (response.data.success) {
+                                           app.fetch_services_questions(app.service);
                                             notify('Success', response.data.success, 'green', 'topCenter',
                                                 'bounceInDown');
                                         } else {

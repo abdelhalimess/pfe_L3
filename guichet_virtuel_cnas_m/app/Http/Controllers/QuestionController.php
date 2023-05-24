@@ -93,7 +93,13 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $questions = Question::where('question_id',$id)->get();
+        foreach ($questions as $question) {
+            $question->delete();
+           
+        }
+        Question::Where("id",$id)->delete();
+        return response()->json(['success' => 'The question has been deleted']);
     }
 
     public function getQuestions()
@@ -178,5 +184,19 @@ class QuestionController extends Controller
         ]);
     }
 
-   
+   public function addNestedQuestion(Request $request)
+   {
+    $question = new Question();
+    $question->content = $request->content;
+    $question->service_id = $request->service_id;
+    $question->question_id = $request->question_id;
+
+    $question->save();
+
+    // return compact('validated');
+    return response()->json([
+        'success' => 'Information added with success',
+        'question' => $question
+    ]);
+   }
 }
