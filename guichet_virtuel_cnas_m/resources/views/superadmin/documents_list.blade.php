@@ -45,7 +45,7 @@
                     <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter document name..." maxlength="25" v-model="newDocumentName" required v-on:input="errors.name=null" />
                     <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
                     <br>
-                    <input type="text" :class="[errors.url ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter document code..." maxlength="25" v-model="newDocumentUrl" required v-on:input="errors.url=null" />
+                    <input type="text" :class="[errors.url ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter document url..." maxlength="25" v-model="newDocumentUrl" required v-on:input="errors.url=null" />
                     <p class="text-danger m-t-5" v-if="errors.code">@{{errors.url.toString()}}</p>
                 </div>
                 <div class="modal-footer">
@@ -118,13 +118,13 @@
                             v-on:click="selectedDocumentIndex = index">
                                 <td>@{{ index+1}}</td>
                                 <td>@{{ document.name }}</td>
-                                <td>@{{ document.code }}</td>
+                                <td>@{{ document.url }}</td>
                                 <td>
                                     <div class="text-center">
                                         <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
                                             <i class="feather icon-edit text-custom f-18 clickable md-trigger"
                                                 data-toggle="modal" data-target="#edit-document-modal"
-                                                v-on:click="documentName=document.name, documentCode=document.code, selectedDocument=document.id">
+                                                v-on:click="documentName=document.name, documentCode=document.url, selectedDocument=document.id">
                                             </i>
                                         </span>
                                         <i class="feather icon-trash text-danger f-18 clickable" v-on:click="deleteDocument(document.id, index)"
@@ -192,7 +192,7 @@ const app = new Vue({
                     },
                     function(isConfirm) {
                         if (isConfirm) {
-                            axios.delete('/document_delete/' + id)
+                            axios.delete('/documents/' + id)
                                 .then(function(response) {
                                     if (response.data.success) {
                                         app.documents.splice(index, 1)
@@ -232,10 +232,10 @@ const app = new Vue({
                         }
                     });
             },
-            update_document(name, code, index) {
+            update_document(name, url, index) {
                 axios.put('/documents/' + this.selectedDocument, {
                         'name': name,
-                        'code': code,
+                        'url': url,
                     })
                     .then(function(response) {
                         app.$set(app.documents, index, response.data.document);

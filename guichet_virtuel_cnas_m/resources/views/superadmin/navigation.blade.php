@@ -116,9 +116,9 @@
                         <span class="pcoded-mtext">Services Table </span>
                     </a>
                 </li>
-                <li class="{{ (\Request::route()->getName() == 'questions-list') ? 'active' : '' }}">
-                    <a href="/questions_list">
-                        <span class="pcoded-mtext">Questions Table </span>
+                <li class="{{ (\Request::route()->getName() == 'documents-list') ? 'active' : '' }}">
+                    <a href="/documents_list">
+                        <span class="pcoded-mtext">Documents Table </span>
                     </a>
                 </li>
             </ul>

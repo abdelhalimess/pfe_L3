@@ -14,7 +14,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        return view('superadmin.documents_list');
     }
 
     /**
@@ -77,9 +77,20 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+ 
     public function update(Request $request, $id)
     {
-        //
+
+        $document = Document::where('id', '=', $id)->first();
+        $document->name = $request->name;
+        $document->url = $request->url;
+
+        $document->save();
+
+        return response()->json([
+            'success' => 'Service updated with success',
+            'document' => $document
+        ]);
     }
 
     /**
@@ -90,12 +101,14 @@ class DocumentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $document = Document::where('id', '=', $id);
+        $document->delete();
+        return response()->json(['success' => 'The document has been deleted']);
     }
 
-    public function getDocuments($id)
+    public function getDocuments()
     {
-        $documents = Document::where('question_id', '=', $id)->get();
+        $documents = Document::all();
         return compact('documents');
     }
 }

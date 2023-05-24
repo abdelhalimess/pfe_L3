@@ -92,10 +92,12 @@ Route::post('/stateAddCommunes/{id}', [StateController::class, 'addCommunes'])->
 
 Route::resource('services', ServiceController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 Route::resource('questions', QuestionController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
+Route::resource('documents', DocumentController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 Route::get('services_list', [ServiceController::class, 'index'])->name('services-list')->middleware(['auth', 'role:superadmin']);
 Route::put('/services_edit/{id}', [ServiceController::class, 'update'])->name('service-update')->middleware(['auth', 'role:superadmin']);
 
 Route::get('questions_list', [QuestionController::class, 'index'])->name('questions-list')->middleware(['auth', 'role:superadmin']);
+Route::get('documents_list', [DocumentController::class, 'index'])->name('documents-list')->middleware(['auth', 'role:superadmin']);
 Route::get('/getServices', [ServiceController::class, 'getServices'])->name('getServices')->middleware(['auth', 'role:superadmin|user']);
 // Route::delete('/service_delete/{id}', [ServiceController::class, 'destroy'])->name('service-delete')->middleware(['auth', 'role:superadmin']);
 Route::delete('/question_delete/{id}', [QuestionController::class, 'destroy'])->name('question-delete')->middleware(['auth', 'role:superadmin']);
