@@ -83,6 +83,26 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="assign-documents-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title"> Assign documents for the question: <span v-if="selectedQuestion" class="label label-info"> <strong> @{{selectedQuestion.content}} </strong></span> </h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select multiple="multiple" id="test" v-model="documents" style="height:400px">
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="attach_documents()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="edit-question-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -266,7 +286,20 @@
     <script type="text/javascript" src="{{ asset('pages/nestable/jquery.nestable.js') }}"></script>
     <script type="text/javascript" src="{{ asset('pages/nestable/custom-nestable.js') }}"></script>
 
-    <script></script>
+    <script>
+
+$(document).ready(function() {
+        $('#test').multiSelect({
+            selectableHeader: "<div class='custom-header'>Available Documents</div>",
+            selectionHeader: "<div class='custom-header'>Selected Documents</div>",
+
+        });
+
+        $('#assign-documents-modal').on('hide.bs.modal', function() {
+            $('#test').multiSelect('deselect_all');
+        });
+    });
+    </script>
 
     <script>
         Vue.component('tree-component', {
@@ -300,8 +333,8 @@
                             v-on:click="app.selectedQuestion=question,app.newContent = question.content"><i class="icofont icofont-ui-edit f-18"></i>
                             Edit</a>
 
-                        <a class="dropdown-item waves-light waves-effect clickable" v-if=" question.children.length==0"
-                            v-on:click="app.fetch_question_documents(question)"><i class="icofont icofont-print f-18"></i> Show
+                        <a class="dropdown-item waves-light waves-effect clickable" v-if=" question.children.length==0" data-toggle="modal" data-target="#assign-documents-modal"
+                            v-on:click="app.selectedQuestion=question,app.fetch_question_documents(question)"><i class="icofont icofont-print f-18"></i> Show
                             documents</a>
                         <a class="dropdown-item waves-light waves-effect clickable" data-toggle="modal" data-target="#add-question-modal"
                             v-on:click="app.selectedQuestion = question"><i
@@ -346,6 +379,8 @@
                     notifications_fetched: false,
                     selectedQuestion :'',
                     newContent :'',
+                    documents:[],
+                    question_documents:[],
                 }
             },
             methods: {
@@ -517,9 +552,10 @@
 
                 },
                 attach_documents() {
-                    this.selectedDocuments = $('#test').multiSelect().val();
-                    var documents = this.selectedDocuments.toString().split(',').map(Number);
-                    axios.post('/attachDocuments' + this.selectedQuestion, {
+                    app.selectedDocuments = $('#test').multiSelect().val();
+                    var documents = app.selectedDocuments.toString().split(',').map(Number);
+                    console.log(app.selectedQuestion.id);
+                    axios.post('/attachDocuments/' + app.selectedQuestion.id, {
                             'documents': documents
                         })
                         .then(function(response) {
@@ -661,8 +697,18 @@
                 return axios.get('/getQuestionDocuments/'+question.id)
                     // .then(response => this.permissions = response.data.permissions)
                     .then(function(response) {
+                        app.question_documents = response.data.question.documents;
+                        app.get_selected_documents();
+                      
+                    })
+                    .catch();
+            },
+                fetch_documents(question) {
+                return axios.get('/getDocuments')
+                    // .then(response => this.permissions = response.data.permissions)
+                    .then(function(response) {
                         app.documents = response.data.documents;
-                        console.log(response.data.documents[0].documents);
+                    
                         app.documents.forEach(document => {
                             $('#test').multiSelect(
                                 'addOption', {
@@ -690,7 +736,7 @@
             mounted() {
                 $('#optgroup').multiSelect();
                 this.fetch_services();
-                // this.fetch_questions();
+                 this.fetch_documents();
             }
 
         });

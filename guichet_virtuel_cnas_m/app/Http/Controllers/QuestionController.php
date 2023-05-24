@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Staudenmeir\EloquentAdjacencyList\Queries\RecursiveQuery;
@@ -155,6 +156,7 @@ class QuestionController extends Controller
     
         return collect($tree);
     }
+    
     public function attachDocuments(Request $request, $id)
     {
 
@@ -179,19 +181,18 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function getDocuments($id)
+    public function getDocuments()
     {
-        $question = Question::with('documents')->findOrFail($id);
+        $documents = Document::all();
         return response()->json([
-            'question' => $question
+            'documents' => $documents
         ]);
     }
     public function getQuestionDocuments($id)
     {
-        $question = Question::with('documents')->where('id',$id)->get();
-        return response()->json([
-            'documents' => $question
-        ]);
+        $question = Question::where("id", "=", $id)->with("documents")->firstOrFail();
+        // $question = Question::with('documents')->where('id',$id)->get();
+        return compact('question');
     }
 
    public function addNestedQuestion(Request $request)

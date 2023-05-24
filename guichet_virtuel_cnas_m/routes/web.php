@@ -102,8 +102,9 @@ Route::delete('/question_delete/{id}', [QuestionController::class, 'destroy'])->
 Route::get('/getQuestions', [QuestionController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin']);
 Route::get('/getServicesQuestions/{id}', [QuestionController::class, 'getServicesQuestions'])->name('getServicesQuestions')->middleware(['auth', 'role:superadmin']);
 Route::get('/getQuestions/{id}', [UserController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin']);
-Route::get('/attachDocuments', [QuestionController::class, 'attachDocuments'])->name('attachDocuments')->middleware(['auth', 'role:superadmin']);
+Route::post('/attachDocuments/{id}', [QuestionController::class, 'attachDocuments'])->name('attachDocuments')->middleware(['auth', 'role:superadmin']);
 Route::get('/getQuestionDocuments/{id}', [QuestionController::class, 'getQuestionDocuments'])->name('getQuestionDocuments')->middleware(['auth', 'role:superadmin']);
+Route::get('/getDocuments', [QuestionController::class, 'getDocuments'])->name('getDocuments')->middleware(['auth', 'role:superadmin']);
 Route::post('/servicesAddQuestion/{id}', [ServiceController::class, 'addQuestions'])->name('addQuestions')->middleware(['auth', 'role:superadmin']);
 Route::post('/addNestedQuestion', [QuestionController::class, 'addNestedQuestion'])->name('addNestedQuestion')->middleware(['auth', 'role:superadmin']);
 
@@ -119,4 +120,4 @@ Route::get('structuretypes_list', [StructureTypeController::class, 'index'])->na
 Route::delete('/structuretype_delete/{id}', [StructureTypeController::class, 'destroy'])->name('structuretype-delete')->middleware(['auth', 'role:superadmin']);
 Route::get('/getTypes', [StructureTypeController::class, 'getTypes'])->name('getTypes')->middleware(['auth', 'role:superadmin']);
 
-Route::get('/getDocuments/{id}', [QuestionController::class, 'getDocuments'])->name('getDocuments')->middleware(['auth', 'role:superadmin|user']);
+// Route::get('/getDocuments/{id}', [QuestionController::class, 'getDocuments'])->name('getDocuments')->middleware(['auth', 'role:superadmin|user']);
