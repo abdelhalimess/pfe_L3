@@ -186,6 +186,13 @@ class QuestionController extends Controller
             'question' => $question
         ]);
     }
+    public function getQuestionDocuments($id)
+    {
+        $question = Question::with('documents')->where('id',$id)->get();
+        return response()->json([
+            'documents' => $question
+        ]);
+    }
 
    public function addNestedQuestion(Request $request)
    {

@@ -213,16 +213,15 @@
             </div>
         </div>
         <div class="col-md-6">
+
+       
             <div class="card">
                 <div class="card-header table-card-header">
-
-                    <h5>Questions list for the service : <span class="label label-info" v-if="selectedServiceName">
-                            <strong>@{{ selectedServiceName }} </strong></span> </h5>
-
-                    <div class="card-header-right" v-if="selectedServiceName">
+                    <h5>Showing questions for service :  <span class="label label-info" v-if="selectedService"><strong>@{{service.name.trim(" ")}} </strong> </span></h5>
+                    <div class="card-header-right">
                         <ul class="list-unstyled card-option">
                             <li>
-                                <span data-toggle="tooltip" data-placement="left" data-original-title="Add Question">
+                                <span data-toggle="tooltip" data-placement="top" data-original-title="Add a Question">
                                     <i class="feather icon-plus text-success md-trigger" data-toggle="modal"
                                         data-target="#add-question-modal">
                                     </i>
@@ -231,108 +230,34 @@
                         </ul>
                     </div>
                 </div>
-                <!-- Modal static-->
+                
                 <div class="card-block">
-                    <div class="dt-responsive table-responsive" style="max-height:500px;">
-
-                        <table id="communes-table" class="table table-striped table-bordered nowrap">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" style="width:20px">#</th>
-                                    <th>Question</th>
-                                    <th style="width:50px" class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(question, index) in service_questions" :key="index">
-                                    <td>@{{ index + 1 }}</td>
-                                    <td>@{{ question.content }}</td>
-                                    <td>
-                                        <div class="text-center">
-                                            <i class="feather icon-trash text-danger f-18 clickable" data-toggle="tooltip"
-                                                data-placement="top" data-original-title="Delete"
-                                                v-on:click="delete_question(question.id,index)">
-                                            </i>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-
-        <div class="card-header">
-            <h5>Nestable</h5>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h5>Nestable @{{ tree.length }}</h5>
-
-            </div>
-            <div class="card-block">
-                <div id="nestable-menu" class="m-b-10">
-                    <button type="button" class="btn btn-primary waves-effect waves-light m-b-10 m-r-20"
-                        data-action="expand-all">Expand All</button>
-                    <button type="button" class="btn btn-success waves-effect waves-light m-b-10"
-                        data-action="collapse-all">Collapse All</button>
-                </div>
-                <div class="row">
-
-
-                    <div class="col-lg-12 col-sm-12">
-                        <div class="cf nestable-lists">
-                            <div class="dd" id="nestable2">
-                                <tree-component :tree="tree"></tree-component>
-
-                            </div>
-                        </div>
-                    </div>
-                    {{-- 
-                    <div class="col-lg-4 col-sm-12">
-                        <div class="cf nestable-lists">
-                            <div class="dd" id="nestable2">
-                                <ol class="dd-list">
-                                    <li class="dd-item dd3-item" data-id="13">
-                                        <div class="dd-handle dd3-handle"></div>
-                                        <div class="dd3-content">Item 13</div>
-                                    </li>
-                                    <li class="dd-item dd3-item" data-id="14">
-                                        <div class="dd-handle dd3-handle"></div>
-                                        <div class="dd3-content">Item 14</div>
-                                    </li>
-                                    <li class="dd-item dd3-item" data-id="15">
-                                        <div class="dd-handle dd3-handle"></div>
-                                        <div class="dd3-content">Item 15</div>
-                                        <ol class="dd-list">
-                                            <li class="dd-item dd3-item" data-id="16">
-                                                <div class="dd-handle dd3-handle"></div>
-                                                <div class="dd3-content">Item 16</div>
-                                            </li>
-                                            <li class="dd-item dd3-item" data-id="17">
-                                                <div class="dd-handle dd3-handle"></div>
-                                                <div class="dd3-content">Item 17</div>
-                                            </li>
-                                            <li class="dd-item dd3-item" data-id="18">
-                                                <div class="dd-handle dd3-handle"></div>
-                                                <div class="dd3-content">Item 18</div>
-                                            </li>
-                                        </ol>
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
+                    {{-- <div id="nestable-menu" class="m-b-10">
+                        <button type="button" class="btn btn-primary waves-effect waves-light m-b-10 m-r-20"
+                            data-action="expand-all">Expand All</button>
+                        <button type="button" class="btn btn-success waves-effect waves-light m-b-10"
+                            data-action="collapse-all">Collapse All</button>
                     </div> --}}
+                    <div class="row">
+    
+    
+                        <div class="col-lg-12 col-sm-12">
+                            <div class="cf nestable-lists">
+                                <div class="dd" id="nestable2">
+                                    <tree-component :tree="tree"></tree-component>
+    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
+    
         </div>
-
     </div>
+
+
 @endsection
 
 @section('page_scripts')
@@ -376,7 +301,7 @@
                             Edit</a>
 
                         <a class="dropdown-item waves-light waves-effect clickable" v-if=" question.children.length==0"
-                            v-on:click="show_docoments(question)"><i class="icofont icofont-print f-18"></i> Show
+                            v-on:click="app.fetch_question_documents(question)"><i class="icofont icofont-print f-18"></i> Show
                             documents</a>
                         <a class="dropdown-item waves-light waves-effect clickable" data-toggle="modal" data-target="#add-question-modal"
                             v-on:click="app.selectedQuestion = question"><i
@@ -436,8 +361,11 @@
                 fetch_services() {
                     return axios.get('/getServices')
                         .then(response => {
-                            this.services = response.data.services;
+                            app.services = response.data.services;
                             console.log('Services fetched successfully');
+                            console.log(app.services[0]);
+                            app.service = app.services[0];
+                            app.fetch_services_questions(app.service);
                             console.log(this.services);
                         })
                         .catch();
@@ -450,14 +378,7 @@
                             app.tree = response.data.tree;
                             console.log(app.tree);
 
-                            // this.questions.forEach(question => {
-                            //     $('#test').multiSelect(
-                            //         'addOption', {
-                            //             value: question.id,
-                            //             text: question.question
-                            //         },
-                            //     );
-                            // });
+                            
                         })
                         .catch();
                 },
@@ -470,6 +391,7 @@
                             // this.questions = response.data.questions;
                             console.log("hna");
                             app.tree = response.data.tree;
+                           
                             console.log(app.tree);
                             var updateOutput = function(e) {
                                 var list = e.length ? e : $(e.target),
@@ -735,6 +657,23 @@
                         });
 
                 },
+                fetch_question_documents(question) {
+                return axios.get('/getQuestionDocuments/'+question.id)
+                    // .then(response => this.permissions = response.data.permissions)
+                    .then(function(response) {
+                        app.documents = response.data.documents;
+                        console.log(response.data.documents[0].documents);
+                        app.documents.forEach(document => {
+                            $('#test').multiSelect(
+                                'addOption', {
+                                    value: document.id,
+                                    text: document.name
+                                },
+                            );
+                        });
+                    })
+                    .catch();
+            },
                 get_selected_documents() {
                     $('#test').multiSelect('select', app.question_documents.map(p => p.id + ''));
 
@@ -751,7 +690,7 @@
             mounted() {
                 $('#optgroup').multiSelect();
                 this.fetch_services();
-                this.fetch_questions();
+                // this.fetch_questions();
             }
 
         });
