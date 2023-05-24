@@ -83,6 +83,31 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="edit-question-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">edit a Question </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text"
+                        :class="[errors.question ? 'form-control form-control-danger' : 'form-control form-control-success']"
+                        placeholder="Enter question..." maxlength="25" v-model="newContent" required
+                        v-on:input="errors.name=null" />
+                    <p class="text-danger m-t-5" v-if="errors.name">@{{ errors.question.toString() }}</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                        v-on:click="update_question()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -338,15 +363,16 @@
                 flex-direction: row;
                 justify-content: space-between;">
                 <div class="dropdown-secondary dropdown ">
-                    <button class="btn btn-inverse btn-mini dropdown-toggle waves-light b-none txt-muted " type="button" style="    margin-top: -5px"
+                    <button class="btn btn-inverse btn-mini dropdown-toggle waves-light b-none txt-muted " type="button" 
+                    style="margin-top: -5px"
                         id="dropdown11" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                             class="icofont icofont-options f-16"></i></button>
                     <div class="dropdown-menu" aria-labelledby="dropdown11" data-dropdown-in="fadeIn"
                         data-dropdown-out="fadeOut" x-placement="top-start"
                         style="position: absolute; transform: translate3d(0px, -2px, 0px); top: -10px; left: 0px; will-change: transform;">
-                        <a data-toggle="modal" data-target="#mission-modal"
+                        <a data-toggle="modal" data-target="#edit-question-modal"
                             class="dropdown-item waves-light waves-effect clickable"
-                            v-on:click="edit_mission(mission,index)"><i class="icofont icofont-ui-edit f-18"></i>
+                            v-on:click="app.selectedQuestion=question,app.newContent = question.content"><i class="icofont icofont-ui-edit f-18"></i>
                             Edit</a>
 
                         <a class="dropdown-item waves-light waves-effect clickable" v-if=" question.children.length==0"
@@ -394,6 +420,7 @@
                     notifications: [],
                     notifications_fetched: false,
                     selectedQuestion :'',
+                    newContent :'',
                 }
             },
             methods: {
@@ -669,6 +696,32 @@
                             app.selectedServiceName = app.serviceName;
                             app.serviceName = '';
                             app.serviceDescription = '';
+                            notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                        })
+                        .catch(function(error) {
+                            if (error.response) {
+                                app.$set(app, 'errors', error.response.data.errors);
+                            } else if (error.request) {
+                                console.log(error.request);
+                            } else {
+                                console.log('Error', error.message);
+                            }
+                        });
+
+                },
+                update_question() {
+                    axios.put('/questions/' + app.selectedQuestion.id, {
+                            'content': app.newContent,
+                            'service_id': app.selectedService,
+                            'question_id': app.selectedQuestion.id,
+                            
+                        })
+                        .then(function(response) {
+                           app.fetch_services_questions(app.service);
+                            $('#edit-question-modal').modal('toggle');
+                            
+                            app.newContent = '';
+                           
                             notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                         })
                         .catch(function(error) {

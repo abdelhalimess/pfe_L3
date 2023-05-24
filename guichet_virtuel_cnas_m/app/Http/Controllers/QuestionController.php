@@ -82,7 +82,10 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $question = Question::where('id',$id)->firstOrFail();
+        $question->content = $request->content;
+        $question->save();
+        return response()->json(['success' => 'The question has been updated']);
     }
 
     /**
