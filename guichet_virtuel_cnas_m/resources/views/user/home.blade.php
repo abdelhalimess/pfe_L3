@@ -103,39 +103,45 @@
             </div>
         </section>
         <!-- About Section-->
-        <section class="page-section bg-primary text-white mb-0" id="about">
+        <section class="page-section bg-secondary text-white mb-0" id="about">
             <div class="container">
                 <!-- About Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- About Section Content-->
-                <div class="row">
-                    <div class="col-lg-4 ms-auto">
-                        <p class="lead">Freelancer is a free bootstrap theme created by CNAS - VIRTUAL COUNTER. The
-                            download includes the complete source files including HTML, CSS, and JavaScript as well as
-                            optional SASS stylesheets for easy customization.</p>
-                    </div>
-                    <div class="col-lg-4 me-auto">
-                        <p class="lead">You can create your own custom avatar for the masthead, change the icon in the
-                            dividers, and add your email address to the contact form to make it fully functional!</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-center mb-4">
+                                <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo" class="img-fluid cnas-logo max-width">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h2 class="mb-4">Providing Social Security for Algerian Citizens</h2>
+                            <p class="lead">The Algerian National Security Fund (CNAS) is a governmental organization dedicated to ensuring social protection, welfare, and health insurance coverage for Algerian citizens. With a commitment to serving our nation, we strive to provide comprehensive and reliable social security services.</p>
+                            <h3 class="mb-3">Our Objectives</h3>
+                            <ul class="list-disc pl-6">
+                                <li>Promote social justice and equal opportunities</li>
+                                <li>Ensure access to quality healthcare services</li>
+                                <li>Protect individuals and families from social risks</li>
+                                <li>Provide financial support during periods of disability, maternity, and occupational accidents</li>
+                                <li>Secure pension benefits for retired individuals</li>
+                            </ul>
+                            <h3 class="mb-3">Collaboration and Accessibility</h3>
+                            <p>At CNAS, we collaborate with employers, employees, and other stakeholders to administer social security programs efficiently. We offer a user-friendly online platform where beneficiaries can easily access information, submit claims, and track the status of their applications.</p>
+                            <h3 class="mb-3">Social Development and Prosperity</h3>
+                            <p>We are dedicated to the well-being and development of our nation. By providing accessible and high-quality social security services, we contribute to the social and economic progress of Algeria, ensuring a stable and secure future for our citizens.</p>
+                        </div>
                     </div>
                 </div>
-                <!-- About Section Button-->
-                <div class="text-center mt-4">
-                    <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/theme/freelancer/">
-                        <i class="fas fa-download me-2"></i>
-                        Free Download!
-                    </a>
-                </div>
-            </div>
         </section>
         <!-- Contact Section-->
-        <section class="page-section" id="contact">
+        {{-- <section class="page-section" id="contact">
             <div class="container">
                 <!-- Contact Section Heading-->
                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
@@ -216,7 +222,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <!-- Footer-->
         <footer class="footer text-center">
             <div class="container">
@@ -385,7 +391,6 @@
             data() {
                 return {
                     show_edit: false,
-                    fullname: 'testttttt',
                     services: [],
                     questions: [],
                     selectedQuestion: '',
@@ -493,7 +498,7 @@
                         .catch();
                 },
                 fetch_documents(question) {
-                    return axios.get('/getDocuments/' + question.id)
+                    return axios.get('/getQuestionDocuments/' + question.id)
                         .then(response => {
                             this.documents = response.data.question.documents;
                             // selectedQuestion = services[0].question;

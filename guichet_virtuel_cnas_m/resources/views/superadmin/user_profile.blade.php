@@ -147,7 +147,7 @@ height: 40px;
                 <div class="row">
                     <div class="col-sm-12 text-right">
                         <button type="submit" class="btn btn-primary m-r-10" v-on:click="update_information()">
-                            Svae
+                            Save
                         </button>
                         <button type="submit" class="btn btn-default" v-on:click="reset_form()">Restore</button>
                     </div>

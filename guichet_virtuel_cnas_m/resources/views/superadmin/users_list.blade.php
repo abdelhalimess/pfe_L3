@@ -266,11 +266,11 @@
             <!-- Flying Word card start -->
             <div class="card">
                 <div class="card-header">
-                    <h5 class="text-danger">Please fill the necessary fields (*)</h5>
+                    <h5 class="text-danger">Please fill the required fields (*)</h5>
                 <div v-if="errors.length"> @{{ errors}}</div>
                 </div>
                 <div class="card-block">
-                    <h6 class="sub-title">Personal details <span class="text-danger">(*)</span> </h6>
+                    <h6 class="sub-title">Personal information <span class="text-danger">(*)</span> </h6>
                     <form >
                         <div class="form-group row">
                             <div :class="[errors.fullname ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">

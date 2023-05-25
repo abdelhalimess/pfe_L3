@@ -157,4 +157,10 @@ class StateController extends Controller
             'state_id' => $state->id,
         ]);
     }
+    public function getStatesCount(Request $request)
+    {
+        $states = State::count();
+        return compact('states');
+
+    }
 }

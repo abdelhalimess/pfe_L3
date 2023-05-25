@@ -115,8 +115,12 @@ Route::get('structures_list', [StructureController::class, 'index'])->name('stru
 Route::resource('structures', StructureController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 Route::resource('structuretypes', StructureTypeController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
 Route::get('states_list', [StateController::class, 'index'])->name('states-list')->middleware(['auth', 'role:superadmin']);
+Route::get('/getStatesCount', [StateController::class, 'getStatesCount'])->name('getStatesCount')->middleware(['auth', 'role:superadmin']);
+Route::get('/getServicesCount', [ServiceController::class, 'getServicesCount'])->name('getServicesCount')->middleware(['auth', 'role:superadmin']);
 
 Route::get('/getStructures', [StructureController::class, 'getStructures'])->name('getStructures')->middleware(['auth', 'role:superadmin']);
+Route::get('/getStructuresCount', [StructureController::class, 'getStructuresCount'])->name('getStructuresCount')->middleware(['auth', 'role:superadmin']);
+Route::get('/getAffiliates', [UserController::class, 'getAffiliates'])->name('getAffiliates')->middleware(['auth', 'role:superadmin']);
 Route::delete('/structure_delete/{id}', [StructureController::class, 'destroy'])->name('structure-delete')->middleware(['auth', 'role:superadmin']);
 
 Route::get('structuretypes_list', [StructureTypeController::class, 'index'])->name('structuretypes-list')->middleware(['auth', 'role:superadmin']);

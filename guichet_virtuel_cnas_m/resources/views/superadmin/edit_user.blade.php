@@ -128,25 +128,23 @@
                                                         @endforeach
 
                                                     </div>
-                                                    <div class="col-md-8">
-                                                        <h4 class="sub-title text-center ">Sélectionner des permissions <span class="text-danger">(*)</span></h4>
+                                                    <div class="col-md-9">
+                                                        <h4 class="sub-title text-center ">Select a Permission <span class="text-danger">(*)</span></h4>
                                                         <p class="text-danger text-center m-t-5" v-if="errors.permissions" >@{{errors.permissions.toString()}}</p>
-                                                        <select class="form-control form-control-inverse" multiple="multiple" id="permissions">
+                                                        <select  multiple id="permissions">
                                                             @foreach ($roles as $role)
-                                                        <optgroup label="{{$role->name}}">
-                                                            @foreach ($role->permissions as $permission)
-                                                            <option value="{{$permission->id}}"
-                                                              @foreach ($user->permissions as $p)
-                                                                  @if ($p->id === $permission->id)
-                                                                      selected ="selected"
-                                                                  @endif
-                                                              @endforeach
-                                                                >{{$permission->name }}</option>
+                                                                <optgroup label="{{$role->name}}" >
+                                                                    @foreach ($role->permissions as $permission)
+                                                                        <option value="{{$permission->id}}">{{$permission->name }}</option>
+                                                                    @endforeach
+                                                                </optgroup>
                                                             @endforeach
-
-                                                        </optgroup>
-
-                                                            @endforeach
+                                                            {{-- <optgroup label="lool">
+                                                                <option value="1">1</option>
+                                                                <option value="3">2</option>
+                                                                <option value="4">3</option>
+                                                                <option value="2">4</option>
+                                                            </optgroup> --}}
                                                         </select>
                                                     </div>
                                                 </form>

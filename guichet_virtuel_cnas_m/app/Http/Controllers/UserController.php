@@ -366,4 +366,10 @@ class UserController extends Controller
         $questions = Question::where('question_id', '=', $request->id)->get();
         return compact('questions');
     }
+    public function getAffiliates(Request $request)
+    {
+        $users = User::role('user')->count();
+        return compact('users');
+
+    }
 }

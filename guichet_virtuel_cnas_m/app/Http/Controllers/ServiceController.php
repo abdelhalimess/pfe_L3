@@ -110,4 +110,9 @@ class ServiceController extends Controller
         $services = Service::with('questions')->get();
         return compact('services');
     }
+    public function getServicesCount()
+    {
+        $services = Service::count();
+        return compact('services');
+    }
 }

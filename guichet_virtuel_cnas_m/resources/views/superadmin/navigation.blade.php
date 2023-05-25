@@ -31,6 +31,24 @@
 </ul>
 <div class="pcoded-navigatio-lavel">Tables management</div>
 <ul class="pcoded-item pcoded-left-item">
+    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'users-list' || \Request::route()->getName() == 'create-user' ) ? 'pcoded-trigger' : '' }}">
+        <a href="javascript:void(0)">
+            <span class="pcoded-micon"><i class="fa fa-users"></i></span>
+            <span class="pcoded-mtext">Users</span>
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="{{ (\Request::route()->getName() == 'users-list') ? 'active' : '' }}">
+                <a href="/users_list">
+                    <span class="pcoded-mtext">Users list</span>
+                </a>
+            </li>
+            <li class="{{ (\Request::route()->getName() == 'create-user') ? 'active' : '' }}">
+                <a href="/create_user">
+                    <span class="pcoded-mtext">Add User</span>
+                </a>
+            </li>
+        </ul>
+    </li>
     <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'structures-list' || \Request::route()->getName() == 'structuretypes-list' ) ? 'pcoded-trigger' : '' }}">
         <a href="javascript:void(0)">
             <span class="pcoded-micon"><i class="fa fa-map "></i></span>
@@ -45,24 +63,6 @@
             <li class="{{ (\Request::route()->getName() == 'structuretypes-list') ? 'active' : '' }}">
                 <a href="/structuretypes_list">
                     <span class="pcoded-mtext">Structure Types Table</span>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'users-list' || \Request::route()->getName() == 'create-user' ) ? 'pcoded-trigger' : '' }}">
-        <a href="javascript:void(0)">
-            <span class="pcoded-micon"><i class="fa fa-users"></i></span>
-            <span class="pcoded-mtext">Users</span>
-        </a>
-        <ul class="pcoded-submenu">
-            <li class="{{ (\Request::route()->getName() == 'create-user') ? 'active' : '' }}">
-                <a href="/create_user">
-                    <span class="pcoded-mtext">Add User</span>
-                </a>
-            </li>
-            <li class="{{ (\Request::route()->getName() == 'users-list') ? 'active' : '' }}">
-                <a href="/users_list">
-                    <span class="pcoded-mtext">Users list</span>
                 </a>
             </li>
         </ul>

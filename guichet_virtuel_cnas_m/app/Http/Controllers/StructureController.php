@@ -117,4 +117,10 @@ class StructureController extends Controller
         $structures = Structure::with('state', 'structureType')->get();
         return compact('structures');
     }
+    public function getStructuresCount()
+    {
+        $structures = Structure::count();
+        return compact('structures');
+    }
+    
 }
