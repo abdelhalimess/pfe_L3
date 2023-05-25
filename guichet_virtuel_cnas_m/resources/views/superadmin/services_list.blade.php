@@ -218,7 +218,7 @@
                                                 data-placement="top" data-original-title="Delete">
                                             </i>
                                             <i class="feather icon-eye text-warning f-18 clickable"
-                                                v-on:click="showQuestions(service, service.questions), fetch_questions()"
+                                                v-on:click="showQuestions(service, service.questions)"
                                                 data-toggle="tooltip" data-placement="top"
                                                 data-original-title="Show Questions">
                                             </i>
