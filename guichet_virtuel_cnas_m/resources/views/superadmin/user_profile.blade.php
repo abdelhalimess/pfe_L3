@@ -133,7 +133,7 @@ height: 40px;
                             <label for="password" class="block">Confirmation <span class="text-danger">(*)</span></label>
                             <div :class="[errors.password ? 'input-group input-group-danger' : 'input-group input-group-inverse']" data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.password">
-                            <input type="password" class="form-control" placeholder="Confirmation du mot de passe" v-model="password_confirmation">
+                            <input type="password" class="form-control" placeholder="Password Confirmation" v-model="password_confirmation">
                             <span class="input-group-addon">
                                 <i class="icofont icofont-lock"></i>
                             </span>

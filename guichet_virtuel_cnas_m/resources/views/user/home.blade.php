@@ -424,8 +424,8 @@
                     var img = new Image();
                     // img.src =  asset('assets/tickets/img/documents.png');
                     // doc.addImage(img, 'png', 10, 78, 12, 15);
-                    doc.text("Hello world!", 10, 10);
-                    doc.save("a4.pdf");
+                    // doc.text("Hello world!", 10, 10);
+                    // doc.save("a4.pdf");
                     const printContents = document.querySelector('.col-5 .list-group').innerHTML;
                     const printWindow = window.open('', '', 'width=800,height=600');
                     printWindow.document.open();

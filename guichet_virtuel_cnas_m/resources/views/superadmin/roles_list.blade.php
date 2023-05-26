@@ -21,7 +21,7 @@
     <a href="{{ route('home') }}"> <i class="feather icon-home"></i></a>
 </li>
 <li class="breadcrumb-item">
-    <a href="{{ route('roles-list') }}">Liste des roles</a>
+    <a href="{{ route('roles-list') }}">Roles Table</a>
 </li>
 @endsection
 
