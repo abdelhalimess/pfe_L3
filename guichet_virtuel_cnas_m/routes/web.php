@@ -102,11 +102,11 @@ Route::get('documents_list', [DocumentController::class, 'index'])->name('docume
 Route::get('/getServices', [ServiceController::class, 'getServices'])->name('getServices')->middleware(['auth', 'role:superadmin|user']);
 // Route::delete('/service_delete/{id}', [ServiceController::class, 'destroy'])->name('service-delete')->middleware(['auth', 'role:superadmin']);
 Route::delete('/question_delete/{id}', [QuestionController::class, 'destroy'])->name('question-delete')->middleware(['auth', 'role:superadmin']);
-Route::get('/getQuestions', [QuestionController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin']);
+Route::get('/getQuestions', [QuestionController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin|user']);
 Route::get('/getServicesQuestions/{id}', [QuestionController::class, 'getServicesQuestions'])->name('getServicesQuestions')->middleware(['auth', 'role:superadmin']);
-Route::get('/getQuestions/{id}', [UserController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin']);
+Route::get('/getQuestions/{id}', [UserController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin|user']);
 Route::post('/attachDocuments/{id}', [QuestionController::class, 'attachDocuments'])->name('attachDocuments')->middleware(['auth', 'role:superadmin']);
-Route::get('/getQuestionDocuments/{id}', [QuestionController::class, 'getQuestionDocuments'])->name('getQuestionDocuments')->middleware(['auth', 'role:superadmin']);
+Route::get('/getQuestionDocuments/{id}', [QuestionController::class, 'getQuestionDocuments'])->name('getQuestionDocuments')->middleware(['auth', 'role:superadmin|user']);
 Route::get('/getDocuments', [QuestionController::class, 'getDocuments'])->name('getDocuments')->middleware(['auth', 'role:superadmin']);
 Route::post('/servicesAddQuestion/{id}', [ServiceController::class, 'addQuestions'])->name('addQuestions')->middleware(['auth', 'role:superadmin']);
 Route::post('/addNestedQuestion', [QuestionController::class, 'addNestedQuestion'])->name('addNestedQuestion')->middleware(['auth', 'role:superadmin']);

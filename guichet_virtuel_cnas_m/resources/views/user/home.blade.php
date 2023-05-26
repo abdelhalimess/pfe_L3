@@ -118,24 +118,35 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex justify-content-center mb-4">
-                                <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo" class="img-fluid cnas-logo max-width">
+                                <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo"
+                                    class="img-fluid cnas-logo max-width">
                             </div>
+                           
                         </div>
                         <div class="col-md-6">
                             <h2 class="mb-4">Providing Social Security for Algerian Citizens</h2>
-                            <p class="lead">The Algerian National Security Fund (CNAS) is a governmental organization dedicated to ensuring social protection, welfare, and health insurance coverage for Algerian citizens. With a commitment to serving our nation, we strive to provide comprehensive and reliable social security services.</p>
+                            <p class="lead">The Algerian National Security Fund (CNAS) is a governmental organization
+                                dedicated to ensuring social protection, welfare, and health insurance coverage for
+                                Algerian citizens. With a commitment to serving our nation, we strive to provide
+                                comprehensive and reliable social security services.</p>
                             <h3 class="mb-3">Our Objectives</h3>
                             <ul class="list-disc pl-6">
                                 <li>Promote social justice and equal opportunities</li>
                                 <li>Ensure access to quality healthcare services</li>
                                 <li>Protect individuals and families from social risks</li>
-                                <li>Provide financial support during periods of disability, maternity, and occupational accidents</li>
+                                <li>Provide financial support during periods of disability, maternity, and occupational
+                                    accidents</li>
                                 <li>Secure pension benefits for retired individuals</li>
                             </ul>
                             <h3 class="mb-3">Collaboration and Accessibility</h3>
-                            <p>At CNAS, we collaborate with employers, employees, and other stakeholders to administer social security programs efficiently. We offer a user-friendly online platform where beneficiaries can easily access information, submit claims, and track the status of their applications.</p>
+                            <p>At CNAS, we collaborate with employers, employees, and other stakeholders to administer
+                                social security programs efficiently. We offer a user-friendly online platform where
+                                beneficiaries can easily access information, submit claims, and track the status of
+                                their applications.</p>
                             <h3 class="mb-3">Social Development and Prosperity</h3>
-                            <p>We are dedicated to the well-being and development of our nation. By providing accessible and high-quality social security services, we contribute to the social and economic progress of Algeria, ensuring a stable and secure future for our citizens.</p>
+                            <p>We are dedicated to the well-being and development of our nation. By providing accessible
+                                and high-quality social security services, we contribute to the social and economic
+                                progress of Algeria, ensuring a stable and secure future for our citizens.</p>
                         </div>
                     </div>
                 </div>
@@ -376,6 +387,8 @@
     <script type="text/javascript" src="{{ asset('bower_components/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/jspdf.debug.js') }}"></script>
+
     <!-- Core theme JS-->
     <script src="{{ asset('pages/user/js/scripts.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/animation.js') }}"></script>
@@ -407,6 +420,12 @@
             },
             methods: {
                 printDocuments() {
+                    const doc = new jsPDF();
+                    var img = new Image();
+                    // img.src =  asset('assets/tickets/img/documents.png');
+                    // doc.addImage(img, 'png', 10, 78, 12, 15);
+                    doc.text("Hello world!", 10, 10);
+                    doc.save("a4.pdf");
                     const printContents = document.querySelector('.col-5 .list-group').innerHTML;
                     const printWindow = window.open('', '', 'width=800,height=600');
                     printWindow.document.open();
@@ -446,10 +465,13 @@
           </style>
         </head>
         <body>
-          <div class="col-5 list-group">
-            <div class="checklist">
-              <div class="checklist-title">Required Documents:</div>
-              <ul class="checklist-items">
+            <img src="{{ asset('images/documents.png') }}">
+          <div class="col-5 list-group"  style="position:absolute;    top: 175;
+    left: 120;">
+          
+            <div >
+           
+              <ul >
                 ${printContents}
               </ul>
             </div>
@@ -500,11 +522,11 @@
                 fetch_documents(question) {
                     return axios.get('/getQuestionDocuments/' + question.id)
                         .then(response => {
-                            this.documents = response.data.question.documents;
+                            app.documents = response.data.question.documents;
                             // selectedQuestion = services[0].question;
                             console.log('Documents fetched successfully');
-                            console.log(this.documents);
-                            console.log(response.data.documents);
+                            console.log(app.documents);
+                            console.log(response.data);
                         })
                         .catch();
                 },
@@ -618,6 +640,11 @@
             },
             mounted() {
                 this.fetch_services();
+
+
+                // Default export is a4 paper, portrait, using millimeters for units
+
+
                 // this.fetch_documents();
             },
             created() {
