@@ -28,7 +28,7 @@ class UserStoreRequest extends FormRequest
             'password' => 'required|min:5|max:25|alpha_dash|confirmed',
             'fullname' => 'required|min:5|max:150',
             'address' => 'required|max:150',
-            'telephone' => "required|unique:users,telephone",
+            'telephone' => "required|numeric|digits:10|unique:users,telephone",
             'email' => "required|email|unique:users,email",
             'structure_id' => "nullable",
             'role_id' => "required",

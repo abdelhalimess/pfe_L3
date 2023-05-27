@@ -205,7 +205,7 @@ height: 40px;
                     'password_confirmation':app.password_confirmation,
                 })
                 .then(function (response) {
-                notify('Succès',response.data.success,'green', 'topCenter','bounceInDown');
+                notify('Success',response.data.success,'green', 'topCenter','bounceInDown');
                 app.fullname= response.data.user.fullname ;
                 app.email=response.data.user.email;
                 app.telephone=response.data.user.telephone;
@@ -219,7 +219,7 @@ height: 40px;
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
-                    notify('Erreurs!','Please verify your details !!','red', 'topCenter','bounceInDown');
+                    notify('Update Failed','Please verify your information','red', 'topCenter','bounceInDown');
                     } else if (error.request) {
                         console.log(error.request);
                     } else {

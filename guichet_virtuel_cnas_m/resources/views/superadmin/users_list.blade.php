@@ -266,7 +266,7 @@
             <!-- Flying Word card start -->
             <div class="card">
                 <div class="card-header">
-                    <h5 class="text-danger">Please fill the required fields (*)</h5>
+                    <h5 class="text-danger">Please fill all the required fields (*)</h5>
                 <div v-if="errors.length"> @{{ errors}}</div>
                 </div>
                 <div class="card-block">
@@ -308,7 +308,7 @@
                         </div>
                     </form>
                     <hr>
-                    <h5 class="sub-title">Affectation and personal information <span class="text-danger">(*)</span></h5>
+                    <h5 class="sub-title">Assignment and Credentials <span class="text-danger">(*)</span></h5>
                     <form>
                         <div class="form-group row">
                             <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
@@ -530,14 +530,15 @@ const app = new Vue({
                     'permissions':app.permissions
                 })
                 .then(function (response) {
-                    //notify('Succès',response.data.success,'green', 'topCenter','bounceInDown');
+                    this.errors=[];
+                    // notify('Succès',response.data.success,'green', 'topCenter','bounceInDown');
                   //  app.show_edit =false;
                     swal({
-                    title: "Succès?",
-                    text: "Informations modifiées avec succès!",
+                    title: "Success",
+                    text: "Information updated successfully!",
                     type: "success",
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Fermer",
+                    confirmButtonText: "Close",
                     closeOnConfirm: true,
                 },
                 function (isConfirm) {
@@ -555,7 +556,7 @@ const app = new Vue({
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
-                    notify('Erreurs!','Veuillez vérifier les informations introduites','red', 'topCenter','bounceInDown');
+                    notify('Edit Failed','Please verify the given information','red', 'topCenter','bounceInDown');
                     } else if (error.request) {
                         console.log(error.request);
                     } else {

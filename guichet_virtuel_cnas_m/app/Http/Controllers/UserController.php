@@ -130,6 +130,7 @@ class UserController extends Controller
 
     public function update_information(Request $request)
     {
+        // $validated = $request->validated();
         $user = User::find(Auth::user()->id);
 
 
@@ -139,7 +140,7 @@ class UserController extends Controller
             'password' => 'nullable|min:5|max:25|string|confirmed',
             'fullname' => 'required|min:5|max:150|string',
             'address' => 'required|max:150|string',
-            'telephone' => "required|unique:users,telephone,$user->id",
+            'telephone' => "required|numeric|digits:10|unique:users,telephone,$user->id",
             'email' => "required|email|unique:users,email,$user->id"
 
 
@@ -158,7 +159,7 @@ class UserController extends Controller
         $user->save();
 
         return response()->json([
-            'success' => 'Information updated seccessfully',
+            'success' => 'Information updated successfully',
             'user' => $user
         ]);
     }
@@ -257,13 +258,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //$validated = $request->validated();
-
-
+    public function update(UserUpdateRequest $request, $id)
+     {
+        $validated = $request->validated();
         $user = User::findOrFail($id);
         $this->authorize('update', $user);
+
+
+
+
+
 
 
         $user->username = $request->username;
@@ -275,9 +279,9 @@ class UserController extends Controller
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
         if ($role != 'superadmin') {
-            $user->structure_id = Auth::user()->structure_id;
+            $user->structure_id = Auth::user()->commune_id;
         } else {
-            $user->structure_id = $request->structure_id;
+            $user->commune_id = $request->commune_id;
         }
 
 

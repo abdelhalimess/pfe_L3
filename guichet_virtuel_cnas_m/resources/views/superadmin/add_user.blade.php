@@ -32,7 +32,7 @@
         <!-- Flying Word card start -->
         <div class="card" id="add_user-modal">
             <div class="card-header">
-                <h5 class="text-danger"> Please fill the necessary fields (*)</h5>
+                <h5 class="text-danger"> Please fill all the required fields (*)</h5>
             <div v-if="errors.length"> @{{ errors}}</div>
             </div>
             <div class="card-block">
@@ -74,7 +74,7 @@
                     </div>
                 </form>
                 <hr>
-                <h5 class="sub-title">Affectation et Informations d'identification <span class="text-danger">(*)</span></h5>
+                <h5 class="sub-title">Assignment and Credentials<span class="text-danger">(*)</span></h5>
                 <form>
                     <div class="form-group row">
                         <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
@@ -249,7 +249,7 @@ const app = new Vue({
                     'permissions':app.permissions
                 })
                 .then(function (response) {
-                    notify('Succès',response.data.success,'green', 'topCenter','bounceInDown');
+                    notify('Success',response.data.success,'green', 'topCenter','bounceInDown');
                     app.reset_form();
 
                 })
@@ -259,7 +259,7 @@ const app = new Vue({
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
-                    notify('Erreurs!','Please check your information','red', 'topCenter','bounceInDown');
+                    notify('Add Failed','Please verify the given information','red', 'topCenter','bounceInDown');
                     } else if (error.request) {
                         console.log(error.request);
                     } else {
