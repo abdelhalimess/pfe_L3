@@ -175,8 +175,15 @@ p{
     padding:0
 }
 .card-block{
-    padding:1.25rem
+    padding:1.25rem ;
 }
+#login-card{
+    box-shadow: 10px 10px 25px grey;
+}
+#username,#password,#button{
+    border-radius: 10px;
+}
+
 .card{
     border-radius:5px;
     -webkit-box-shadow:0 1px 20px 0 rgba(69,90,100,0.08);
@@ -9364,7 +9371,7 @@ body.menu-bottom #collapse-menu{
     border-color:#01a9ac
 }
 .show>.btn-primary.dropdown-toggle,.sweet-alert .show>button.dropdown-toggle.confirm,.wizard>.actions .show>a.dropdown-toggle{
-    background-color:#016d6f !important;
+    background-color:#7cc0d8 !important;
     border-color:#016d6f;
     -webkit-box-shadow:none;
     box-shadow:none;
@@ -9427,7 +9434,7 @@ body.menu-bottom #collapse-menu{
     border-bottom:1px solid #0275d8
 }
 .btn-primary,.sweet-alert button.confirm,.wizard>.actions a{
-    background-color:#01a9ac;
+    background-color:#007BB6;
     border-color:#01a9ac;
     color:#fff;
     cursor:pointer;
@@ -9435,11 +9442,11 @@ body.menu-bottom #collapse-menu{
     transition:all ease-in 0.3s
 }
 .btn-primary:hover,.sweet-alert button.confirm:hover,.wizard>.actions a:hover{
-    background-color:#01dbdf;
+    background-color:#7cc0d8;
     border-color:#01dbdf
 }
 .btn-primary:active,.sweet-alert button.confirm:active,.wizard>.actions a:active{
-    background-color:#016d6f !important;
+    background-color:#7cc0d8 !important;
     border-color:#016d6f;
     -webkit-box-shadow:none;
     box-shadow:none;
@@ -9452,7 +9459,7 @@ body.menu-bottom #collapse-menu{
     background-color:#01dbdf
 }
 .btn-primary.disabled,.sweet-alert button.disabled.confirm,.wizard>.actions a.disabled{
-    background-color:rgba(1,169,172,0.5);
+    background-color:rgb(1,169,172,0.5);
     border-color:rgba(1,169,172,0.5)
 }
 .btn-warning{
@@ -10774,7 +10781,7 @@ body.menu-bottom #collapse-menu{
 }
 .checkbox-fade .cr,.checkbox-zoom .cr{
     border-radius:0;
-    border:2px solid #01a9ac;
+    border:2px solid #007BB6;
     cursor:pointer;
     display:inline-block;
     float:left;
@@ -10784,7 +10791,7 @@ body.menu-bottom #collapse-menu{
     width:20px
 }
 .checkbox-fade .cr .cr-icon,.checkbox-zoom .cr .cr-icon{
-    color:#01a9ac;
+    color:#007BB6;
     font-size:0.8em;
     left:0;
     line-height:0;
@@ -12944,7 +12951,7 @@ table.footable-paging-center>tfoot>tr.footable-paging>td{
 .login-block{
     padding:30px 0;
     margin:0 auto;
-    background:url(../images/auth/bg.jpg) no-repeat;
+    background-image: linear-gradient(315deg, #ffffff 1%, #5899e2 45% , #ffffff 130%);
     background-size:cover;
     min-height:100vh;
     display:-webkit-box;

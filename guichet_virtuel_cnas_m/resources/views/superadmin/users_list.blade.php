@@ -217,10 +217,10 @@
                             <tr>
                                 <th class="text-center" style="width:20px">#</th>
                                 <th>Username</th>
-                                <th>Nom - Prénom</th>
+                                <th>Fullname</th>
                                 <th>Email</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
+                                <th>Address</th>
+                                <th>Phone Number</th>
 
 
 
@@ -429,8 +429,8 @@ $(document).ready(function() {
     $('#users-table').DataTable();
 
     $('#permissions').multiSelect({
-                selectableHeader: "<div class='custom-header bg-inverse'>Les permissions disponibles</div>",
-                selectionHeader: "<div class='custom-header bg-inverse'>Les permissions sélectionnées</div>",
+                selectableHeader: "<div class='custom-header bg-inverse'>Available Permissions</div>",
+                selectionHeader: "<div class='custom-header bg-inverse'>Selected Permissions</div>",
                 selectableOptgroup: true,
                 keepOrder: true
             });
@@ -480,13 +480,13 @@ const app = new Vue({
     methods: {
         delete_user(id, index) {
             swal({
-                    title: "Êtes-vous sûr?",
-                    text: "Cette action est irréversible!",
+                    title: "Are you sure?",
+                    text: "This action is irreversible!",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Supprimer",
-                    cancelButtonText: "Annuler",
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Cancel",
                     closeOnConfirm: true,
                     closeOnCancel: true
                 },

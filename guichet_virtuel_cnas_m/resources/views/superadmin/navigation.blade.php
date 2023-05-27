@@ -51,7 +51,7 @@
     </li>
     <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'structures-list' || \Request::route()->getName() == 'structuretypes-list' ) ? 'pcoded-trigger' : '' }}">
         <a href="javascript:void(0)">
-            <span class="pcoded-micon"><i class="fa fa-map "></i></span>
+            <span class="pcoded-micon"><i class="fa fa-building "></i></span>
             <span class="pcoded-mtext">Structures Table</span>
         </a>
         <ul class="pcoded-submenu ">
@@ -107,7 +107,7 @@
     </li>
         <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'services-list' || \Request::route()->getName() == 'questions-list' ) ? 'pcoded-trigger' : '' }}">
             <a href="javascript:void(0)">
-                <span class="pcoded-micon"><i class="fa fa-map "></i></span>
+                <span class="pcoded-micon"><i class="feather icon-monitor "></i></span>
                 <span class="pcoded-mtext">Services - Questions</span>
             </a>
             <ul class="pcoded-submenu ">

@@ -292,8 +292,8 @@ const app = new Vue({
 
             // this.reset_form();
             $('#permissions').multiSelect({
-                selectableHeader: "<div class='text-center bg-inverse'>Les permissions disponibles</div>",
-                selectionHeader: "<div class='text-center bg-inverse'>Les permissions sélectionnées</div>",
+                selectableHeader: "<div class='text-center bg-inverse'>Available Permissions</div>",
+                selectionHeader: "<div class='text-center bg-inverse'>Selected Permissions</div>",
                 selectableOptgroup: true,
                 keepOrder: true
             });
