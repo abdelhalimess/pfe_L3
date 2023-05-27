@@ -42,8 +42,8 @@
                                 href="#portfolio">Services</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
-                        <li class="nav-item mx-0 mx-lg-1" ><a class="nav-link py-3 px-0 px-lg-3 rounded" class="{{ (\Request::route()->getName() == 'user-profile') ? 'active' : '' }}"
-                            href="/user_profile" >profile</a></li>
+                        <li class="nav-item mx-0 mx-lg-1" ><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                            href="#footer-page" >Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -246,7 +246,18 @@
             </div>
         </section> --}}
         <!-- Footer-->
+
+            <!-- About Section Heading-->
+
+            <!-- Icon Divider-->
+            <section class="page-section" id="contact">
         <footer class="footer text-center" id="footer-page">
+            <h2 class="page-section-heading text-center text-uppercase text-white" >Contact</h2>
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
             <div class="container">
                 <div class="row">
                     <!-- Footer Location-->
@@ -292,9 +303,10 @@
             </div>
         </footer>
         <!-- Copyright Section-->
-        <div class="copyright py-4 text-center text-white">
+        <div class="copyright py-4 text-center text-white" id="copyright-div">
             <div class="container"><small>Copyright &copy; CNAS-Virtual Counter 2023</small></div>
         </div>
+        </section>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1"
