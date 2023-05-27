@@ -121,7 +121,7 @@
                                         <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
                                             <i class="feather icon-edit text-custom f-18 clickable md-trigger"
                                                 data-toggle="modal" data-target="#edit-structuretype-modal"
-                                                v-on:click="structureTypeName=structureType.name, selectedStructure=structureType.id">
+                                                v-on:click="structureTypeName=structureType.name, selectedStructureType=structureType.id">
                                             </i>
                                         </span>
                                         <i class="feather icon-trash text-danger f-18 clickable"

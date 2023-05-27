@@ -26,7 +26,10 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand">CNAS - VIRTUAL COUNTER</a>
+                <div style="">
+                    <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="cnas-logo" style="width: 40px ; height:40px ; margin-right:10px ; margin-bottom :5px" >
+                    <a class="navbar-brand" id="nav-title">CNAS - VIRTUAL COUNTER</a>
+                </div>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
                     type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,8 +42,8 @@
                                 href="#portfolio">Services</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                href="#contact">t</a></li>
+                        <li class="nav-item mx-0 mx-lg-1" ><a class="nav-link py-3 px-0 px-lg-3 rounded" class="{{ (\Request::route()->getName() == 'user-profile') ? 'active' : '' }}"
+                            href="/user_profile" >profile</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,16 +62,16 @@
                 </template>
                 <!-- Masthead Heading-->
               <div>
-                <h1 class="masthead-heading text-uppercase mb-0">CNAS - VIRTUAL COUNTER</h1>
+                <h1 class="masthead-heading text-uppercase mb-0" id="h1-header">CNAS - VIRTUAL COUNTER</h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
                     <div class="divider-custom-line"></div>
-                </div>
+                {{-- </div>
                 <!-- Masthead Subheading-->
                 <p class="masthead-subheading font-weight-light mb-0">Consult our services ... Book an appointment! <br> What are you wating for ? </p>
-              </div>
+              </div> --}}
             </div>
         </header>
 
@@ -394,6 +397,8 @@
             </div>
         </div>
 
+
+
     </div>
     <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
@@ -674,7 +679,7 @@
 
                 setInterval(() => {
                     this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
-                    }, 9000);
+                    }, 5000);
                 // Default export is a4 paper, portrait, using millimeters for units
 
 

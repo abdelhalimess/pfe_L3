@@ -158,7 +158,7 @@ class UserController extends Controller
         $user->save();
 
         return response()->json([
-            'success' => 'Informations modifiées avec succès',
+            'success' => 'Information updated seccessfully',
             'user' => $user
         ]);
     }
@@ -200,7 +200,7 @@ class UserController extends Controller
         $user->syncPermissions($request->permissions);
 
         return response()->json([
-            'success' => 'Utilisateur créé avec succès',
+            'success' => 'User created successfully',
             'user' => $user
         ]);
     }
@@ -291,7 +291,7 @@ class UserController extends Controller
         $user->syncPermissions($request->permissions);
 
         return response()->json([
-            'success' => 'Informations modifiées avec succès',
+            'success' => 'Infromation updated successfully',
             'user' => $user
         ]);
     }
@@ -309,11 +309,11 @@ class UserController extends Controller
         if ($user->id !=  Auth::user()->id) {
             $user->delete();
             return response()->json([
-                'success' => 'Utilisateur supprimé avec succès!!'
+                'success' => 'User deleted successfully'
             ]);
         } else {
             return response()->json([
-                'error' => 'Erreur lors de la suppression!!'
+                'error' => 'Error : Delete Failure'
             ]);
         }
     }

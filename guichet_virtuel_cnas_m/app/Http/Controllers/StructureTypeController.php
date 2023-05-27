@@ -84,7 +84,7 @@ class StructureTypeController extends Controller
         $structuretype->save();
 
         return response()->json([
-            'success' => 'Structure updated with success',
+            'success' => 'Structure Type updated with success',
             'structuretype' => $structuretype
         ]);
     }

@@ -45,7 +45,7 @@ height: 40px;
 @endsection
 
 
-@include('user.navigation')
+{{-- @include('user.navigation') --}}
 
 
 @section('page_content')
@@ -76,7 +76,7 @@ height: 40px;
                     <div class="form-group col-sm-4">
                             <label for="fullname" class="block">Nom et Prénom <span class="text-danger">(*)</span></label>
                             <div :class="[errors.fullname ? 'input-group input-group-danger' : 'input-group input-group-inverse']">
-                            <input id="fullname" type="text" class="form-control" placeholder="Nom et Prénom..." 
+                            <input id="fullname" type="text" class="form-control" placeholder="Nom et Prénom..."
                             v-model="fullname" data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.fullname" >
                             <span class="input-group-addon">
@@ -140,7 +140,7 @@ height: 40px;
                             </span>
                             </div>
                      </div>
-                        
+
                     </div>
                 </form>
             </div>
@@ -163,7 +163,7 @@ height: 40px;
 @section('page_scripts')
 <script>
     $(document).ready(function () {
-        
+
     });
 </script>
 <script>
@@ -186,14 +186,14 @@ height: 40px;
         methods: {
             fetch_notifications() {
                 var app = this;
-                
+
                 app.notifications_fetched =  false;
                 return axios.get('/getNotifications')
                     .then(function (response) {
                         app.notifications = response.data.notifications;
                         app.notifications_fetched =  true;
                         if (app.notifications.length > 0) {
-                           
+
                         }
                     });
             },
@@ -232,14 +232,14 @@ height: 40px;
                 });
             },
             reset_form(){
-            
-               
+
+
                 this.password='';
                 this.password_confirmation='';
                 this.errors=[];
-                
+
             },
-       
+
             handleFilesUpload() {
                 this.decision_file = this.$refs.files.files;
                 this.decision_file_name = this.decision_file[0].name;
