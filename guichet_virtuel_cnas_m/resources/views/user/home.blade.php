@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>CNAS - VIRTUAL COUNTER</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -40,7 +40,7 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                href="#contact">Contact</a></li>
+                                href="#contact">t</a></li>
                     </ul>
                 </div>
             </div>
@@ -49,9 +49,16 @@
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
                 <!-- Masthead Avatar Image-->
-                <img class="masthead-avatar mb-5" src="{{ asset('pages/user/assets/img/avataaars.svg') }}"
+                <template>
+                <div id="image-header-div" >
+                    <transition name="fade" mode="out-in">
+                <img class="masthead-avatar mb-5 " id="header-images" :src=" getAssetUrl " alt="currentPhoto" :key="currentPhotoIndex"
                     alt="..." />
+                    </transition>
+                </div>
+                </template>
                 <!-- Masthead Heading-->
+              <div>
                 <h1 class="masthead-heading text-uppercase mb-0">CNAS - VIRTUAL COUNTER</h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
@@ -60,7 +67,8 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>
+                <p class="masthead-subheading font-weight-light mb-0">Consult our services ... Book an appointment! <br> What are you wating for ? </p>
+              </div>
             </div>
         </header>
 
@@ -118,10 +126,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex justify-content-center mb-4">
-                                <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo"
-                                    class="img-fluid cnas-logo max-width">
+                                <a href="https://cnas.dz/" target="_blank"><img id="image-about-cnas" src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo"
+                                    class="img-fluid cnas-logo max-width"></a>
                             </div>
-                           
+
                         </div>
                         <div class="col-md-6">
                             <h2 class="mb-4">Providing Social Security for Algerian Citizens</h2>
@@ -242,30 +250,37 @@
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <h4 class="text-uppercase mb-4">Location</h4>
                         <p class="lead mb-0">
-                            2215 John Daniel Drive
+                            CNAS - Direction Générale
                             <br />
-                            Clark, MO 65243
+                            Rue des deux bassins, Ben Aknoun 16028
                         </p>
                     </div>
                     <!-- Footer Social Icons-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <h4 class="text-uppercase mb-4">Around the Web</h4>
                         <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-linkedin-in"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-dribbble"></i></a>
+                                class="fab fa-fw fa-facebook-f "></i></a>
+                        {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+                                class="fab fa-fw fa-web"></i></a> --}}
+                        <a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/company/cnas-direction-g%C3%A9n%C3%A9rale/" target="_blank"><i
+                                class="fab fa-fw fa-linkedin-in "></i></a>
+                        {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+                                class="fab fa-fw fa-dribbble"></i></a> --}}
                     </div>
+                    <div class="col-lg-4 ">
+                        <h4>Contact</h4>
+                        <a href="" style="text-decoration: none ; color:white "> +213 23384270  </a> <br>
+
+                        <br><br><br>
+                    </div>
+
                     <!-- Footer About Text-->
                     <div class="col-lg-4">
-                        <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                        <h4 class="text-uppercase mb-4">About Creators</h4>
                         <p class="lead mb-0">
-                            Freelance is a free to use, MIT licensed Bootstrap theme created by
-                            <a href="http://startbootstrap.com">CNAS - VIRTUAL COUNTER</a>
-                            .
+                            This Application is created by : <br> Esselami Abdelahim / Cheklal Abdelkadir <br>
+                            <H4>CNAS - VIRTUAL COUNTER</H4>
+
                         </p>
                     </div>
                 </div>
@@ -273,7 +288,7 @@
         </footer>
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright &copy; Your Website 2023</small></div>
+            <div class="container"><small>Copyright &copy; CNAS-Virtual Counter 2023</small></div>
         </div>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
@@ -416,6 +431,9 @@
                     errors: [],
                     notifications: [],
                     notifications_fetched: false,
+
+                    photos: ['cnasfond.png','undraw_interview_re_e5jn.svg','Woman-booking-appointment.svg' ] ,
+                    currentPhotoIndex: 0,
                 }
             },
             methods: {
@@ -468,9 +486,9 @@
             <img src="{{ asset('images/documents.png') }}">
           <div class="col-5 list-group"  style="position:absolute;    top: 175;
     left: 120;">
-          
+
             <div >
-           
+
               <ul >
                 ${printContents}
               </ul>
@@ -637,11 +655,26 @@
                     $('#' + element).unblock();
                 },
 
+                // getAssetUrl() {
+                //         return "{{ asset('pages/user/assets/img/" + currentPhotoIndex + "') }}";
+                //         },
+
+
             },
+            computed: {
+                currentPhoto() {
+                return this.photos[this.currentPhotoIndex];
+                    },
+                    getAssetUrl() {
+                        return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
+                        },
+                    },
             mounted() {
                 this.fetch_services();
 
-
+                setInterval(() => {
+                    this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
+                    }, 9000);
                 // Default export is a4 paper, portrait, using millimeters for units
 
 
