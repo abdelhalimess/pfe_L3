@@ -24,7 +24,7 @@
 <body>
     <div id="app">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav" >
             <div class="container">
                 <div style="">
                     <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="cnas-logo" style="width: 40px ; height:40px ; margin-right:10px ; margin-bottom :5px" >
@@ -246,7 +246,7 @@
             </div>
         </section> --}}
         <!-- Footer-->
-        <footer class="footer text-center">
+        <footer class="footer text-center" id="footer-page">
             <div class="container">
                 <div class="row">
                     <!-- Footer Location-->
@@ -274,18 +274,20 @@
                         <h4>Contact</h4>
                         <a href="" style="text-decoration: none ; color:white "> +213 23384270  </a> <br>
 
-                        <br><br><br>
+                        <br><br><br><br><br>
                     </div>
 
                     <!-- Footer About Text-->
-                    <div class="col-lg-4">
-                        <h4 class="text-uppercase mb-4">About Creators</h4>
+                    <div class="row center " style="justify-content: center ; ">
+                    <div class="col-lg-8 center" >
                         <p class="lead mb-0">
-                            This Application is created by : <br> Esselami Abdelahim / Cheklal Abdelkadir <br>
-                            <H4>CNAS - VIRTUAL COUNTER</H4>
+                            <h4>Created by: </h4>
+                            Abdelhalim Esselami /  Abdelkadir Cheklal<br>
+                            <h4>CNAS - VIRTUAL COUNTER</h4>
 
                         </p>
                     </div>
+                  </div>
                 </div>
             </div>
         </footer>
