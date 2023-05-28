@@ -54,7 +54,8 @@
 }
 
 #main-frame{
-    background:linear-gradient(to bottom, #0077b6 , #00b4d8  , #90c7ef,#ffff );
+    background:linear-gradient(to bottom,#ffff, #90c7ef , #4aa5d9, #0077b6   );
+    height: 100%;
 }
 
 #card-body{
@@ -62,8 +63,12 @@
 }
 #head-card-div{
 padding-top: 2rem;
-
-
+}
+#structures{
+    width: 85%;
+    border-radius: 10px;
+    color: #0077b6;
+    height: 100% ;
 }
 
 
@@ -5009,13 +5014,13 @@ input[type="button"].btn-block {
 
 .navbar-light .navbar-brand {
   color: rgba(44, 44, 45, 0.9);
-  font-family:"Nunito", sans-serif;
-  font-size: 2rem;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
 }
 
 .navbar-light .navbar-brand:hover,
 .navbar-light .navbar-brand:focus {
-  color: rgba(190, 217, 242, 0.9);
+  color: rgba(127, 191, 251, 0.9);
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -10499,7 +10504,7 @@ a.text-dark:focus {
 }
 
 .navbar-laravel {
-  background-color: #0077b6;
+  background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }

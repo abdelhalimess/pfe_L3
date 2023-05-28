@@ -23,13 +23,12 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container text-center">
-               <div class="flex">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('images\favicon.ico') }}" alt="CNAS-LOGO" style="width: 40px ; hieght:40px ; margin-right:10px ; margin-bottom:10px;">
 
+                <img src="{{ asset('images\favicon.ico') }}" alt="CNAS-LOGO" style="width: 40px ; hieght:40px ; margin-right:10px ; margin-bottom:10px;">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     Register | CNAS - TAYSEER
                 </a>
-            </div>
+
                 {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button> --}}

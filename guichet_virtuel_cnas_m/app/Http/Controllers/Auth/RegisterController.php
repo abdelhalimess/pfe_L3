@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
+use App\Models\Structure;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -31,6 +32,12 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+
+    // public function index()
+    // {
+    //     $structures = Structure::all();
+    //     return view('auth.register',compact('structures'));
+    // }
 
     /**
      * Create a new controller instance.
@@ -75,7 +82,7 @@ class RegisterController extends Controller
             'address' => $data['address'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-
+            'commune_id'=> $data['structure_id'],
         ]);
         $user->assignRole('user');
         return $user;

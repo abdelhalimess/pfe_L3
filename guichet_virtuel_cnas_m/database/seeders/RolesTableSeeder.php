@@ -8,11 +8,6 @@ use \Spatie\Permission\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $roles = [
@@ -22,8 +17,6 @@ class RolesTableSeeder extends Seeder
             'user',
             'superviseur',
         ];
-
-
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }

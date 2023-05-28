@@ -24,6 +24,7 @@ use File;
 use App\Charts\SampleChart;
 use App\Models\Question;
 use App\Models\Service;
+use App\Models\Structure;
 use Charts;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\UploadedFile;
@@ -97,8 +98,8 @@ class UserController extends Controller
             case 'superadmin':
                 $roles = Role::with('permissions')->get();
                 $permissions = Permission::all();
-                $structureTypes = StructureType::with('structures')->get();
-                return view('superadmin.add_user', compact('roles', 'permissions', 'structureTypes'));
+                $structures = Structure::all();
+                return view('superadmin.add_user', compact('roles', 'permissions', 'structures'));
                 break;
             case 'admin':
                 $roles = Role::with('permissions')->whereNotIn('name', ['superadmin', 'admin', 'manager'])->get();
