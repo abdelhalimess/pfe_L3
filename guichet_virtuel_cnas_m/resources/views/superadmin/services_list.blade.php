@@ -167,7 +167,7 @@
 
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
 
             <div class="card">
                 <div class="card-header table-card-header">
@@ -232,7 +232,7 @@
 
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
 
        
             <div class="card">
@@ -650,6 +650,7 @@ $(document).ready(function() {
                         })
                         .then(function(response) {
                             app.$set(app.services, index, response.data.service);
+                            console.log(response.data.service);
                             $('#edit-service-modal').modal('toggle');
                             app.selectedServiceName = app.serviceName;
                             app.serviceName = '';
