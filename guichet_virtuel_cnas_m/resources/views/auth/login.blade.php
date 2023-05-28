@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>CNAS | Dashboard</title>
+    <title>Login | CNAS - TAYSEER</title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -80,18 +80,18 @@
 
                     <form class="md-float-material form-material" method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="text-center">
+                        {{-- <div class="text-center">
                             <img src="{{ asset('images/logo.png') }}" alt="logo.png">
-                        </div>
+                        </div> --}}
                         <div class="auth-box card">
-                            <div class="card-block">
+                            <div class="card-block" id="login-card">
                                 <div class="row m-b-50">
                                     <div class="col-md-12">
-                                        <h3 class="text-center">Identification</h3>
+                                        <h3 class="text-center">Login</h3>
                                     </div>
                                 </div>
                                 <div class="form-group form-primary">
-                                    <input placeholder="Nom d'utilisateur" id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+                                    <input placeholder="Username" id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
 
                                     @if ($errors->has('username'))
                                     <span class="invalid-feedback" role="alert">
@@ -101,7 +101,7 @@
                                     <span class="form-bar"></span>
                                 </div>
                                 <div class="form-group form-primary">
-                                    <input placeholder="Mot de passe" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                    <input placeholder="Password" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                     @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -116,20 +116,23 @@
                                             <label>
                                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                                 <span class="cr"><i class="cr-icon icofont icofont-ui-check text-primary"></i></span>
-                                                <span class="text-inverse">Restez connecté</span>
+                                                <span class="text-inverse">Remember Me</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Connecter</button>
+                                        <button id="button" type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Login</button>
+                                       <div class=" text-center">
+                                        <span> Don't have an Account? <a href="/register" style="text-decoration: underline"> Create</a></span>
+                                       </div>
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <p class="text-inverse text-left m-b-0">&copy; CNAS 2022 </p>
+                                        <p class="text-inverse text-left m-b-0">&copy; CNAS 2023 </p>
                                         <p class="text-inverse text-left"><b class="f-w-600">V 1.0.0</b></p>
                                     </div>
                                     <div class="col-md-2">

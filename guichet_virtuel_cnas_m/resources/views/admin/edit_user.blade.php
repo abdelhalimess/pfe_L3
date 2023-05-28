@@ -60,7 +60,7 @@
                             </span>
                         </div>
                         <div :class="[errors.phone ? 'col-sm-4 input-group input-group-danger' : 'col-sm-4 input-group input-group-inverse']">
-                            <input type="text" class="form-control" placeholder="Numéro de téléphone" v-model="phone"
+                            <input type="tel" class="form-control" placeholder="Numéro de téléphone" v-model="phone"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.phone">
                             <span class="input-group-addon">
@@ -116,11 +116,11 @@
                         @foreach ($roles as $role)
                             <div class="radio radiofill  radio-inverse m-l-10 ">
                                 <label class="clickable">
-                                <input type="radio" name="role" value="{{$role->id}}" 
+                                <input type="radio" name="role" value="{{$role->id}}"
                                 @foreach ($user->roles as $r)
                                     @if ($r->id === $role->id )
                                         checked
-                                    @endif 
+                                    @endif
                                 @endforeach
                                 >
                                 <i class="helper"></i> {{$role->name}}
@@ -136,7 +136,7 @@
                             @foreach ($roles as $role)
                         <optgroup label="{{$role->name}}">
                             @foreach ($role->permissions as $permission)
-                            <option value="{{$permission->id}}"  
+                            <option value="{{$permission->id}}"
                               @foreach ($user->permissions as $p)
                                   @if ($p->id === $permission->id)
                                       selected ="selected"
@@ -163,7 +163,7 @@
         </div>
     </div>
 </div>
-    {{$user->roles}} 
+    {{$user->roles}}
 @endsection
 
 
@@ -177,7 +177,7 @@ $(document).ready(function() {
         selectableOptgroup: true,
         keepOrder: true
     });
-  
+
 
 
 });
@@ -256,9 +256,9 @@ const app = new Vue({
                 this.role_id='<?php echo $user->role_id ?>';
                 this.errors=[];
                // $('#permissions').multiSelect('deselect_all');
-                
+
             },
-       
+
 
         },
         created(){

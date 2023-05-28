@@ -1,18 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
+            <div class="card" id="card">
+                {{-- <div class="card-header text-center" id="card-header" >
+                    </h4></div> --}}
+                    <div class=" text-center" id="head-card-div">
+                    <h4>{{ __('Register') }}</h4>
+                   </div>
+                <div class="card-body " id="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Usernam') }}</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
 
                             <div class="col-md-6">
                                 <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
@@ -26,7 +30,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
@@ -39,7 +43,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="fullname" class="col-md-4 col-form-label text-md-right">{{ __('Full Name') }}</label>
+                            <label for="fullname" class="col-md-4 col-form-label text-md-right">{{ __('Fullname') }}</label>
 
                             <div class="col-md-6">
                                 <input id="fullname" type="text" class="form-control{{ $errors->has('fullname') ? ' is-invalid' : '' }}" name="fullname" value="{{ old('fullname') }}" required>
@@ -65,7 +69,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Adress') }}</label>
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" name="address" value="{{ old('address') }}" required autofocus>
@@ -77,6 +81,7 @@
                                 @endif
                             </div>
                         </div>
+
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -105,6 +110,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                <span style="margin-left: 10px">Already have an account? <a href="/login">Login</a></span>
                             </div>
                         </div>
                     </form>
@@ -113,4 +119,19 @@
         </div>
     </div>
 </div>
+
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+

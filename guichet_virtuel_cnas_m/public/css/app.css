@@ -42,6 +42,31 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+/* COSTUME CSS FOR REGISTER PAGE */
+#username,#password,
+#email,#fullname,
+#PhoneNumber,#address,
+#password-confirm{
+    border-radius: 10px;
+}
+#card-header{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#main-frame{
+    background:linear-gradient(to bottom, #0077b6 , #00b4d8  , #90c7ef,#ffff );
+}
+
+#card-body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#head-card-div{
+padding-top: 2rem;
+
+
+}
+
+
 
 html {
   font-family: sans-serif;
@@ -4983,12 +5008,14 @@ input[type="button"].btn-block {
 }
 
 .navbar-light .navbar-brand {
-  color: rgba(0, 0, 0, 0.9);
+  color: rgba(44, 44, 45, 0.9);
+  font-family:"Nunito", sans-serif;
+  font-size: 2rem;
 }
 
 .navbar-light .navbar-brand:hover,
 .navbar-light .navbar-brand:focus {
-  color: rgba(0, 0, 0, 0.9);
+  color: rgba(190, 217, 242, 0.9);
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -5098,7 +5125,11 @@ input[type="button"].btn-block {
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  border-radius: 0.90rem;
+
+}
+#card{
+    box-shadow: 10px 10px 25px grey;
 }
 
 .card > hr {
@@ -10429,6 +10460,7 @@ a.text-dark:focus {
 
   .navbar {
     display: none;
+    background-color: #1d68a7;
   }
 
   .badge {
@@ -10467,7 +10499,7 @@ a.text-dark:focus {
 }
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: #0077b6;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }

@@ -217,10 +217,10 @@
                             <tr>
                                 <th class="text-center" style="width:20px">#</th>
                                 <th>Username</th>
-                                <th>Nom - Prénom</th>
+                                <th>Fullname</th>
                                 <th>Email</th>
-                                <th>Adresse</th>
-                                <th>Téléphone</th>
+                                <th>Address</th>
+                                <th>Phone Number</th>
 
 
 
@@ -266,7 +266,7 @@
             <!-- Flying Word card start -->
             <div class="card">
                 <div class="card-header">
-                    <h5 class="text-danger">Please fill the required fields (*)</h5>
+                    <h5 class="text-danger">Please fill all the required fields (*)</h5>
                 <div v-if="errors.length"> @{{ errors}}</div>
                 </div>
                 <div class="card-block">
@@ -308,7 +308,7 @@
                         </div>
                     </form>
                     <hr>
-                    <h5 class="sub-title">Affectation and personal information <span class="text-danger">(*)</span></h5>
+                    <h5 class="sub-title">Assignment and Credentials <span class="text-danger">(*)</span></h5>
                     <form>
                         <div class="form-group row">
                             <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
@@ -429,8 +429,8 @@ $(document).ready(function() {
     $('#users-table').DataTable();
 
     $('#permissions').multiSelect({
-                selectableHeader: "<div class='custom-header bg-inverse'>Les permissions disponibles</div>",
-                selectionHeader: "<div class='custom-header bg-inverse'>Les permissions sélectionnées</div>",
+                selectableHeader: "<div class='custom-header bg-inverse'>Available Permissions</div>",
+                selectionHeader: "<div class='custom-header bg-inverse'>Selected Permissions</div>",
                 selectableOptgroup: true,
                 keepOrder: true
             });
@@ -480,13 +480,13 @@ const app = new Vue({
     methods: {
         delete_user(id, index) {
             swal({
-                    title: "Êtes-vous sûr?",
-                    text: "Cette action est irréversible!",
+                    title: "Are you sure?",
+                    text: "This action is irreversible!",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Supprimer",
-                    cancelButtonText: "Annuler",
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Cancel",
                     closeOnConfirm: true,
                     closeOnCancel: true
                 },
@@ -530,14 +530,15 @@ const app = new Vue({
                     'permissions':app.permissions
                 })
                 .then(function (response) {
-                    //notify('Succès',response.data.success,'green', 'topCenter','bounceInDown');
+                    this.errors=[];
+                    // notify('Succès',response.data.success,'green', 'topCenter','bounceInDown');
                   //  app.show_edit =false;
                     swal({
-                    title: "Succès?",
-                    text: "Informations modifiées avec succès!",
+                    title: "Success",
+                    text: "Information updated successfully!",
                     type: "success",
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Fermer",
+                    confirmButtonText: "Close",
                     closeOnConfirm: true,
                 },
                 function (isConfirm) {
@@ -555,7 +556,7 @@ const app = new Vue({
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
-                    notify('Erreurs!','Veuillez vérifier les informations introduites','red', 'topCenter','bounceInDown');
+                    notify('Edit Failed','Please verify the given information','red', 'topCenter','bounceInDown');
                     } else if (error.request) {
                         console.log(error.request);
                     } else {

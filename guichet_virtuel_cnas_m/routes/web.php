@@ -32,6 +32,7 @@ Auth::routes();
 Route::get('/', [UserController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/landing', [UserController::class, 'landing'])->name('landing');
 
+
 Route::get('/user_profile', [UserController::class, 'user_profile'])->name('user-profile')->middleware('auth');
 Route::post('/change_password', [UserController::class, 'change-password'])->name('change-password')->middleware('auth');
 Route::put('/update_information', [UserController::class, 'update_information'])->name('update-profile')->middleware('auth');
