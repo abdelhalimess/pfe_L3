@@ -497,7 +497,6 @@ const app = new Vue({
                     app.selectedPermissions =  app.selectedPermissions.toString().split(',').map(Number);
                     app.permissions = app.selectedPermissions;
                 }
-                wait a min
                 axios.put('/update_user/'+id, {
                     'fullname':app.fullname,
                     'email':app.email,
