@@ -649,7 +649,8 @@ $(document).ready(function() {
                             'description': description,
                         })
                         .then(function(response) {
-                            app.$set(app.services, index, response.data.service);
+                            // app.$set(app.services, index, response.data.service);
+                            app.services = response.data.services;
                             console.log(response.data.service);
                             $('#edit-service-modal').modal('toggle');
                             app.selectedServiceName = app.serviceName;

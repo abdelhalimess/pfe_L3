@@ -85,9 +85,11 @@ class ServiceController extends Controller
         $service->description = $request->description;
 
         $service->save();
+        $services = Service::with('questions')->get();
         return response()->json([
             'success' => 'Service updated with success',
-            'service' => $service
+            'service' => $service,
+            'services' => $services,
         ]);
     }
 
