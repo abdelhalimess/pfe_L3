@@ -595,8 +595,8 @@
                 book_appointment() {
                     axios.post('/createAppointment', {
                                 selected_date: app.selectedDate,
-                                selected_hour : app.selectedHour
-                            })
+                                selected_hour : app.selectedHour,
+                                selected_service_id : app.selectedService                            })
                             .then(response => {
                                 // Handle the response data
                                 console.log(response.data);

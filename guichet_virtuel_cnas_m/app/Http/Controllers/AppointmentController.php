@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Service;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -127,6 +130,7 @@ class AppointmentController extends Controller
 
     $selectedDate = $request->input('selected_date');
     $selectedHour = $request->input('selected_hour');
+    $selectedService = $request->input('selected_service_id');
 
     // Convert selected date and hour to a DateTime object
     $selectedDateTime = Carbon::createFromFormat('Y-m-d H:i', $selectedDate . ' ' . $selectedHour);
@@ -136,13 +140,17 @@ class AppointmentController extends Controller
         ->whereTime('appointment_datetime', $selectedDateTime->toTimeString())
         ->exists();
 
-    if ($isBooked) {
+    if ($isBooked) { // this i added to check for two or more user booking at same time
         return response()->json(['message' => 'Selected time slot is not available. Please choose another time.'], 400);
     }
-
+    $authUser = User::find(Auth::user()->id);
+    $service = Service::where('id','=',$selectedService)->with("employee")->firstOrFail();
     // Save the appointment to the database
     Appointment::create([
         'appointment_datetime' => $selectedDateTime,
+        'user_id' => $authUser->id,
+        'employee_id' => $service->employee->id,
+        'status' => 'created' // hna njibo id ta3 employee from the front end when we select a service psk employee taba3 l service wahed
     ]);
 
     return response()->json(['message' => 'Appointment created successfully']);
