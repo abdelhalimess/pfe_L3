@@ -212,7 +212,7 @@ class UserController extends Controller
         $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
-                $users = User::with('permissions', 'roles')->get();
+                $users = User::with('permissions', 'roles','structure')->get();
                 $roles = Role::with('permissions')->get();
                 $structureTypes = StructureType::with('structures')->get();
                 return view('superadmin.users_list', compact('users', 'roles', 'structureTypes'));
@@ -279,9 +279,9 @@ class UserController extends Controller
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
         if ($role != 'superadmin') {
-            $user->structure_id = Auth::user()->commune_id;
+            $user->structure_id = Auth::user()->structure_id;
         } else {
-            $user->commune_id = $request->commune_id;
+            $user->structure_id = $request->structure_id;
         }
 
 

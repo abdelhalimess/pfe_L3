@@ -1,8 +1,8 @@
 @extends('layouts.base')
 
 @section('page_title')
-<h4>Accueil</h4>
-<span>Etat de l'application </span>
+<h4>Home</h4>
+<span>Statistics</span>
 @endsection
 
 @section('breadcrumb')
@@ -16,7 +16,7 @@
 
 
 @section('page_content')
-<div class="row" >
+{{-- <div class="row" >
     <div class="col-xl-3 col-md-6">
         <div class="card">
             <div class="card-block">
@@ -33,7 +33,7 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}
 
 
 @section('page_scripts')

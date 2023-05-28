@@ -134,4 +134,7 @@ Route::get('structuretypes_list', [StructureTypeController::class, 'index'])->na
 Route::delete('/structuretype_delete/{id}', [StructureTypeController::class, 'destroy'])->name('structuretype-delete')->middleware(['auth', 'role:superadmin']);
 Route::get('/getTypes', [StructureTypeController::class, 'getTypes'])->name('getTypes')->middleware(['auth', 'role:superadmin']);
 
+
+Route::get('appointments_list', [AppointmentController::class, 'index'])->name('appointments-list')->middleware(['auth', 'role:admin']);
+
 // Route::get('/getDocuments/{id}', [QuestionController::class, 'getDocuments'])->name('getDocuments')->middleware(['auth', 'role:superadmin|user']);

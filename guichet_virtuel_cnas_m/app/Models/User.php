@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Cache;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Cache as FacadesCache;
 
 class User extends Authenticatable
@@ -21,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fullname', 'address', 'email', 'password', 'username', 'telephone', 'commune_id'
+        'fullname', 'address', 'email', 'password', 'username', 'telephone', 'commune_id', 'structure_id'
     ];
 
     /**

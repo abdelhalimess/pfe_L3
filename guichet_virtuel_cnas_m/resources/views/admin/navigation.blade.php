@@ -4,18 +4,18 @@
     <li class="{{ (\Request::route()->getName() == 'home') ? 'active' : '' }}">
         <a href="{{ route('home') }}">
             <span class="pcoded-micon"><i class="feather icon-home"></i></span>
-            <span class="pcoded-mtext">Accueil</span>
+            <span class="pcoded-mtext">Home</span>
         </a>
     </li>
     <li class="pcoded-hasmenu">
         <a href="javascript:void(0)">
             <span class="pcoded-micon"><i class="feather icon-user"></i></span>
-            <span class="pcoded-mtext">Options du compte</span>
+            <span class="pcoded-mtext">Profile Settings</span>
         </a>
         <ul class="pcoded-submenu">
             <li class="{{ (\Request::route()->getName() == 'user-profile') ? 'active' : '' }}">
                 <a href="/user_profile">
-                    <span class="pcoded-mtext">Mon profile</span>
+                    <span class="pcoded-mtext">My profile</span>
                 </a>
             </li>
             {{-- <li class=" ">
@@ -28,24 +28,24 @@
         </ul>
     </li>
 </ul>
-<div class="pcoded-navigatio-lavel">Gestion des tables</div>
+<div class="pcoded-navigatio-lavel">Table Managment</div>
 <ul class="pcoded-item pcoded-left-item">
-    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'services.index') ? 'pcoded-trigger' : '' }}">
+    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'appointment-list') ? 'pcoded-trigger' : '' }}">
         <a href="javascript:void(0)">
             <span class="pcoded-micon"><i class="icofont icofont-users "></i></span>
-            <span class="pcoded-mtext">Services</span>
+            <span class="pcoded-mtext">Appointments</span>
         </a>
         <ul class="pcoded-submenu">
 
-            <li class="{{ (\Request::route()->getName() == 'services.index') ? 'active' : '' }}">
-                <a href="/services">
-                    <span class="pcoded-mtext">Liste des services</span>
+            <li class="{{ (\Request::route()->getName() == 'appointment-list') ? 'active' : '' }}">
+                <a href="/appointment_list">
+                    <span class="pcoded-mtext">Appointment Table</span>
                 </a>
             </li>
 
         </ul>
     </li>
-    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'users-list' || \Request::route()->getName() == 'create-user' ) ? 'pcoded-trigger' : '' }}">
+    {{-- <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'users-list' || \Request::route()->getName() == 'create-user' ) ? 'pcoded-trigger' : '' }}">
         <a href="javascript:void(0)">
             <span class="pcoded-micon"><i class="fa fa-users"></i></span>
             <span class="pcoded-mtext">Utilisateur</span>
@@ -62,6 +62,6 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
 </ul>
 @endsection
