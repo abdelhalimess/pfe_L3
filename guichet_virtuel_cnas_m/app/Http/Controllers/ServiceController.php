@@ -80,12 +80,11 @@ class ServiceController extends Controller
     public function update(Request $request, $id)
     {
 
-        $service = Service::with("questions")->findOrFail($id);
+        $service = Service::findOrFail($id);
         $service->name = $request->name;
         $service->description = $request->description;
 
         $service->save();
-
         return response()->json([
             'success' => 'Service updated with success',
             'service' => $service

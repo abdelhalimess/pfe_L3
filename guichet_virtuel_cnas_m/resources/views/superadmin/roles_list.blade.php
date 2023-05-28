@@ -319,7 +319,7 @@
                         app.newRole = '';
                         app.selectedRoleName = '';
                         app.selectedRoleIndex = '';
-                        notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                        notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                     })
                     .catch(function(error) {
                         if (error.response) {
@@ -340,7 +340,7 @@
                         $('#edit-role-modal').modal('toggle');
                         app.selectedRoleName = app.roleName;
                         app.roleName = '';
-                        notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                        notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                     })
                     .catch(function(error) {
                         if (error.response) {

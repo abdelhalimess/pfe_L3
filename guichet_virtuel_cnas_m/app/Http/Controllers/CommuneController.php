@@ -90,7 +90,7 @@ class CommuneController extends Controller
         $commune->save();
 
         return response()->json([
-            'success' => 'State updated with success',
+            'success' => 'Commune updated with success',
             'commune' => $commune
         ]);
     }
