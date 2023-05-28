@@ -76,10 +76,10 @@
                                         </div>
                                     </form>
                                     <hr>
-                                    <h5 class="sub-title">Affectation et Informations d'identification <span class="text-danger">(*)</span></h5>
+                                    <h5 class="sub-title">Assignment and Credentials<span class="text-danger">(*)</span></h5>
                                     <form>
                                         <div class="form-group row">
-                                            <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
+                                            {{-- <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
                                             data-toggle="tooltip" data-placement="top"
                                             :data-original-title="errors.structure_id">
                                                 <select id="structure-types" class="selectpicker show-tick" title="Structure type.."
@@ -91,12 +91,12 @@
                                                 <span class="input-group-addon">
                                                     <i class="icofont icofont-listing-box"></i>
                                                 </span>
-                                            </div>
+                                            </div> --}}
 
-                                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
+                                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
                                             data-toggle="tooltip" data-placement="top"
                                             :data-original-title="errors.structure_id">
-                                                <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
+                                                {{-- <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
 
                                                     @foreach ($structureTypes as $structureType)
                                                         <optgroup label="{{$structureType->name}}" >
@@ -105,7 +105,7 @@
                                                             @endforeach
                                                         </optgroup>
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
                                                 <span class="input-group-addon">
                                                     <i class="icofont icofont-sub-listing"></i>
                                                 </span>
@@ -155,21 +155,7 @@
                                         <div class="col-md-9">
                                             <h4 class="sub-title text-center ">Select a Permission <span class="text-danger">(*)</span></h4>
                                             <p class="text-danger text-center m-t-5" v-if="errors.permissions" >@{{errors.permissions.toString()}}</p>
-                                            <select  multiple id="permissions">
-                                                @foreach ($roles as $role)
-                                                    <optgroup label="{{$role->name}}" >
-                                                        @foreach ($role->permissions as $permission)
-                                                            <option value="{{$permission->id}}">{{$permission->name }}</option>
-                                                        @endforeach
-                                                    </optgroup>
-                                                @endforeach
-                                                {{-- <optgroup label="lool">
-                                                    <option value="1">1</option>
-                                                    <option value="3">2</option>
-                                                    <option value="4">3</option>
-                                                    <option value="2">4</option>
-                                                </optgroup> --}}
-                                            </select>
+                                            
                                         </div>
                                     </form>
                                 </div>
@@ -311,7 +297,7 @@
                     <h5 class="sub-title">Assignment and Credentials <span class="text-danger">(*)</span></h5>
                     <form>
                         <div class="form-group row">
-                            <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
+                            {{-- <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
                             data-toggle="tooltip" data-placement="top"
                             :data-original-title="errors.structure_id">
                                 <select id="structure-types" class="selectpicker show-tick" title="Structure type..."
@@ -323,31 +309,26 @@
                                 <span class="input-group-addon">
                                     <i class="icofont icofont-listing-box"></i>
                                 </span>
-                            </div>
+                            </div> --}}
 
-                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
+                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
                             data-toggle="tooltip" data-placement="top"
                             :data-original-title="errors.structure_id">
-                                <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name..." data-width="100%" data-size="8">
+                            <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
 
-                                    @foreach ($structureTypes as $structureType)
-                                        <optgroup label="{{$structureType->name}}" >
-                                            @foreach ($structureType->structures as $structure)
-                                                <option value="{{$structure->id}}" v-model="structure_id"> {{$structure->name}}</option>
-                                            @endforeach
-                                        </optgroup>
-                                    @endforeach
-                                </select>
+                                @foreach ($structureTypes as $structureType)
+                                    <optgroup label="{{$structureType->name}}" >
+                                        @foreach ($structureType->structures as $structure)
+                                            <option value="{{$structure->id}}" v-model="structure_id1"> {{$structure->name}}</option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
+                            </select>
                                 <span class="input-group-addon">
                                     <i class="icofont icofont-sub-listing"></i>
                                 </span>
                             </div>
-                            <div class="col-sm-3  input-group input-group-inverse">
-                                <input id="state" type="text" class="form-control" placeholder="Code wilaya" readonly>
-                                {{-- <span class="input-group-addon">
-                                    <i class="icofont icofont-wifi"></i>
-                                </span> --}}
-                            </div>
+                        
                             <div :class="[errors.username ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">
                                 <input type="text" class="form-control" placeholder="Username"
                                 data-toggle="tooltip" data-placement="top"
@@ -440,7 +421,6 @@ $(document).ready(function() {
             });
 });
 </script>
-
 <script>
 const app = new Vue({
     el: '#app',
@@ -517,6 +497,7 @@ const app = new Vue({
                     app.selectedPermissions =  app.selectedPermissions.toString().split(',').map(Number);
                     app.permissions = app.selectedPermissions;
                 }
+                wait a min
                 axios.put('/update_user/'+id, {
                     'fullname':app.fullname,
                     'email':app.email,
@@ -575,9 +556,9 @@ const app = new Vue({
 
             $('#permissions').multiSelect('select',app.permissions);
             // $('#structure-types').selectpicker('val',user.structure.structure_type_id);
-            // $('#structures').selectpicker('val',user.structure_id);
+            $('#structures').selectpicker('val',user.structure_id);
+            console.log('rferferf ===> '+user.structure_id);
             // $('#state').val(user.structure.state);
-
             app.fullname = user.fullname;
             app.email = user.email;
             app.telephone = user.telephone;
