@@ -15,7 +15,8 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
         type="text/css" />
-
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/jsCalendar.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.datetimepicker.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/animate.css/css/animate.css') }}">
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('pages/user/css/styles.css') }}" rel="stylesheet" />
@@ -121,7 +122,7 @@
                                 <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo"
                                     class="img-fluid cnas-logo max-width">
                             </div>
-                           
+
                         </div>
                         <div class="col-md-6">
                             <h2 class="mb-4">Providing Social Security for Algerian Citizens</h2>
@@ -279,7 +280,7 @@
         <!-- Portfolio Modal 1-->
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1"
             aria-labelledby="portfolioModal1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header border-0">
                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
@@ -302,12 +303,16 @@
                                     </div>
 
                                     <div class="row justify-content-center">
-                                        <div class="col-10">
+                                        <div class="col-12"
+                                            :class=" [!showBookingForm ? 'col-10 animated fadeInDown' :
+                                                 'col-10 animated fadeOutDown'
+                                             ]"
+                                            v-show="!showBookingForm">
                                             <div class="card">
                                                 <div class="card-header">Questionnaire</div>
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="col-6">
+                                                        <div class="col-8">
                                                             <div class="list-group">
                                                                 <div v-if="questions.length != 0"
                                                                     class="list-group-item list-group-item-action"
@@ -322,7 +327,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-5">
+                                                        <div class="col-4">
                                                             <div class="list-group" v-if="documents.length > 0">
                                                                 <div class="list-group-item list-group-item-action"
                                                                     v-for="(document, index) in documents"
@@ -360,6 +365,72 @@
                                                                 Print
                                                             </button>
                                                             <button class="btn btn-primary"
+                                                                v-if="documents.length > 0"
+                                                                v-on:click="showBookingForm=true">
+                                                                <i class="fas fa-book"></i>
+                                                                Book
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-10"
+                                            :class=" [showBookingForm ? 'col-10 animated fadeInDown' :
+                                                 'col-10 animated fadeOutDown'
+                                             ]"
+                                            v-show="showBookingForm">
+                                            <div class="card">
+                                                <div class="card-header">Book an Appointment</div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div id="demo"></div>
+
+
+
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <div class="list-group" v-if="documents.length > 0">
+                                                                <div :class="[index == selectedHourIndex ?
+                                                                    'active list-group-item list-group-item-action' :
+                                                                    'list-group-item list-group-item-action'
+                                                                ]"
+                                                                    v-for="(hour, index) in available_hours"
+                                                                    v-on:click="selectedHourIndex = index, selectedHour = hour"
+                                                                    :key="index">
+                                                                    <div class="form-check">
+
+                                                                        <label class="form-check-label"
+                                                                            :for="'document-checkbox-' + index">
+                                                                            @{{ hour }}
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div v-else class="text-muted">No appointments available,
+                                                                please select another date.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row justify-content-between">
+                                                        <div class="col-auto">
+                                                            <button class="btn btn-primary"
+                                                                v-on:click="showBookingForm = false">
+                                                                <i class="fas fa-arrow-left"></i>
+                                                                Back
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            {{-- <button class="btn btn-primary"
+                                                                v-on:click="printDocuments"
+                                                                v-if="documents.length > 0">
+                                                                <i class="fas fa-print"></i>
+                                                                Print
+                                                            </button> --}}
+                                                            <button class="btn btn-primary" v-on:click="book_appointment()"
                                                                 v-if="documents.length > 0">
                                                                 <i class="fas fa-book"></i>
                                                                 Book
@@ -387,7 +458,9 @@
     <script type="text/javascript" src="{{ asset('bower_components/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.min.js') }}"></script>
     <script src="{{ asset('js/jspdf.debug.js') }}"></script>
+    {{-- <script src="{{ asset('js/jsCalendar.js') }}"></script> --}}
 
     <!-- Core theme JS-->
     <script src="{{ asset('pages/user/js/scripts.js') }}"></script>
@@ -397,13 +470,30 @@
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     {{-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> --}}
+    <script>
+        $(document).ready(function() {
+
+
+
+
+
+
+
+
+        });
+    </script>
 
     <script>
+        //    var myCalendar = jsCalendar.new("#my-calendar");
         const app = new Vue({
             el: '#app',
             data() {
                 return {
+                    selectedHourIndex: '',
+                    selectedHour: '',
+                    showBookingForm: false,
                     show_edit: false,
+                    // myCalendar : jsCalendar.new("#my-calendar"),
                     services: [],
                     questions: [],
                     selectedQuestion: '',
@@ -415,10 +505,17 @@
                     password_confirmation: '',
                     errors: [],
                     notifications: [],
+                    available_hours: [],
+                    selectedDate:'',
                     notifications_fetched: false,
                 }
             },
             methods: {
+                setDate() {
+
+                    app.myCalendar.set("31/05/2023");
+                    console.log('30/05/2023');
+                },
                 printDocuments() {
                     const doc = new jsPDF();
                     var img = new Image();
@@ -495,6 +592,21 @@
                 clear_documents() {
                     this.documents = [];
                 },
+                book_appointment() {
+                    axios.post('/createAppointment', {
+                                selected_date: app.selectedDate,
+                                selected_hour : app.selectedHour
+                            })
+                            .then(response => {
+                                // Handle the response data
+                                console.log(response.data);
+                               
+                            })
+                            .catch(error => {
+                                // Handle any errors
+                                console.error(error);
+                            });
+                },
                 fetch_services() {
                     return axios.get('/getServices')
                         .then(response => {
@@ -507,6 +619,7 @@
                         })
                         .catch();
                 },
+               
                 fetch_questions(question) {
                     this.previousQuestions.push(question.id);
                     return axios.get('/getQuestions/' + question.id)
@@ -640,6 +753,34 @@
             },
             mounted() {
                 this.fetch_services();
+                $('#demo').datetimepicker({
+                    date: new Date(),
+                    startDate: new Date()
+
+                        ,
+                    onDateChange: function() {
+
+                        console.log(this.getText('YYYY-MM-DD'));
+                        app.selectedDate = this.getText('YYYY-MM-DD');
+                        axios.post('/getAvailableHours', {
+                                selected_date: this.getText('YYYY-MM-DD')
+                            })
+                            .then(response => {
+                                // Handle the response data
+                                console.log(response.data);
+                                app.available_hours = response.data.available_hours;
+                            })
+                            .catch(error => {
+                                // Handle any errors
+                                console.error(error);
+                            });
+
+
+                    }
+                }, );
+                // Get the button
+
+                // Add a button event
 
 
                 // Default export is a4 paper, portrait, using millimeters for units

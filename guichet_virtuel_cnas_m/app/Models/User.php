@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Cache;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache as FacadesCache;
 
 class User extends Authenticatable
@@ -45,5 +46,10 @@ class User extends Authenticatable
     public function isOnline()
     {
         return FacadesCache::has('user-is-online-' . $this->id);
+    }
+
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class);
     }
 }

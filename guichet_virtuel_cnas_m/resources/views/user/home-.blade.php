@@ -648,7 +648,9 @@ $(document).ready(function() {
 
 
  
-      $('#myList a:last-child').tab('show');
+  new Calendar({
+    id: '#color-calendar',
+})
  
 
 

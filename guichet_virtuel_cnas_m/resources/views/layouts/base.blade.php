@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome-animation.min.css') }}">
     {{-- jspdf --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/editor.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/jsCalendar.css') }}">
     <!-- animation nifty modal window effects css -->
     <!-- toolbar css -->
 
@@ -511,6 +512,7 @@
     {{-- jspdf --}}
     <script src="{{ asset('js/cleave.min.js') }}"></script>
     <script src="{{ asset('js/jspdf.debug.js') }}"></script>
+    <script src="{{ asset('js/jsCalendar.js') }}"></script>
     <script src="{{ asset('js/JsBarcode.all.js') }}"></script>
     {{-- <script src="{{ asset('js/wwDigital-normal.js') }}"></script> --}}
     {{-- <script src="{{ asset('js/jspdf.customfonts.min.js') }}"></script> --}}

@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
@@ -110,6 +111,11 @@ Route::get('/getQuestionDocuments/{id}', [QuestionController::class, 'getQuestio
 Route::get('/getDocuments', [QuestionController::class, 'getDocuments'])->name('getDocuments')->middleware(['auth', 'role:superadmin']);
 Route::post('/servicesAddQuestion/{id}', [ServiceController::class, 'addQuestions'])->name('addQuestions')->middleware(['auth', 'role:superadmin']);
 Route::post('/addNestedQuestion', [QuestionController::class, 'addNestedQuestion'])->name('addNestedQuestion')->middleware(['auth', 'role:superadmin']);
+
+Route::post('/getAvailableHours', [AppointmentController::class, 'getAvailableHours'])->name('getAvailableHours')->middleware(['auth', 'role:superadmin|user']);
+Route::post('/createAppointment', [AppointmentController::class, 'createAppointment'])->name('createAppointment')->middleware(['auth', 'role:superadmin|user']);
+
+
 
 Route::get('structures_list', [StructureController::class, 'index'])->name('structures-list')->middleware(['auth', 'role:superadmin']);
 Route::resource('structures', StructureController::class)->middleware(['auth', 'role_or_permission:admin|superadmin']);
