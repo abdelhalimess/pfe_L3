@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -15,7 +17,21 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $authUser = User::find(Auth::user()->id);
+        $role = $authUser->getRoleNames()->first();
+        switch ($role) {
+            case 'superadmin':
+                return view('superadmin.appointment_list');
+                break;
+            case 'user':
+                return view('user.appointment_list');
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
     }
 
     /**
@@ -143,6 +159,8 @@ class AppointmentController extends Controller
     // Save the appointment to the database
     Appointment::create([
         'appointment_datetime' => $selectedDateTime,
+        'user_id' => Auth::user()->id,
+        'employee_id' => 1,
     ]);
 
     return response()->json(['message' => 'Appointment created successfully']);
