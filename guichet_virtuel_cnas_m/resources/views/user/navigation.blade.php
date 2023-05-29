@@ -16,7 +16,7 @@
         <ul class="pcoded-submenu">
             <li class="{{ (\Request::route()->getName() == 'user-profile') ? 'active' : '' }}">
                 <a href="/user_profile">
-                    <span class="pcoded-mtext">Mon profile</span>
+                    <span class="pcoded-mtext">My Profile</span>
                 </a>
             </li>
             {{-- <li class=" ">
@@ -87,16 +87,16 @@
             <span class="pcoded-mtext">Fonctions</span>
         </a>
         <ul class="pcoded-submenu">
-        
+
             <li class="{{ (\Request::route()->getName() == 'fonctions.index') ? 'active' : '' }}">
                 <a href="/fonctions">
                     <span class="pcoded-mtext">Liste des fonctions</span>
                 </a>
             </li>
-        
+
         </ul>
     </li>
-    
+
 
 </ul>
 <div class="pcoded-navigatio-lavel" >Gestion du personnel</div>
@@ -157,7 +157,7 @@
             <span class="pcoded-mtext">Agents</span>
         </a>
         <ul class="pcoded-submenu">
-        
+
             <li class="{{ (\Request::route()->getName() == 'agents.index') ? 'active' : '' }}">
                 <a href="/agents">
                     <span class="pcoded-mtext">Liste des agents</span>
@@ -168,7 +168,7 @@
                     <span class="pcoded-mtext">Mise à jour échelon</span>
                 </a>
             </li> -->
-        
+
         </ul>
     </li>
     {{-- @endif --}}
@@ -179,13 +179,13 @@
             <span class="pcoded-mtext">Frais missions</span>
         </a>
         <ul class="pcoded-submenu">
-        
+
             <li class="{{ (\Request::route()->getName() == 'missions.index') ? 'active' : '' }}">
                 <a href="/missions">
                     <span class="pcoded-mtext">Liste des missions</span>
                 </a>
             </li>
-           
+
         </ul>
     </li>
     <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'leavedocs.index') ? 'pcoded-trigger' : '' }}">
@@ -194,13 +194,13 @@
             <span class="pcoded-mtext">Bons de sortie</span>
         </a>
         <ul class="pcoded-submenu">
-        
+
             <li class="{{ (\Request::route()->getName() == 'leavedocs.index') ? 'active' : '' }}">
                 <a href="/leavedocs">
                     <span class="pcoded-mtext">Liste des bons sortie</span>
                 </a>
             </li>
-           
+
         </ul>
     </li>
 

@@ -155,7 +155,7 @@
                                         <div class="col-md-9">
                                             <h4 class="sub-title text-center ">Select a Permission <span class="text-danger">(*)</span></h4>
                                             <p class="text-danger text-center m-t-5" v-if="errors.permissions" >@{{errors.permissions.toString()}}</p>
-                                            
+
                                         </div>
                                     </form>
                                 </div>
@@ -328,7 +328,7 @@
                                     <i class="icofont icofont-sub-listing"></i>
                                 </span>
                             </div>
-                        
+
                             <div :class="[errors.username ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">
                                 <input type="text" class="form-control" placeholder="Username"
                                 data-toggle="tooltip" data-placement="top"
@@ -593,7 +593,7 @@ const app = new Vue({
                     'permissions':app.permissions
                 })
                 .then(function (response) {
-                    notify('Succès',response.data.success,'green', 'topCenter','bounceInDown');
+                    notify('Success',response.data.success,'green', 'topCenter','bounceInDown');
                     app.reset_form();
 
                 })
@@ -603,7 +603,7 @@ const app = new Vue({
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
-                    notify('Erreurs!','Veuillez vérifier les informations introduites','red', 'topCenter','bounceInDown');
+                    notify('Error','Please verify the given information','red', 'topCenter','bounceInDown');
                     } else if (error.request) {
                         console.log(error.request);
                     } else {

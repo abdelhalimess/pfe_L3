@@ -25,10 +25,11 @@
 <body>
     <div id="app">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav" >
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
                 <div style="">
-                    <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="cnas-logo" style="width: 40px ; height:40px ; margin-right:10px ; margin-bottom :5px" >
+                    <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="cnas-logo"
+                        style="width: 40px ; height:40px ; margin-right:10px ; margin-bottom :5px">
                     <a class="navbar-brand" id="nav-title">CNAS - VIRTUAL COUNTER</a>
                 </div>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
@@ -43,8 +44,11 @@
                                 href="#portfolio">Services</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
-                        <li class="nav-item mx-0 mx-lg-1" ><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#footer-page" >Contact</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                href="#footer-page">Contact</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                href="user_profile" data-target="#user-profile-form" data-toggle="modal">Profile</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -54,26 +58,26 @@
             <div class="container d-flex align-items-center flex-column">
                 <!-- Masthead Avatar Image-->
                 <template>
-                <div id="image-header-div" >
-                    <transition name="fade" mode="out-in">
-                <img class="masthead-avatar mb-5 " id="header-images" :src=" getAssetUrl " alt="currentPhoto" :key="currentPhotoIndex"
-                    alt="..." />
-                    </transition>
-                </div>
+                    <div id="image-header-div">
+                        <transition name="fade" mode="out-in">
+                            <img class="masthead-avatar mb-5 " id="header-images" :src=" getAssetUrl"
+                                alt="currentPhoto" :key="currentPhotoIndex" alt="..." />
+                        </transition>
+                    </div>
                 </template>
                 <!-- Masthead Heading-->
-              <div>
-                <h1 class="masthead-heading text-uppercase mb-0" id="h1-header">CNAS - VIRTUAL COUNTER</h1>
-                <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
-                    <div class="divider-custom-line"></div>
-                {{-- </div>
+                <div>
+                    <h1 class="masthead-heading text-uppercase mb-0" id="h1-header">CNAS - VIRTUAL COUNTER</h1>
+                    <!-- Icon Divider-->
+                    <div class="divider-custom divider-light">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
+                        <div class="divider-custom-line"></div>
+                        {{-- </div>
                 <!-- Masthead Subheading-->
                 <p class="masthead-subheading font-weight-light mb-0">Consult our services ... Book an appointment! <br> What are you wating for ? </p>
               </div> --}}
-            </div>
+                    </div>
         </header>
 
 
@@ -130,8 +134,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex justify-content-center mb-4">
-                                <a href="https://cnas.dz/" target="_blank"><img id="image-about-cnas" src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo"
-                                    class="img-fluid cnas-logo max-width"></a>
+                                <a href="https://cnas.dz/" target="_blank"><img id="image-about-cnas"
+                                        src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo"
+                                        class="img-fluid cnas-logo max-width"></a>
                             </div>
 
                         </div>
@@ -248,65 +253,66 @@
         </section> --}}
         <!-- Footer-->
 
-            <!-- About Section Heading-->
+        <!-- About Section Heading-->
 
-            <!-- Icon Divider-->
-            <section class="page-section" id="contact">
-        <footer class="footer text-center" id="footer-page">
-            <h2 class="page-section-heading text-center text-uppercase text-white" >Contact</h2>
-            <div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <!-- Footer Location-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">Location</h4>
-                        <p class="lead mb-0">
-                            CNAS - Direction Générale
-                            <br />
-                            Rue des deux bassins, Ben Aknoun 16028
-                        </p>
-                    </div>
-                    <!-- Footer Social Icons-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">Around the Web</h4>
-                        <a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/dg.cnas"><i
-                                class="fab fa-fw fa-facebook-f "></i></a>
-                        {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-web"></i></a> --}}
-                        <a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/company/cnas-direction-g%C3%A9n%C3%A9rale/" target="_blank"><i
-                                class="fab fa-fw fa-linkedin-in "></i></a>
-                        {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-dribbble"></i></a> --}}
-                    </div>
-                    <div class="col-lg-4 ">
-                        <h4>Contact</h4>
-                        <a href="" style="text-decoration: none ; color:white "> +213 23384270  </a> <br>
-
-                        <br><br><br><br><br>
-                    </div>
-
-                    <!-- Footer About Text-->
-                    <div class="row center " style="justify-content: center ; ">
-                    <div class="col-lg-8 center" >
-                        <p class="lead mb-0">
-                            <h4>Created by: </h4>
-                            Abdelhalim Esselami /  Abdelkadir Cheklal<br>
-                            <h4>CNAS - VIRTUAL COUNTER</h4>
-
-                        </p>
-                    </div>
-                  </div>
+        <!-- Icon Divider-->
+        <section class="page-section" id="contact">
+            <footer class="footer text-center" id="footer-page">
+                <h2 class="page-section-heading text-center text-uppercase text-white">Contact</h2>
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
+                    <div class="divider-custom-line"></div>
                 </div>
+                <div class="container">
+                    <div class="row">
+                        <!-- Footer Location-->
+                        <div class="col-lg-4 mb-5 mb-lg-0">
+                            <h4 class="text-uppercase mb-4">Location</h4>
+                            <p class="lead mb-0">
+                                CNAS - Direction Générale
+                                <br />
+                                Rue des deux bassins, Ben Aknoun 16028
+                            </p>
+                        </div>
+                        <!-- Footer Social Icons-->
+                        <div class="col-lg-4 mb-5 mb-lg-0">
+                            <h4 class="text-uppercase mb-4">Around the Web</h4>
+                            <a class="btn btn-outline-light btn-social mx-1"
+                                href="https://www.facebook.com/dg.cnas"><i class="fab fa-fw fa-facebook-f "></i></a>
+                            {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+                                class="fab fa-fw fa-web"></i></a> --}}
+                            <a class="btn btn-outline-light btn-social mx-1"
+                                href="https://www.linkedin.com/company/cnas-direction-g%C3%A9n%C3%A9rale/"
+                                target="_blank"><i class="fab fa-fw fa-linkedin-in "></i></a>
+                            {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+                                class="fab fa-fw fa-dribbble"></i></a> --}}
+                        </div>
+                        <div class="col-lg-4 ">
+                            <h4>Contact</h4>
+                            <a href="" style="text-decoration: none ; color:white "> +213 23384270 </a> <br>
+
+                            <br><br><br><br><br>
+                        </div>
+
+                        <!-- Footer About Text-->
+                        <div class="row center " style="justify-content: center ; ">
+                            <div class="col-lg-8 center">
+                                <p class="lead mb-0">
+                                <h4>Created by: </h4>
+                                Abdelhalim Esselami / Abdelkadir Cheklal<br>
+                                <h4>CNAS - VIRTUAL COUNTER</h4>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Copyright Section-->
+            <div class="copyright py-4 text-center text-white" id="copyright-div">
+                <div class="container"><small>Copyright &copy; CNAS-Virtual Counter 2023</small></div>
             </div>
-        </footer>
-        <!-- Copyright Section-->
-        <div class="copyright py-4 text-center text-white" id="copyright-div">
-            <div class="container"><small>Copyright &copy; CNAS-Virtual Counter 2023</small></div>
-        </div>
         </section>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
@@ -462,7 +468,8 @@
                                                                 <i class="fas fa-print"></i>
                                                                 Print
                                                             </button> --}}
-                                                            <button class="btn btn-primary" v-on:click="book_appointment()"
+                                                            <button class="btn btn-primary"
+                                                                v-on:click="book_appointment()"
                                                                 v-if="documents.length > 0">
                                                                 <i class="fas fa-book"></i>
                                                                 Book
@@ -481,6 +488,162 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="user-profile-form" tabindex="-1" role="dialog">
+            <div class="modal-dialog  modal-xl" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="text-danger" id="text-danger-color">My Profile</h5>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: true;">
+                            @csrf
+                            <button type="submit" class="btn btn-default">Logout</button>
+                        </form>
+                        {{-- <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                                 Logout
+                            </a> --}}
+
+                    </div>
+                    <div class="modal-body">
+
+                        <h6 class="sub-title">Personal Information<span class="text-danger">(*)</span> </h6>
+                        <form>
+                            <div class="row">
+                                <div class="form-group col-sm-5" id="form-group1">
+                                    <label for="username" class="block">Username</label>
+                                    <div
+                                        :class="[errors.username ? 'input-group input-group-danger' :
+                                            'input-group input-group-inverse'
+                                        ]">
+                                        <input type="text" class="form-control" placeholder="Username"
+                                            data-toggle="tooltip" data-placement="top"
+                                            :data-original-title="errors.username" v-model="username"
+                                            >
+                                        <span class="input-group-addon">
+                                            <i class="icofont icofont-business-man-alt-2"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4" id="form-group2">
+                                    <label for="fullname" class="block">Fullname <span
+                                            class="text-danger">(*)</span></label>
+                                    <div
+                                        :class="[errors.fullname ? 'input-group input-group-danger' :
+                                            'input-group input-group-inverse'
+                                        ]">
+                                        <input id="fullname" type="text" class="form-control"
+                                            placeholder="Fullname..." v-model="fullname" data-toggle="tooltip"
+                                            data-placement="top" :data-original-title="errors.fullname">
+                                        <span class="input-group-addon">
+                                            <i class="icofont icofont-user" data-toggle="tooltip"
+                                                data-placement="top" :data-original-title="errors.fullname"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-5" id="form-group3">
+                                    <label for="email" class="block">Email <span
+                                            class="text-danger">(*)</span></label>
+                                    <div
+                                        :class="[errors.email ? 'input-group input-group-danger' :
+                                            'input-group input-group-inverse'
+                                        ]">
+                                        <input type="text" class="form-control" placeholder="Email"
+                                            v-model="email" data-toggle="tooltip" data-placement="top"
+                                            :data-original-title="errors.email">
+                                        <span class="input-group-addon">
+                                            <i class="icofont icofont-mail"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-4" id="form-group4">
+                                    <label for="telephone" class="block">Phone Number<span
+                                            class="text-danger">(*)</span></label>
+                                    <div
+                                        :class="[errors.telephone ? 'input-group input-group-danger' :
+                                            'input-group input-group-inverse'
+                                        ]">
+                                        <input type="text" class="form-control" placeholder="Phone Number"
+                                            v-model="telephone" data-toggle="tooltip" data-placement="top"
+                                            :data-original-title="errors.telephone">
+                                        <span class="input-group-addon">
+                                            <i class="icofont icofont-telephone"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-5" id="form-group5">
+                                    <label for="password" class="block">Password <span
+                                            class="text-danger">(*)</span></label>
+                                    <div :class="[errors.password ? 'input-group input-group-danger' :
+                                        'input-group input-group-inverse'
+                                    ]"
+                                        data-toggle="tooltip" data-placement="top"
+                                        :data-original-title="errors.password">
+                                        <input type="password" class="form-control" placeholder="Password"
+                                            v-model="password">
+                                        <span class="input-group-addon">
+                                            <i class="icofont icofont-lock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4" id="form-group6">
+                                    <label for="address" class="block">Address <span
+                                            class="text-danger">(*)</span></label>
+                                    <div
+                                        :class="[errors.address ? 'input-group input-group-danger' :
+                                            'input-group input-group-inverse'
+                                        ]">
+                                        <input type="text" class="form-control" placeholder="Address"
+                                            v-model="address" data-toggle="tooltip" data-placement="top"
+                                            :data-original-title="errors.address">
+                                        <span class="input-group-addon">
+                                            <i class="icofont icofont-location-pin"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-5" id="form-group7">
+                                    <label for="password" class="block">Confirmation <span
+                                            class="text-danger">(*)</span></label>
+                                    <div :class="[errors.password ? 'input-group input-group-danger' :
+                                        'input-group input-group-inverse'
+                                    ]"
+                                        data-toggle="tooltip" data-placement="top"
+                                        :data-original-title="errors.password">
+                                        <input type="password" class="form-control"
+                                            placeholder="Password Confirmation" v-model="password_confirmation">
+                                        <span class="input-group-addon">
+                                            <i class="icofont icofont-lock"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer " style="margin-top: 7px; padding-left:13px ; margin-bottom:10px">
+                        <div class="row">
+                            <div class="col-sm-12 text-right">
+                                <button type="submit" class="btn btn-primary m-r-10"
+                                    v-on:click="update_information()">
+                                    Save
+                                </button>
+                                <button type="submit" class="btn btn-default"
+                                    v-on:click="reset_form()">Restore</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {{-- <button type="submit" class="btn btn-primary m-r-10" v-on:click="update_information()"> --}}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
 
 
@@ -523,6 +686,18 @@
             el: '#app',
             data() {
                 return {
+
+                    fullname: '<?php echo Auth::user()->fullname; ?>',
+                    email: '<?php echo Auth::user()->email; ?>',
+                    telephone: '<?php echo Auth::user()->telephone; ?>',
+                    address: '<?php echo Auth::user()->address; ?>',
+                    username: '<?php echo Auth::user()->username; ?>',
+                    password: '',
+                    password_confirmation: '',
+
+
+
+
                     selectedHourIndex: '',
                     selectedHour: '',
                     showBookingForm: false,
@@ -540,10 +715,10 @@
                     errors: [],
                     notifications: [],
                     available_hours: [],
-                    selectedDate:'',
+                    selectedDate: '',
                     notifications_fetched: false,
 
-                    photos: ['cnasfond.png','undraw_interview_re_e5jn.svg','Woman-booking-appointment.svg' ] ,
+                    photos: ['cnasfond.png', 'undraw_interview_re_e5jn.svg', 'Woman-booking-appointment.svg'],
                     currentPhotoIndex: 0,
                 }
             },
@@ -631,18 +806,19 @@
                 },
                 book_appointment() {
                     axios.post('/createAppointment', {
-                                selected_date: app.selectedDate,
-                                selected_hour : app.selectedHour,
-                                selected_service_id : app.selectedService                            })
-                            .then(response => {
-                                // Handle the response data
-                                console.log(response.data);
-                               
-                            })
-                            .catch(error => {
-                                // Handle any errors
-                                console.error(error);
-                            });
+                            selected_date: app.selectedDate,
+                            selected_hour: app.selectedHour,
+                            selected_service_id: app.selectedService
+                        })
+                        .then(response => {
+                            // Handle the response data
+                            console.log(response.data);
+
+                        })
+                        .catch(error => {
+                            // Handle any errors
+                            console.error(error);
+                        });
                 },
                 fetch_services() {
                     return axios.get('/getServices')
@@ -656,7 +832,7 @@
                         })
                         .catch();
                 },
-               
+
                 fetch_questions(question) {
                     this.previousQuestions.push(question.id);
                     return axios.get('/getQuestions/' + question.id)
@@ -718,6 +894,7 @@
                     var app = this;
 
                     axios.put('/update_information', {
+                            'username':app.username,
                             'fullname': app.fullname,
                             'email': app.email,
                             'telephone': app.telephone,
@@ -726,13 +903,18 @@
                             'password_confirmation': app.password_confirmation,
                         })
                         .then(function(response) {
-                            notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
-                            app.fullname = response.data.user.fullname;
-                            app.email = response.data.user.email;
-                            app.telephone = response.data.user.telephone;
-                            app.address = response.data.user.address;
-                            app.reset_form();
+                            if (response.data.error) {
+                                notify('Error', response.data.error, 'red', 'topCenter', 'bounceInDown');
+                            } else {
+                                notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
 
+                                app.fullname = response.data.user.fullname;
+                                app.email = response.data.user.email;
+                                app.telephone = response.data.user.telephone;
+                                app.address = response.data.user.address;
+                                 app.reset_form();
+
+                            }
                         })
                         .catch(function(error) {
                             if (error.response) {
@@ -749,7 +931,13 @@
                             }
                         });
                 },
+
                 reset_form() {
+                    // this.fullname:'';
+                    // this.email:'';
+                    // this.telephone:'';
+                    // this.address:'';
+                    // this.username:'';
 
 
                     this.password = '';
@@ -795,12 +983,12 @@
             },
             computed: {
                 currentPhoto() {
-                return this.photos[this.currentPhotoIndex];
-                    },
-                    getAssetUrl() {
-                        return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
-                        },
-                    },
+                    return this.photos[this.currentPhotoIndex];
+                },
+                getAssetUrl() {
+                    return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
+                },
+            },
             mounted() {
                 this.fetch_services();
                 $('#demo').datetimepicker({
@@ -834,7 +1022,7 @@
 
                 setInterval(() => {
                     this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
-                    }, 5000);
+                }, 5000);
                 // Default export is a4 paper, portrait, using millimeters for units
 
 

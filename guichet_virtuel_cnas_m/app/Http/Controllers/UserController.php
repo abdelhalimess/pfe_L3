@@ -136,7 +136,7 @@ class UserController extends Controller
 
 
         $this->validate($request, [
-
+            'username' =>  'min:5|string|required',
             'password' => 'nullable|min:5|max:25|string|confirmed',
             'fullname' => 'required|min:5|max:150|string',
             'address' => 'required|max:150|string',
@@ -146,7 +146,7 @@ class UserController extends Controller
 
         ]);
 
-
+        $user->username = $request->username;
         $user->fullname = $request->fullname;
         $user->address = $request->address;
         $user->telephone = $request->telephone;

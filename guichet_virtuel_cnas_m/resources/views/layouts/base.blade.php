@@ -232,7 +232,7 @@
                                                 </span>
                                                 <div class="media-body">
                                                     <h5 class="notification-user">@{{
-                                                    notification.data.agent.firstname + ' ' +notification.data.agent.lastname 
+                                                    notification.data.agent.firstname + ' ' +notification.data.agent.lastname
                                                    }}</h5>
                                                     <p class="notification-msg text-muted">@{{notification.data.message}}</p>
                                                     <span class="notification-time label label-danger text-white" v-if="notification.data.deadline">@{{notification.data.deadline}}</span>
@@ -253,7 +253,7 @@
                                         <ul class="show-notification profile-notification dropdown-menu " data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                                             <li>
                                                 <a href="user_profile">
-                                                    <i class="feather icon-user"></i> Mon profile
+                                                    <i class="feather icon-user"></i> My profile
                                                 </a>
                                             </li>
                                             <!--  <li>
