@@ -131,29 +131,42 @@
                     <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-                <!-- Portfolio Grid Items-->
-                <div class="row justify-content-center">
-                    <!-- Portfolio Item 1-->
-                    <div class="col-md-6 col-lg-4 mb-5" v-for="(service, index) in services" :key="index">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                            <div v-on:click="selectedService=service,select_service(service)" class="card"
-                                style="width: 18rem;">
 
+                {{-- <div class="container mb-5 mb-md-6">
+                    <div class="row justify-content-md-center">
+                        <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6 text-center">
+                            <h2 class="mb-4 display-5">Services</h2>
+                            <p class="text-secondary mb-4 mb-md-5">Choose a service to answer a questionnaire</p>
+                            <hr class="w-50 mx-auto mb-0 text-secondary">
+                        </div>
+                    </div>
+                </div> --}}
+
+                <div class="container overflow-hidden">
+                    <div class="row gy-5 gy-md-6 gx-xl-6" v-show="services!=null">
+                        <div class="bs-component col-md-4" v-for="(service, index) in services"
+                            :key="index">
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    @{{ service.name }}
+                                </div>
                                 <div class="card-body">
-                                    <h5 class="card-title">@{{ service.name }}</h5>
+                                    <h6 class="card-title text-muted">Description</h6>
                                     <p class="card-text">@{{ service.description }}</p>
                                     <a class="btn btn-primary"
-                                        v-on:click="selectedService=service,select_service(service)">Select Service</a>
+                                        v-on:click="selectedService=service,select_service(service)"
+                                        data-bs-toggle="modal" data-bs-target="#portfolioModal1">Select service</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Appointments available
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
+
             </div>
         </section>
-
         <!-- About Section-->
         <section class="page-section bg-secondary text-white mb-0" id="about">
             <div class="container">
