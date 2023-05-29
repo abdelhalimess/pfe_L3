@@ -84,7 +84,7 @@
         </header>
         <div class="row">
             <div class="modal fade" id="appointmentsModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="appointmentsModalLabel">My Appointments</h5>
@@ -121,7 +121,7 @@
 
         <!-- Services Section-->
         <section class="page-section portfolio" id="portfolio"
-            style="background: linear-gradient(135deg, #5093f8, #e1e5ec);">
+            style="background: linear-gradient(20deg,rgb(44, 62, 80)6% ,rgb(47, 80, 113)18% ,#5899e2 40%, #ffffff 90%);">
             <div class="container">
                 <!-- Portfolio Section Heading-->
                 <h4 class="page-section-heading text-center text-uppercase text-secondary mb-0">Services</h4>
@@ -354,9 +354,9 @@
         <!-- Portfolio Modal 1-->
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1"
             aria-labelledby="portfolioModal1" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-dialog modal-xl modal-dialog-centered" id="modal-appointment">
                 <div class="modal-content">
-                    <div class="modal-header border-0">
+                    <div class="modal-header border-0 " style="padding-bottom: 7px">
                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"
                             v-on:click="clear_documents"></button>
                     </div>
