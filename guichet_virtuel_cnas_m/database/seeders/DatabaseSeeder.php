@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // StatesSeeder::class,
-            CommunesSeeder::class,
-            // StructureTypesTableSeeder::class,
-            // StructuresTableSeeder::class,
+            // CommunesSeeder::class,
+            StructureTypesTableSeeder::class,
+            StructuresTableSeeder::class,
             // RolesTableSeeder::class,
             // PermissionsTableSeeder::class,
 
