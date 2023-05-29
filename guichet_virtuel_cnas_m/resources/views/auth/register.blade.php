@@ -7,10 +7,11 @@
                 <div class="card" id="card">
                     {{-- <div class="card-header text-center" id="card-header" >
                     </h4></div> --}}
-                    <div class=" text-center" id="head-card-div">
-                        <h4>{{ __('Register') }}</h4>
-                    </div>
                     <div class="card-body " id="card-body">
+                        <div class=" text-center" id="head-card-div">
+                        </div>
+                        <h3 class="text-center">{{ __('Register') }}</h3>
+                        <br>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
 
@@ -179,3 +180,19 @@
         </div>
     </div>
 @endsection
+@section('page_scripts')
+<script>
+
+$(document).ready(function() {
+
+
+    $('#structure-types').selectpicker({
+        placeholder: "Type du structure.."
+    });
+    $('#structures').selectpicker({
+        placeholder: "Nom du structure.."
+    });
+
+
+});
+</script>
