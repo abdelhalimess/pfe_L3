@@ -11,8 +11,7 @@ class Service extends Model
 {
     use HasFactory;
     protected $table = 'services';
-    protected $fillable = ['name','description'];
-
+    protected $fillable = ['name','description','employee_id'];
 
     public function questions()
     {

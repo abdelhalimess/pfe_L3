@@ -64,7 +64,7 @@
                             </span>
                         </div>
                         <div :class="[errors.address ? 'col-sm-12 input-group input-group-danger' : 'col-sm-12 input-group input-group-inverse']">
-                            <input type="text" class="form-control" placeholder="Adress" v-model="address"
+                            <input type="text" class="form-control" placeholder="Address" v-model="address"
                             data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.address">
                             <span class="input-group-addon">
@@ -77,7 +77,7 @@
                 <h5 class="sub-title">Assignment and Credentials<span class="text-danger">(*)</span></h5>
                 <form>
                     <div class="form-group row">
-                        <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
+                        {{-- <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.structure_id">
                             <select id="structure-types" class="selectpicker show-tick" title="Structure type.."
@@ -89,9 +89,9 @@
                             <span class="input-group-addon">
                                 <i class="icofont icofont-listing-box"></i>
                             </span>
-                        </div>
+                        </div> --}}
 
-                        <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
+                        <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.structure_id">
                             <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
@@ -103,6 +103,21 @@
                                         @endforeach
                                     </optgroup>
                                 @endforeach
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="icofont icofont-sub-listing"></i>
+                            </span>
+                        </div>
+                        <div :class="[errors.service_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
+                        data-toggle="tooltip" data-placement="top"
+                        :data-original-title="errors.service_id">
+                            <select id="services"  class="selectpicker show-tick" data-live-search="true" title="Service name.." data-width="100%" data-size="8">
+
+                              
+                                        @foreach ($services as $service)
+                                            <option value="{{$service->id}}" v-model="service_id"> {{$service->name}}</option>
+                                        @endforeach
+                             
                             </select>
                             <span class="input-group-addon">
                                 <i class="icofont icofont-sub-listing"></i>
@@ -214,6 +229,7 @@ const app = new Vue({
                 password:'',
                 password_confirmation:'',
                 structure_id:'',
+                service_id:'',
                 role_id:'',
                 permissions:[],
                 selectedPermissions:[],
@@ -227,6 +243,7 @@ const app = new Vue({
                 var app = this;
                 app.permissions = '';
                 app.structure_id = $('#structures').selectpicker('val');
+                app.service_id = $('#services').selectpicker('val');
                 app.selectedPermissions = $('#permissions').multiSelect().val();
                  console.log(app.selectedPermissions.length )
                 if ( app.selectedPermissions.length > 0) {
@@ -245,6 +262,7 @@ const app = new Vue({
                     'password':app.password,
                     'password_confirmation':app.password_confirmation,
                     'structure_id':app.structure_id,
+                    'service_id':app.service_id,
                     'role_id':app.role_id,
                     'permissions':app.permissions
                 })

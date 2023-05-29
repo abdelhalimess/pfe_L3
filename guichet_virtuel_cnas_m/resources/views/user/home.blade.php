@@ -18,6 +18,7 @@
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/jsCalendar.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.datetimepicker.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/animate.css/css/animate.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/iziToast.min.css') }}">
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('pages/user/css/styles.css') }}" rel="stylesheet" />
 </head>
@@ -43,12 +44,11 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#portfolio">Services</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                            href="#"  data-toggle="modal" data-target="#appointmentsModal" v-on:click="fetchAppointments()">My Appointments</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#footer-page">Contact</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                href="user_profile" data-target="#user-profile-form" data-toggle="modal">Profile</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -79,11 +79,45 @@
               </div> --}}
                     </div>
         </header>
+        <div class="row">
+            <div class="modal fade" id="appointmentsModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="appointmentsModalLabel">My Appointments</h5>
+                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> --}}
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Date And Time</th>
+                                {{-- <th>Service</th> --}}
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(appointment, index) in appointments" v-bind:key="index">
+                                <td>@{{ index + 1 }}</td>
+                                <td>@{{ appointment.appointment_datetime }}</td>
+                                <td :class="getStatusClass(appointment.status)">@{{ appointment.status }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-
-        <!-- Portfolio Section-->
-        <section class="page-section portfolio" id="portfolio">
+        <!-- Services Section-->
+        <section class="page-section portfolio" id="portfolio" style="background: linear-gradient(135deg, #5093f8, #e1e5ec);">
             <div class="container">
                 <!-- Portfolio Section Heading-->
                 <h4 class="page-section-heading text-center text-uppercase text-secondary mb-0">Services</h4>
@@ -96,12 +130,8 @@
                 <!-- Portfolio Grid Items-->
                 <div class="row justify-content-center">
                     <!-- Portfolio Item 1-->
-                    <div class="col-md-6 col-lg-4 mb-5" v-for="(service , index) in services" :key="index">
+                    <div class="col-md-6 col-lg-4 mb-5" v-for="(service, index) in services" :key="index">
                         <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                            {{-- <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div> --}}
-
                             <div v-on:click="selectedService=service,select_service(service)" class="card"
                                 style="width: 18rem;">
 
@@ -115,9 +145,11 @@
                         </div>
                     </div>
 
+
                 </div>
             </div>
         </section>
+
         <!-- About Section-->
         <section class="page-section bg-secondary text-white mb-0" id="about">
             <div class="container">
@@ -428,7 +460,7 @@
 
 
                                                         </div>
-                                                        <div class="col-5">
+                                                        <div class="col-4">
                                                             <div class="list-group" v-if="documents.length > 0">
                                                                 <div :class="[index == selectedHourIndex ?
                                                                     'active list-group-item list-group-item-action' :
@@ -469,8 +501,9 @@
                                                                 Print
                                                             </button> --}}
                                                             <button class="btn btn-primary"
-                                                                v-on:click="book_appointment()"
-                                                                v-if="documents.length > 0">
+                                                                v-on:click="book_appointment()" :disabled="selectedHour == '' || selectedDate == ''"
+                                                                v-if="documents.length > 0" data-bs-dismiss="modal"
+                                                                aria-label="Close">
                                                                 <i class="fas fa-book"></i>
                                                                 Book
                                                             </button>
@@ -652,6 +685,7 @@
     <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/jquery/js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/popper.js/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/iziToast.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -679,7 +713,7 @@
 
         });
     </script>
-
+    <script></script>
     <script>
         //    var myCalendar = jsCalendar.new("#my-calendar");
         const app = new Vue({
@@ -698,6 +732,7 @@
 
 
 
+                    appointments: [],
                     selectedHourIndex: '',
                     selectedHour: '',
                     showBookingForm: false,
@@ -723,6 +758,38 @@
                 }
             },
             methods: {
+                getStatusClass(status) {
+                    if (status === 'PENDING') {
+                        return 'text-primary font-weight-bold'; // Blue color for pending status
+                    } else if (status === 'CONFIRMED') {
+                        return 'text-success font-weight-bold'; // Green color for confirmed status
+                    } else if (status === 'CANCELED') {
+                        return 'text-danger font-weight-bold'; // Red color for canceled status
+                    } else if (status === 'DONE') {
+                        return 'text-primary font-weight-bold'; // Red color for canceled status
+                    } else if (status === 'DISMISSED') {
+                        return 'font-weight-bold'; // Red color for canceled status
+                    }
+                    return ''; // Default class if status is not recognized
+                },
+                getDayOfWeek(dateString) {
+                    const dateObj = new Date(dateString);
+                    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+                        'Saturday'
+                    ];
+                    return daysOfWeek[dateObj.getDay()];
+                },
+
+                fetchAppointments() {
+                    // Make an API call to fetch appointments data
+                    axios.get('/getMyAppointments')
+                        .then(response => {
+                            this.appointments = response.data.appointments; // Update the appointments data
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                },
                 setDate() {
 
                     app.myCalendar.set("31/05/2023");
@@ -735,7 +802,7 @@
                     // doc.addImage(img, 'png', 10, 78, 12, 15);
                     // doc.text("Hello world!", 10, 10);
                     // doc.save("a4.pdf");
-                    const printContents = document.querySelector('.col-5 .list-group').innerHTML;
+                    const printContents = document.querySelector('.col-4 .list-group').innerHTML;
                     const printWindow = window.open('', '', 'width=800,height=600');
                     printWindow.document.open();
                     printWindow.document.write(`
@@ -810,14 +877,13 @@
                             selected_hour: app.selectedHour,
                             selected_service_id: app.selectedService
                         })
-                        .then(response => {
-                            // Handle the response data
-                            console.log(response.data);
-
+                        .then(function(response) {
+                            // console.log(response.data);
+                           app.notify('Booking Successful', 'Booking Successful', 'green', 'topCenter', 'bounceInDown');
                         })
-                        .catch(error => {
-                            // Handle any errors
-                            console.error(error);
+                        .catch(function(error) {
+                            app.notify('Booking Failed', 'You cannot book multiple appointments.', 'red', 'topCenter',
+                                'bounceInDown');
                         });
                 },
                 fetch_services() {
@@ -827,7 +893,6 @@
                             // selectedQuestion = services[0].question;
                             console.log('Services fetched successfully');
                             console.log(this.services);
-                            console.log("dazdazd");
                             console.log(response.data.questions);
                         })
                         .catch();
@@ -903,10 +968,12 @@
                             'password_confirmation': app.password_confirmation,
                         })
                         .then(function(response) {
-                            if (response.data.error) {
-                                notify('Error', response.data.error, 'red', 'topCenter', 'bounceInDown');
-                            } else {
-                                notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                            app.notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                            app.fullname = response.data.user.fullname;
+                            app.email = response.data.user.email;
+                            app.telephone = response.data.user.telephone;
+                            app.address = response.data.user.address;
+                            app.reset_form();
 
                                 app.fullname = response.data.user.fullname;
                                 app.email = response.data.user.email;
@@ -922,7 +989,7 @@
                                 console.log(error.response.data.errors);
 
                                 app.$set(app, 'errors', error.response.data.errors);
-                                notify('Erreurs!', 'Veuillez vérifier les informations introduites', 'red',
+                               app.notify('Erreurs!', 'Veuillez vérifier les informations introduites', 'red',
                                     'topCenter', 'bounceInDown');
                             } else if (error.request) {
                                 console.log(error.request);
@@ -971,6 +1038,22 @@
                         }
                     });
                 },
+                 notify(title, message, color, position,transition){
+    iziToast.show({
+        title: title,
+        message: message,
+        position: position,
+        color: color,
+        transitionIn: transition,
+        timeout : 3000,
+        zindex: 9999999,
+        'z-index': 9999999,
+        targetFirst : true,
+    });
+
+
+
+},
                 unblock(element) {
                     $('#' + element).unblock();
                 },
@@ -979,8 +1062,18 @@
                 //         return "{{ asset('pages/user/assets/img/" + currentPhotoIndex + "') }}";
                 //         },
 
+                onClose() {
+                    // Perform any actions you need when the modal is closed
+                    console.log('Modal closed');
+                    // Clear any data or reset state variables
+
+                    // Reset showModal to hide the modal
+                    this.showBookingForm = false;
+                    this.documents = '';
+                },
 
             },
+
             computed: {
                 currentPhoto() {
                     return this.photos[this.currentPhotoIndex];
@@ -991,6 +1084,7 @@
             },
             mounted() {
                 this.fetch_services();
+                this.fetchAppointments();
                 $('#demo').datetimepicker({
                     date: new Date(),
                     startDate: new Date()
@@ -1007,6 +1101,7 @@
                                 // Handle the response data
                                 console.log(response.data);
                                 app.available_hours = response.data.available_hours;
+                                app.selectedHour = '';
                             })
                             .catch(error => {
                                 // Handle any errors
@@ -1027,9 +1122,12 @@
 
 
                 // this.fetch_documents();
+                const modalElement = document.querySelector('#portfolioModal1');
+                modalElement.addEventListener('hidden.bs.modal', this.onClose);
             },
             created() {
                 this.fetch_services();
+                this.fetchAppointments();
             }
 
 

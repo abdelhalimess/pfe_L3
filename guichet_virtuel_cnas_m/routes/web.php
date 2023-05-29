@@ -51,7 +51,7 @@ Route::get('/roles_list', [RoleController::class, 'index'])->name('roles-list')-
 // Route::get('/services_list', [ServiceController::class, 'index'])->name('services-list')->middleware(['auth', 'role:superadmin|admin']);
 
 Route::get('/getRoles', [RoleController::class, 'getRoles'])->name('getRoles')->middleware(['auth', 'role:superadmin']);
-Route::get('/getServices', [ServiceController::class, 'getServices'])->name('geServices')->middleware(['auth', 'role:superadmin|admin']);
+Route::get('/getServices', [ServiceController::class, 'getServices'])->name('geServices')->middleware(['auth', 'role:superadmin|admin|user']);
 Route::post('/role_assign_permissions/{id}', [RoleController::class, 'assignPermissions'])->name('role-assign-permissions')->middleware(['auth', 'role:superadmin']);
 
 Route::post('/role_revoke_permission/{id}', [RoleController::class, 'revokePermission'])->name('role-revoke-permissions')->middleware(['auth', 'role:superadmin']);
@@ -101,20 +101,23 @@ Route::put('/services_edit/{id}', [ServiceController::class, 'update'])->name('s
 
 Route::get('questions_list', [QuestionController::class, 'index'])->name('questions-list')->middleware(['auth', 'role:superadmin']);
 Route::get('documents_list', [DocumentController::class, 'index'])->name('documents-list')->middleware(['auth', 'role:superadmin']);
-Route::get('/getServices', [ServiceController::class, 'getServices'])->name('getServices')->middleware(['auth', 'role:superadmin|user']);
+Route::get('/getServices', [ServiceController::class, 'getServices'])->name('getServices')->middleware(['auth', 'role:superadmin|user|admin']);
 // Route::delete('/service_delete/{id}', [ServiceController::class, 'destroy'])->name('service-delete')->middleware(['auth', 'role:superadmin']);
 Route::delete('/question_delete/{id}', [QuestionController::class, 'destroy'])->name('question-delete')->middleware(['auth', 'role:superadmin']);
-Route::get('/getQuestions', [QuestionController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin|user']);
+Route::get('/getQuestions', [QuestionController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin|user|admin']);
 Route::get('/getServicesQuestions/{id}', [QuestionController::class, 'getServicesQuestions'])->name('getServicesQuestions')->middleware(['auth', 'role:superadmin']);
-Route::get('/getQuestions/{id}', [UserController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin|user']);
+Route::get('/getQuestions/{id}', [UserController::class, 'getQuestions'])->name('getQuestions')->middleware(['auth', 'role:superadmin|user|admin']);
 Route::post('/attachDocuments/{id}', [QuestionController::class, 'attachDocuments'])->name('attachDocuments')->middleware(['auth', 'role:superadmin']);
-Route::get('/getQuestionDocuments/{id}', [QuestionController::class, 'getQuestionDocuments'])->name('getQuestionDocuments')->middleware(['auth', 'role:superadmin|user']);
+Route::get('/getQuestionDocuments/{id}', [QuestionController::class, 'getQuestionDocuments'])->name('getQuestionDocuments')->middleware(['auth', 'role:superadmin|user|admin']);
 Route::get('/getDocuments', [QuestionController::class, 'getDocuments'])->name('getDocuments')->middleware(['auth', 'role:superadmin']);
 Route::post('/servicesAddQuestion/{id}', [ServiceController::class, 'addQuestions'])->name('addQuestions')->middleware(['auth', 'role:superadmin']);
 Route::post('/addNestedQuestion', [QuestionController::class, 'addNestedQuestion'])->name('addNestedQuestion')->middleware(['auth', 'role:superadmin']);
 
-Route::post('/getAvailableHours', [AppointmentController::class, 'getAvailableHours'])->name('getAvailableHours')->middleware(['auth', 'role:superadmin|user']);
-Route::post('/createAppointment', [AppointmentController::class, 'createAppointment'])->name('createAppointment')->middleware(['auth', 'role:superadmin|user']);
+Route::post('/getAvailableHours', [AppointmentController::class, 'getAvailableHours'])->name('getAvailableHours')->middleware(['auth', 'role:superadmin|user|admin']);
+Route::post('/createAppointment', [AppointmentController::class, 'createAppointment'])->name('createAppointment')->middleware(['auth', 'role:superadmin|user|admin']);
+Route::put('/updateAppointments/{id}', [AppointmentController::class, 'updateAppointments'])->name('appointments-update')->middleware(['auth', 'role:superadmin|admin']);
+Route::get('/getAppointments', [AppointmentController::class, 'getAppointments'])->name('getAppointments')->middleware(['auth', 'role:superadmin|user|admin']);
+Route::get('/getMyAppointments', [AppointmentController::class, 'getMyAppointments'])->name('getMyAppointments')->middleware(['auth', 'role:superadmin|user|admin']);
 
 
 

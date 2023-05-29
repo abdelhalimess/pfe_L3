@@ -30,7 +30,7 @@
 </ul>
 <div class="pcoded-navigatio-lavel">Table Managment</div>
 <ul class="pcoded-item pcoded-left-item">
-    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'appointment-list') ? 'pcoded-trigger' : '' }}">
+    <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'appointments-list') ? 'pcoded-trigger' : '' }}">
         <a href="javascript:void(0)">
             <span class="pcoded-micon"><i class="icofont icofont-users "></i></span>
             <span class="pcoded-mtext">Appointments</span>
@@ -38,7 +38,7 @@
         <ul class="pcoded-submenu">
 
             <li class="{{ (\Request::route()->getName() == 'appointment-list') ? 'active' : '' }}">
-                <a href="/appointment_list">
+                <a href="/appointments_list">
                     <span class="pcoded-mtext">Appointment Table</span>
                 </a>
             </li>

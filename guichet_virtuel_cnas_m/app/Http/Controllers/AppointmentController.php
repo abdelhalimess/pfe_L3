@@ -18,7 +18,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::all();
+        $appointments = Appointment::where('id',Auth::user()->id);
         return view('admin.appointments_list',compact('appointments'));
     }
 
@@ -135,8 +135,13 @@ class AppointmentController extends Controller
 
     // Convert selected date and hour to a DateTime object
     $selectedDateTime = Carbon::createFromFormat('Y-m-d H:i', $selectedDate . ' ' . $selectedHour);
+    $authUser = User::find(Auth::user()->id);
 
     // Check if the selected time slot is already booked
+    $hasPendingAppointments = Appointment::where('user_id', $authUser->id)->where('status','PENDING')->exists();
+    if ($hasPendingAppointments) { // this i added to check for two or more user booking at same time
+        return response()->json(['message' => 'You cannot book multiple appointments.'],400);//try
+    }
     $isBooked = Appointment::whereDate('appointment_datetime', $selectedDateTime->toDateString())
         ->whereTime('appointment_datetime', $selectedDateTime->toTimeString())
         ->exists();
@@ -144,16 +149,59 @@ class AppointmentController extends Controller
     if ($isBooked) { // this i added to check for two or more user booking at same time
         return response()->json(['message' => 'Selected time slot is not available. Please choose another time.'], 400);
     }
-    $authUser = User::find(Auth::user()->id);
     $service = Service::where('id','=',$selectedService)->with("employee")->firstOrFail();
     // Save the appointment to the database
     Appointment::create([
         'appointment_datetime' => $selectedDateTime,
         'user_id' => $authUser->id,
         'employee_id' => $service->employee->id,
-        'status' => 'created' // hna njibo id ta3 employee from the front end when we select a service psk employee taba3 l service wahed
+        'status' => 'PENDING' 
     ]);
 
     return response()->json(['message' => 'Appointment created successfully']);
+}
+
+public function getAppointments()
+{
+    $appointments = Appointment::with('user','question.documents')->where('employee_id', Auth::user()->id)
+    ->orderBy('appointment_datetime', 'asc')
+    ->get();
+    return response()->json(['appointments' => $appointments]);
+}
+
+public function getMyAppointments()
+{
+    $appointments = Appointment::with('user','question')->where('user_id', Auth::user()->id)
+    ->orderBy('appointment_datetime', 'asc')
+    ->get();
+    return response()->json(['appointments' => $appointments]);
+}
+
+public function updateAppointments($id)
+{
+    $action = request('action');
+$appointment = Appointment::findOrFail($id);
+if ($action === 'approve'){
+$appointment->status = 'CONFIRMED';
+}
+if ($action === 'cancel'){
+$appointment->status = 'CANCELED';
+}
+if ($action === 'done'){
+    $appointment->status = 'DONE';
+    }
+    if ($action === 'dismiss'){
+        $appointment->status = 'DISMISSED';
+        } 
+
+$appointment->save();
+$appointments = Appointment::with('user','question.documents')->where('employee_id', Auth::user()->id)
+    ->orderBy('appointment_datetime', 'asc')
+    ->get();
+return response()->json([
+    'success' => 'Appointments updated with success',
+    'appointments' => $appointments,
+]);
+
 }
 }
