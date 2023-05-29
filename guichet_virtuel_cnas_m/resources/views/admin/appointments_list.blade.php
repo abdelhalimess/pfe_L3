@@ -131,7 +131,7 @@
                                 <td>@{{ getDayOfWeek(appointment.appointment_datetime) }}</td>
                                 <td>@{{ appointment.appointment_datetime }}</td>
                                 <td>@{{ appointment.user.fullname }}</td>
-                                <td :class="getStatusClass(appointment.status)"> <span class="label label-success"> @{{ appointment.status }} </span></td> 
+                                <td> <span :class="getStatusClass(appointment.status)" style="font-size:12px;"> @{{ appointment.status }} </span></td> 
                                 <td>
                                     <div class="text-center">
                                         <i v-if="appointment.status == 'CONFIRMED'"class="feather icon-check-square text-primary f-22 clickable mr-1"
@@ -198,15 +198,15 @@
             methods: {
                 getStatusClass(status) {
                     if (status === 'PENDING') {
-                        return 'text-primary font-weight-bold'; // Blue color for pending status
+                        return 'label label-info'; // Blue color for pending status
                     } else if (status === 'CONFIRMED') {
-                        return 'text-success font-weight-bold'; // Green color for confirmed status
+                        return 'label label-success'; // Green color for confirmed status
                     } else if (status === 'CANCELED') {
-                        return 'text-danger font-weight-bold'; // Red color for canceled status
+                        return 'label label-warning'; // Red color for canceled status
                     } else if (status === 'DONE') {
-                        return 'text-primary font-weight-bold'; // Red color for canceled status
+                        return 'label label-primary'; // Red color for canceled status
                     } else if (status === 'DISMISSED') {
-                        return 'font-weight-bold'; // Red color for canceled status
+                        return 'label label-danger'; // Red color for canceled status
                     }
                     return ''; // Default class if status is not recognized
                 },
