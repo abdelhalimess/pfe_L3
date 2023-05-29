@@ -121,10 +121,10 @@
 
         <!-- Services Section-->
         <section class="page-section portfolio" id="portfolio"
-            style="background: linear-gradient(20deg,rgb(44, 62, 80)6% ,rgb(47, 80, 113)18% ,#5899e2 40%, #ffffff 90%);">
+            style="background: linear-gradient(340deg, #ffffff 0%, #5899e2 74%);">
             <div class="container">
                 <!-- Portfolio Section Heading-->
-                <h4 class="page-section-heading text-center text-uppercase text-secondary mb-0">Services</h4>
+                <h4 class="page-section-heading text-center text-uppercase text-white mb-0">Services</h4>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
