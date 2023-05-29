@@ -10956,6 +10956,7 @@ html {
 }
 #mainNav .navbar-nav li.nav-item a.nav-link {
   color: #fff;
+  font-size: 0.9rem;
 }
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
   color: #1174d9;
