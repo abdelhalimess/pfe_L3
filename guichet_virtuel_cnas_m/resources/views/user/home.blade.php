@@ -43,8 +43,9 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#portfolio">Services</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#"  data-toggle="modal" data-target="#appointmentsModal" v-on:click="fetchAppointments()">My Appointments</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#"
+                                data-toggle="modal" data-target="#appointmentsModal" v-on:click="fetchAppointments()">My
+                                Appointments</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
@@ -84,40 +85,41 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="appointmentsModalLabel">My Appointments</h5>
-                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <h5 class="modal-title" id="appointmentsModalLabel">My Appointments</h5>
+                            {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button> --}}
-                    </div>
-                    <div class="modal-body">
-                        <table class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th>#</th>
-                                <th>Date And Time</th>
-                                {{-- <th>Service</th> --}}
-                                <th>Status</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr v-for="(appointment, index) in appointments" v-bind:key="index">
-                                <td>@{{ index + 1 }}</td>
-                                <td>@{{ appointment.appointment_datetime }}</td>
-                                <td :class="getStatusClass(appointment.status)">@{{ appointment.status }}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Date And Time</th>
+                                        {{-- <th>Service</th> --}}
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(appointment, index) in appointments" v-bind:key="index">
+                                        <td>@{{ index + 1 }}</td>
+                                        <td>@{{ appointment.appointment_datetime }}</td>
+                                        <td :class="getStatusClass(appointment.status)">@{{ appointment.status }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <!-- Services Section-->
-        <section class="page-section portfolio" id="portfolio" style="background: linear-gradient(135deg, #5093f8, #e1e5ec);">
+        <section class="page-section portfolio" id="portfolio"
+            style="background: linear-gradient(135deg, #5093f8, #e1e5ec);">
             <div class="container">
                 <!-- Portfolio Section Heading-->
                 <h4 class="page-section-heading text-center text-uppercase text-secondary mb-0">Services</h4>
@@ -501,7 +503,8 @@
                                                                 Print
                                                             </button> --}}
                                                             <button class="btn btn-primary"
-                                                                v-on:click="book_appointment()" :disabled="selectedHour == '' || selectedDate == ''"
+                                                                v-on:click="book_appointment()"
+                                                                :disabled="selectedHour == '' || selectedDate == ''"
                                                                 v-if="documents.length > 0" data-bs-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <i class="fas fa-book"></i>
@@ -550,8 +553,7 @@
                                         ]">
                                         <input type="text" class="form-control" placeholder="Username"
                                             data-toggle="tooltip" data-placement="top"
-                                            :data-original-title="errors.username" v-model="username"
-                                            >
+                                            :data-original-title="errors.username" v-model="username">
                                         <span class="input-group-addon">
                                             <i class="icofont icofont-business-man-alt-2"></i>
                                         </span>
@@ -701,19 +703,7 @@
     <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     {{-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> --}}
-    <script>
-        $(document).ready(function() {
 
-
-
-
-
-
-
-
-        });
-    </script>
-    <script></script>
     <script>
         //    var myCalendar = jsCalendar.new("#my-calendar");
         const app = new Vue({
@@ -879,10 +869,12 @@
                         })
                         .then(function(response) {
                             // console.log(response.data);
-                           app.notify('Booking Successful', 'Booking Successful', 'green', 'topCenter', 'bounceInDown');
+                            app.notify('Booking Successful', 'Booking Successful', 'green', 'topCenter',
+                                'bounceInDown');
                         })
                         .catch(function(error) {
-                            app.notify('Booking Failed', 'You cannot book multiple appointments.', 'red', 'topCenter',
+                            app.notify('Booking Failed', 'You cannot book multiple appointments.', 'red',
+                                'topCenter',
                                 'bounceInDown');
                         });
                 },
@@ -959,7 +951,7 @@
                     var app = this;
 
                     axios.put('/update_information', {
-                            'username':app.username,
+                            'username': app.username,
                             'fullname': app.fullname,
                             'email': app.email,
                             'telephone': app.telephone,
@@ -968,170 +960,172 @@
                             'password_confirmation': app.password_confirmation,
                         })
                         .then(function(response) {
-                            app.notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
-                            app.fullname = response.data.user.fullname;
-                            app.email = response.data.user.email;
-                            app.telephone = response.data.user.telephone;
-                            app.address = response.data.user.address;
-                            app.reset_form();
+                                app.notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                                app.fullname = response.data.user.fullname;
+                                app.email = response.data.user.email;
+                                app.telephone = response.data.user.telephone;
+                                app.address = response.data.user.address;
+                                app.reset_form();
 
                                 app.fullname = response.data.user.fullname;
                                 app.email = response.data.user.email;
                                 app.telephone = response.data.user.telephone;
                                 app.address = response.data.user.address;
-                                 app.reset_form();
+                                app.reset_form();
 
                             }
-                        })
-                        .catch(function(error) {
-                            if (error.response) {
-                                //app.errors = error.response.data.errors;
-                                console.log(error.response.data.errors);
+        )
+                .catch(function(error) {
+                    if (error.response) {
+                        //app.errors = error.response.data.errors;
+                        console.log(error.response.data.errors);
 
-                                app.$set(app, 'errors', error.response.data.errors);
-                               app.notify('Erreurs!', 'Veuillez vérifier les informations introduites', 'red',
-                                    'topCenter', 'bounceInDown');
-                            } else if (error.request) {
-                                console.log(error.request);
-                            } else {
-                                console.log('Error', error.message);
-                            }
-                        });
-                },
-
-                reset_form() {
-                    // this.fullname:'';
-                    // this.email:'';
-                    // this.telephone:'';
-                    // this.address:'';
-                    // this.username:'';
-
-
-                    this.password = '';
-                    this.password_confirmation = '';
-                    this.errors = [];
-
-                },
-
-                handleFilesUpload() {
-                    this.decision_file = this.$refs.files.files;
-                    this.decision_file_name = this.decision_file[0].name;
-                    $('#decision-file').val(this.decision_file_name);
-
-                },
-                block(element) {
-                    $('#' + element).block({
-                        message: '<div class="preloader3 loader-block">' +
-                            '<div class="circ1 loader-info"></div>' +
-                            '<div class="circ2 loader-info"></div>' +
-                            '<div class="circ3 loader-info"></div>' +
-                            '<div class="circ4 loader-info"></div>' +
-                            '</div>',
-                        css: {
-                            border: 'none',
-                            padding: '15px',
-                            backgroundColor: '',
-                            '-webkit-border-radius': '10px',
-                            '-moz-border-radius': '10px',
-                            opacity: 0.5,
-                            showOverlay: false,
-                        }
-                    });
-                },
-                 notify(title, message, color, position,transition){
-    iziToast.show({
-        title: title,
-        message: message,
-        position: position,
-        color: color,
-        transitionIn: transition,
-        timeout : 3000,
-        zindex: 9999999,
-        'z-index': 9999999,
-        targetFirst : true,
-    });
-
-
-
-},
-                unblock(element) {
-                    $('#' + element).unblock();
-                },
-
-                // getAssetUrl() {
-                //         return "{{ asset('pages/user/assets/img/" + currentPhotoIndex + "') }}";
-                //         },
-
-                onClose() {
-                    // Perform any actions you need when the modal is closed
-                    console.log('Modal closed');
-                    // Clear any data or reset state variables
-
-                    // Reset showModal to hide the modal
-                    this.showBookingForm = false;
-                    this.documents = '';
-                },
-
-            },
-
-            computed: {
-                currentPhoto() {
-                    return this.photos[this.currentPhotoIndex];
-                },
-                getAssetUrl() {
-                    return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
-                },
-            },
-            mounted() {
-                this.fetch_services();
-                this.fetchAppointments();
-                $('#demo').datetimepicker({
-                    date: new Date(),
-                    startDate: new Date()
-
-                        ,
-                    onDateChange: function() {
-
-                        console.log(this.getText('YYYY-MM-DD'));
-                        app.selectedDate = this.getText('YYYY-MM-DD');
-                        axios.post('/getAvailableHours', {
-                                selected_date: this.getText('YYYY-MM-DD')
-                            })
-                            .then(response => {
-                                // Handle the response data
-                                console.log(response.data);
-                                app.available_hours = response.data.available_hours;
-                                app.selectedHour = '';
-                            })
-                            .catch(error => {
-                                // Handle any errors
-                                console.error(error);
-                            });
-
-
+                        app.$set(app, 'errors', error.response.data.errors);
+                        app.notify('Erreurs!', 'Veuillez vérifier les informations introduites', 'red',
+                            'topCenter', 'bounceInDown');
+                    } else if (error.request) {
+                        console.log(error.request);
+                    } else {
+                        console.log('Error', error.message);
                     }
-                }, );
-                // Get the button
-
-                // Add a button event
-
-                setInterval(() => {
-                    this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
-                }, 5000);
-                // Default export is a4 paper, portrait, using millimeters for units
-
-
-                // this.fetch_documents();
-                const modalElement = document.querySelector('#portfolioModal1');
-                modalElement.addEventListener('hidden.bs.modal', this.onClose);
+                });
             },
-            created() {
-                this.fetch_services();
-                this.fetchAppointments();
-            }
+
+            reset_form() {
+                // this.fullname:'';
+                // this.email:'';
+                // this.telephone:'';
+                // this.address:'';
+                // this.username:'';
+
+
+                this.password = '';
+                this.password_confirmation = '';
+                this.errors = [];
+
+            },
+
+            handleFilesUpload() {
+                this.decision_file = this.$refs.files.files;
+                this.decision_file_name = this.decision_file[0].name;
+                $('#decision-file').val(this.decision_file_name);
+
+            },
+            block(element) {
+                $('#' + element).block({
+                    message: '<div class="preloader3 loader-block">' +
+                        '<div class="circ1 loader-info"></div>' +
+                        '<div class="circ2 loader-info"></div>' +
+                        '<div class="circ3 loader-info"></div>' +
+                        '<div class="circ4 loader-info"></div>' +
+                        '</div>',
+                    css: {
+                        border: 'none',
+                        padding: '15px',
+                        backgroundColor: '',
+                        '-webkit-border-radius': '10px',
+                        '-moz-border-radius': '10px',
+                        opacity: 0.5,
+                        showOverlay: false,
+                    }
+                });
+            },
+
+            notify(title, message, color, position, transition) {
+                iziToast.show({
+                    title: title,
+                    message: message,
+                    position: position,
+                    color: color,
+                    transitionIn: transition,
+                    timeout: 3000,
+                    zindex: 9999999,
+                    'z-index': 9999999,
+                    targetFirst: true,
+                });
+
+
+
+            },
+            unblock(element) {
+                $('#' + element).unblock();
+            },
+
+            // getAssetUrl() {
+            //         return "{{ asset('pages/user/assets/img/" + currentPhotoIndex + "') }}";
+            //         },
+
+            onClose() {
+                // Perform any actions you need when the modal is closed
+                console.log('Modal closed');
+                // Clear any data or reset state variables
+
+                // Reset showModal to hide the modal
+                this.showBookingForm = false;
+                this.documents = '';
+            },
+
+        },
+
+        computed: {
+            currentPhoto() {
+                return this.photos[this.currentPhotoIndex];
+            },
+            getAssetUrl() {
+                return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
+            },
+        },
+        mounted() {
+            this.fetch_services();
+            this.fetchAppointments();
+            $('#demo').datetimepicker({
+                date: new Date(),
+                startDate: new Date()
+
+                    ,
+                onDateChange: function() {
+
+                    console.log(this.getText('YYYY-MM-DD'));
+                    app.selectedDate = this.getText('YYYY-MM-DD');
+                    axios.post('/getAvailableHours', {
+                            selected_date: this.getText('YYYY-MM-DD')
+                        })
+                        .then(response => {
+                            // Handle the response data
+                            console.log(response.data);
+                            app.available_hours = response.data.available_hours;
+                            app.selectedHour = '';
+                        })
+                        .catch(error => {
+                            // Handle any errors
+                            console.error(error);
+                        });
+
+
+                }
+            }, );
+            // Get the button
+
+            // Add a button event
+
+            setInterval(() => {
+                this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
+            }, 5000);
+            // Default export is a4 paper, portrait, using millimeters for units
+
+
+            // this.fetch_documents();
+            const modalElement = document.querySelector('#portfolioModal1');
+            modalElement.addEventListener('hidden.bs.modal', this.onClose);
+        },
+        created() {
+            this.fetch_services();
+            this.fetchAppointments();
+        }
 
 
         });
+        
     </script>
     </div>
 </body>
