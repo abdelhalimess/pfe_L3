@@ -18,6 +18,7 @@
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/jsCalendar.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.datetimepicker.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/animate.css/css/animate.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/iziToast.min.css') }}">
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('pages/user/css/styles.css') }}" rel="stylesheet" />
 </head>
@@ -25,10 +26,11 @@
 <body>
     <div id="app">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav" >
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
                 <div style="">
-                    <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="cnas-logo" style="width: 40px ; height:40px ; margin-right:10px ; margin-bottom :5px" >
+                    <img src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="cnas-logo"
+                        style="width: 40px ; height:40px ; margin-right:10px ; margin-bottom :5px">
                     <a class="navbar-brand" id="nav-title">CNAS - VIRTUAL COUNTER</a>
                 </div>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
@@ -42,9 +44,11 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#portfolio">Services</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                            href="#"  data-toggle="modal" data-target="#appointmentsModal" v-on:click="fetchAppointments()">My Appointments</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
-                        <li class="nav-item mx-0 mx-lg-1" ><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                            href="#footer-page" >Contact</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                href="#footer-page">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -54,32 +58,66 @@
             <div class="container d-flex align-items-center flex-column">
                 <!-- Masthead Avatar Image-->
                 <template>
-                <div id="image-header-div" >
-                    <transition name="fade" mode="out-in">
-                <img class="masthead-avatar mb-5 " id="header-images" :src=" getAssetUrl " alt="currentPhoto" :key="currentPhotoIndex"
-                    alt="..." />
-                    </transition>
-                </div>
+                    <div id="image-header-div">
+                        <transition name="fade" mode="out-in">
+                            <img class="masthead-avatar mb-5 " id="header-images" :src=" getAssetUrl"
+                                alt="currentPhoto" :key="currentPhotoIndex" alt="..." />
+                        </transition>
+                    </div>
                 </template>
                 <!-- Masthead Heading-->
-              <div>
-                <h1 class="masthead-heading text-uppercase mb-0" id="h1-header">CNAS - VIRTUAL COUNTER</h1>
-                <!-- Icon Divider-->
-                <div class="divider-custom divider-light">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
-                    <div class="divider-custom-line"></div>
-                {{-- </div>
+                <div>
+                    <h1 class="masthead-heading text-uppercase mb-0" id="h1-header">CNAS - VIRTUAL COUNTER</h1>
+                    <!-- Icon Divider-->
+                    <div class="divider-custom divider-light">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
+                        <div class="divider-custom-line"></div>
+                        {{-- </div>
                 <!-- Masthead Subheading-->
                 <p class="masthead-subheading font-weight-light mb-0">Consult our services ... Book an appointment! <br> What are you wating for ? </p>
               </div> --}}
-            </div>
+                    </div>
         </header>
+        <div class="row">
+            <div class="modal fade" id="appointmentsModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="appointmentsModalLabel">My Appointments</h5>
+                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> --}}
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Date And Time</th>
+                                {{-- <th>Service</th> --}}
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(appointment, index) in appointments" v-bind:key="index">
+                                <td>@{{ index + 1 }}</td>
+                                <td>@{{ appointment.appointment_datetime }}</td>
+                                <td :class="getStatusClass(appointment.status)">@{{ appointment.status }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-
-        <!-- Portfolio Section-->
-        <section class="page-section portfolio" id="portfolio">
+        <!-- Services Section-->
+        <section class="page-section portfolio" id="portfolio" style="background: linear-gradient(135deg, #5093f8, #e1e5ec);">
             <div class="container">
                 <!-- Portfolio Section Heading-->
                 <h4 class="page-section-heading text-center text-uppercase text-secondary mb-0">Services</h4>
@@ -92,15 +130,11 @@
                 <!-- Portfolio Grid Items-->
                 <div class="row justify-content-center">
                     <!-- Portfolio Item 1-->
-                    <div class="col-md-6 col-lg-4 mb-5" v-for="(service , index) in services" :key="index">
+                    <div class="col-md-6 col-lg-4 mb-5" v-for="(service, index) in services" :key="index">
                         <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                            {{-- <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div> --}}
-
                             <div v-on:click="selectedService=service,select_service(service)" class="card"
                                 style="width: 18rem;">
-
+        
                                 <div class="card-body">
                                     <h5 class="card-title">@{{ service.name }}</h5>
                                     <p class="card-text">@{{ service.description }}</p>
@@ -111,9 +145,11 @@
                         </div>
                     </div>
 
+                    
                 </div>
             </div>
         </section>
+        
         <!-- About Section-->
         <section class="page-section bg-secondary text-white mb-0" id="about">
             <div class="container">
@@ -130,8 +166,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex justify-content-center mb-4">
-                                <a href="https://cnas.dz/" target="_blank"><img id="image-about-cnas" src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo"
-                                    class="img-fluid cnas-logo max-width"></a>
+                                <a href="https://cnas.dz/" target="_blank"><img id="image-about-cnas"
+                                        src="{{ asset('images/auth/Logo-small-bottom.png') }}" alt="CNAS Logo"
+                                        class="img-fluid cnas-logo max-width"></a>
                             </div>
 
                         </div>
@@ -248,65 +285,66 @@
         </section> --}}
         <!-- Footer-->
 
-            <!-- About Section Heading-->
+        <!-- About Section Heading-->
 
-            <!-- Icon Divider-->
-            <section class="page-section" id="contact">
-        <footer class="footer text-center" id="footer-page">
-            <h2 class="page-section-heading text-center text-uppercase text-white" >Contact</h2>
-            <div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <!-- Footer Location-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">Location</h4>
-                        <p class="lead mb-0">
-                            CNAS - Direction Générale
-                            <br />
-                            Rue des deux bassins, Ben Aknoun 16028
-                        </p>
-                    </div>
-                    <!-- Footer Social Icons-->
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">Around the Web</h4>
-                        <a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/dg.cnas"><i
-                                class="fab fa-fw fa-facebook-f "></i></a>
-                        {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-web"></i></a> --}}
-                        <a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/company/cnas-direction-g%C3%A9n%C3%A9rale/" target="_blank"><i
-                                class="fab fa-fw fa-linkedin-in "></i></a>
-                        {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-dribbble"></i></a> --}}
-                    </div>
-                    <div class="col-lg-4 ">
-                        <h4>Contact</h4>
-                        <a href="" style="text-decoration: none ; color:white "> +213 23384270  </a> <br>
-
-                        <br><br><br><br><br>
-                    </div>
-
-                    <!-- Footer About Text-->
-                    <div class="row center " style="justify-content: center ; ">
-                    <div class="col-lg-8 center" >
-                        <p class="lead mb-0">
-                            <h4>Created by: </h4>
-                            Abdelhalim Esselami /  Abdelkadir Cheklal<br>
-                            <h4>CNAS - VIRTUAL COUNTER</h4>
-
-                        </p>
-                    </div>
-                  </div>
+        <!-- Icon Divider-->
+        <section class="page-section" id="contact">
+            <footer class="footer text-center" id="footer-page">
+                <h2 class="page-section-heading text-center text-uppercase text-white">Contact</h2>
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
+                    <div class="divider-custom-line"></div>
                 </div>
+                <div class="container">
+                    <div class="row">
+                        <!-- Footer Location-->
+                        <div class="col-lg-4 mb-5 mb-lg-0">
+                            <h4 class="text-uppercase mb-4">Location</h4>
+                            <p class="lead mb-0">
+                                CNAS - Direction Générale
+                                <br />
+                                Rue des deux bassins, Ben Aknoun 16028
+                            </p>
+                        </div>
+                        <!-- Footer Social Icons-->
+                        <div class="col-lg-4 mb-5 mb-lg-0">
+                            <h4 class="text-uppercase mb-4">Around the Web</h4>
+                            <a class="btn btn-outline-light btn-social mx-1"
+                                href="https://www.facebook.com/dg.cnas"><i class="fab fa-fw fa-facebook-f "></i></a>
+                            {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+                                class="fab fa-fw fa-web"></i></a> --}}
+                            <a class="btn btn-outline-light btn-social mx-1"
+                                href="https://www.linkedin.com/company/cnas-direction-g%C3%A9n%C3%A9rale/"
+                                target="_blank"><i class="fab fa-fw fa-linkedin-in "></i></a>
+                            {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
+                                class="fab fa-fw fa-dribbble"></i></a> --}}
+                        </div>
+                        <div class="col-lg-4 ">
+                            <h4>Contact</h4>
+                            <a href="" style="text-decoration: none ; color:white "> +213 23384270 </a> <br>
+
+                            <br><br><br><br><br>
+                        </div>
+
+                        <!-- Footer About Text-->
+                        <div class="row center " style="justify-content: center ; ">
+                            <div class="col-lg-8 center">
+                                <p class="lead mb-0">
+                                <h4>Created by: </h4>
+                                Abdelhalim Esselami / Abdelkadir Cheklal<br>
+                                <h4>CNAS - VIRTUAL COUNTER</h4>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Copyright Section-->
+            <div class="copyright py-4 text-center text-white" id="copyright-div">
+                <div class="container"><small>Copyright &copy; CNAS-Virtual Counter 2023</small></div>
             </div>
-        </footer>
-        <!-- Copyright Section-->
-        <div class="copyright py-4 text-center text-white" id="copyright-div">
-            <div class="container"><small>Copyright &copy; CNAS-Virtual Counter 2023</small></div>
-        </div>
         </section>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
@@ -422,7 +460,7 @@
 
 
                                                         </div>
-                                                        <div class="col-5">
+                                                        <div class="col-4">
                                                             <div class="list-group" v-if="documents.length > 0">
                                                                 <div :class="[index == selectedHourIndex ?
                                                                     'active list-group-item list-group-item-action' :
@@ -449,7 +487,7 @@
                                                 <div class="card-footer">
                                                     <div class="row justify-content-between">
                                                         <div class="col-auto">
-                                                            <button class="btn btn-primary"
+                                                            <button class="btn btn-primary" 
                                                                 v-on:click="showBookingForm = false">
                                                                 <i class="fas fa-arrow-left"></i>
                                                                 Back
@@ -462,8 +500,10 @@
                                                                 <i class="fas fa-print"></i>
                                                                 Print
                                                             </button> --}}
-                                                            <button class="btn btn-primary" v-on:click="book_appointment()"
-                                                                v-if="documents.length > 0">
+                                                            <button class="btn btn-primary"
+                                                                v-on:click="book_appointment()" :disabled="selectedHour == '' || selectedDate == ''"
+                                                                v-if="documents.length > 0" data-bs-dismiss="modal"
+                                                                aria-label="Close">
                                                                 <i class="fas fa-book"></i>
                                                                 Book
                                                             </button>
@@ -489,6 +529,7 @@
     <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/jquery/js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/popper.js/js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/iziToast.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -516,13 +557,14 @@
 
         });
     </script>
-
+    <script></script>
     <script>
         //    var myCalendar = jsCalendar.new("#my-calendar");
         const app = new Vue({
             el: '#app',
             data() {
                 return {
+                    appointments: [],
                     selectedHourIndex: '',
                     selectedHour: '',
                     showBookingForm: false,
@@ -540,14 +582,46 @@
                     errors: [],
                     notifications: [],
                     available_hours: [],
-                    selectedDate:'',
+                    selectedDate: '',
                     notifications_fetched: false,
 
-                    photos: ['cnasfond.png','undraw_interview_re_e5jn.svg','Woman-booking-appointment.svg' ] ,
+                    photos: ['cnasfond.png', 'undraw_interview_re_e5jn.svg', 'Woman-booking-appointment.svg'],
                     currentPhotoIndex: 0,
                 }
             },
             methods: {
+                getStatusClass(status) {
+                    if (status === 'PENDING') {
+                        return 'text-primary font-weight-bold'; // Blue color for pending status
+                    } else if (status === 'CONFIRMED') {
+                        return 'text-success font-weight-bold'; // Green color for confirmed status
+                    } else if (status === 'CANCELED') {
+                        return 'text-danger font-weight-bold'; // Red color for canceled status
+                    } else if (status === 'DONE') {
+                        return 'text-primary font-weight-bold'; // Red color for canceled status
+                    } else if (status === 'DISMISSED') {
+                        return 'font-weight-bold'; // Red color for canceled status
+                    }
+                    return ''; // Default class if status is not recognized
+                },
+                getDayOfWeek(dateString) {
+                    const dateObj = new Date(dateString);
+                    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+                        'Saturday'
+                    ];
+                    return daysOfWeek[dateObj.getDay()];
+                },
+
+                fetchAppointments() {
+                    // Make an API call to fetch appointments data
+                    axios.get('/getMyAppointments')
+                        .then(response => {
+                            this.appointments = response.data.appointments; // Update the appointments data
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                },
                 setDate() {
 
                     app.myCalendar.set("31/05/2023");
@@ -560,7 +634,7 @@
                     // doc.addImage(img, 'png', 10, 78, 12, 15);
                     // doc.text("Hello world!", 10, 10);
                     // doc.save("a4.pdf");
-                    const printContents = document.querySelector('.col-5 .list-group').innerHTML;
+                    const printContents = document.querySelector('.col-4 .list-group').innerHTML;
                     const printWindow = window.open('', '', 'width=800,height=600');
                     printWindow.document.open();
                     printWindow.document.write(`
@@ -631,18 +705,18 @@
                 },
                 book_appointment() {
                     axios.post('/createAppointment', {
-                                selected_date: app.selectedDate,
-                                selected_hour : app.selectedHour,
-                                selected_service_id : app.selectedService                            })
-                            .then(response => {
-                                // Handle the response data
-                                console.log(response.data);
-                               
-                            })
-                            .catch(error => {
-                                // Handle any errors
-                                console.error(error);
-                            });
+                            selected_date: app.selectedDate,
+                            selected_hour: app.selectedHour,
+                            selected_service_id: app.selectedService
+                        })
+                        .then(function(response) {
+                            // console.log(response.data);
+                           app.notify('Booking Successful', 'Booking Successful', 'green', 'topCenter', 'bounceInDown');
+                        })
+                        .catch(function(error) {
+                            app.notify('Booking Failed', 'You cannot book multiple appointments.', 'red', 'topCenter',
+                                'bounceInDown');
+                        });
                 },
                 fetch_services() {
                     return axios.get('/getServices')
@@ -651,12 +725,11 @@
                             // selectedQuestion = services[0].question;
                             console.log('Services fetched successfully');
                             console.log(this.services);
-                            console.log("dazdazd");
                             console.log(response.data.questions);
                         })
                         .catch();
                 },
-               
+
                 fetch_questions(question) {
                     this.previousQuestions.push(question.id);
                     return axios.get('/getQuestions/' + question.id)
@@ -726,7 +799,7 @@
                             'password_confirmation': app.password_confirmation,
                         })
                         .then(function(response) {
-                            notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                            app.notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
                             app.fullname = response.data.user.fullname;
                             app.email = response.data.user.email;
                             app.telephone = response.data.user.telephone;
@@ -740,7 +813,7 @@
                                 console.log(error.response.data.errors);
 
                                 app.$set(app, 'errors', error.response.data.errors);
-                                notify('Erreurs!', 'Veuillez vérifier les informations introduites', 'red',
+                               app.notify('Erreurs!', 'Veuillez vérifier les informations introduites', 'red',
                                     'topCenter', 'bounceInDown');
                             } else if (error.request) {
                                 console.log(error.request);
@@ -783,6 +856,22 @@
                         }
                     });
                 },
+                 notify(title, message, color, position,transition){
+    iziToast.show({
+        title: title,
+        message: message,
+        position: position,
+        color: color,
+        transitionIn: transition,
+        timeout : 3000,
+        zindex: 9999999,
+        'z-index': 9999999,
+        targetFirst : true,
+    });
+
+
+
+},
                 unblock(element) {
                     $('#' + element).unblock();
                 },
@@ -791,18 +880,29 @@
                 //         return "{{ asset('pages/user/assets/img/" + currentPhotoIndex + "') }}";
                 //         },
 
+                onClose() {
+                    // Perform any actions you need when the modal is closed
+                    console.log('Modal closed');
+                    // Clear any data or reset state variables
+
+                    // Reset showModal to hide the modal
+                    this.showBookingForm = false;
+                    this.documents = '';
+                },
 
             },
+
             computed: {
                 currentPhoto() {
-                return this.photos[this.currentPhotoIndex];
-                    },
-                    getAssetUrl() {
-                        return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
-                        },
-                    },
+                    return this.photos[this.currentPhotoIndex];
+                },
+                getAssetUrl() {
+                    return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
+                },
+            },
             mounted() {
                 this.fetch_services();
+                this.fetchAppointments();
                 $('#demo').datetimepicker({
                     date: new Date(),
                     startDate: new Date()
@@ -819,6 +919,7 @@
                                 // Handle the response data
                                 console.log(response.data);
                                 app.available_hours = response.data.available_hours;
+                                app.selectedHour = '';
                             })
                             .catch(error => {
                                 // Handle any errors
@@ -834,14 +935,17 @@
 
                 setInterval(() => {
                     this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
-                    }, 5000);
+                }, 5000);
                 // Default export is a4 paper, portrait, using millimeters for units
 
 
                 // this.fetch_documents();
+                const modalElement = document.querySelector('#portfolioModal1');
+                modalElement.addEventListener('hidden.bs.modal', this.onClose);
             },
             created() {
                 this.fetch_services();
+                this.fetchAppointments();
             }
 
 

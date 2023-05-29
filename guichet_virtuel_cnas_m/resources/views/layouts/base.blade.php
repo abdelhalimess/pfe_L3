@@ -73,7 +73,6 @@
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-tour-standalone.css') }}">
 
-
     <!-- Select 2 css -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap-select.min.css') }}">
     <!-- Multi Select css -->

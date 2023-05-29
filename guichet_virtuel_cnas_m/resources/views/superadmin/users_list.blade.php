@@ -328,7 +328,21 @@
                                     <i class="icofont icofont-sub-listing"></i>
                                 </span>
                             </div>
-                        
+                            <div :class="[errors.service_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
+                        data-toggle="tooltip" data-placement="top"
+                        :data-original-title="errors.service_id">
+                            <select id="services"  class="selectpicker show-tick" data-live-search="true" title="Service name.." data-width="100%" data-size="8">
+
+                              
+                                        @foreach ($services as $service)
+                                            <option value="{{$service->id}}" v-model="service_id"> {{$service->name}}</option>
+                                        @endforeach
+                             
+                            </select>
+                            <span class="input-group-addon">
+                                <i class="icofont icofont-sub-listing"></i>
+                            </span>
+                        </div>
                             <div :class="[errors.username ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">
                                 <input type="text" class="form-control" placeholder="Username"
                                 data-toggle="tooltip" data-placement="top"
@@ -419,6 +433,8 @@ $(document).ready(function() {
             });
             $('#structures').selectpicker({
             });
+            $('#services').selectpicker({
+            });
 });
 </script>
 <script>
@@ -443,9 +459,11 @@ const app = new Vue({
             username1:'',
             password1: '',
             structure_id1:'',
+            service_id:'',
             role_id1: '',
             password_confirmation1: '',
             structure_id: '',
+            
             role_id: '',
             permissions: [],
             selectedPermissions: [],
@@ -492,6 +510,7 @@ const app = new Vue({
                 app.permissions = '';
                 app.structure_id = $('#structures').selectpicker('val');
                 app.selectedPermissions = $('#permissions').multiSelect().val();
+                app.service_id = $('#services').selectpicker('val');
                  console.log(app.selectedPermissions.length )
                 if ( app.selectedPermissions.length > 0) {
                     app.selectedPermissions =  app.selectedPermissions.toString().split(',').map(Number);
@@ -506,6 +525,7 @@ const app = new Vue({
                     'password':app.password,
                     'password_confirmation':app.password_confirmation,
                     'structure_id': app.structure_id,
+                    'service_id': app.structure_id,
                     'role_id':app.role_id,
                     'permissions':app.permissions
                 })
@@ -556,6 +576,9 @@ const app = new Vue({
             $('#permissions').multiSelect('select',app.permissions);
             // $('#structure-types').selectpicker('val',user.structure.structure_type_id);
             $('#structures').selectpicker('val',user.structure_id);
+            $('#services').selectpicker('val',user.service_id);
+      
+
             console.log('rferferf ===> '+user.structure_id);
             // $('#state').val(user.structure.state);
             app.fullname = user.fullname;

@@ -97,8 +97,9 @@ class UserController extends Controller
             case 'superadmin':
                 $roles = Role::with('permissions')->get();
                 $permissions = Permission::all();
+                $services = Service::all();
                 $structureTypes = StructureType::with('structures')->get();
-                return view('superadmin.add_user', compact('roles', 'permissions', 'structureTypes'));
+                return view('superadmin.add_user', compact('roles', 'permissions', 'structureTypes','services'));
                 break;
             case 'admin':
                 $roles = Role::with('permissions')->whereNotIn('name', ['superadmin', 'admin', 'manager'])->get();
@@ -182,21 +183,24 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->telephone = $request->telephone;
         $user->email = $request->email;
-
+        $service = Service::where('id',$request->service_id)->first();
+        
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
         if ($role != 'superadmin') {
-            $user->structure_id = Auth::user()->commune_id;
+            $user->structure_id = Auth::user()->structure_id;
         } else {
 
-            $user->commune_id = $request->commune_id;
+            $user->structure_id = $request->structure_id;
         }
 
 
         $user->password = Hash::make($request->password);
 
         $user->save();
-
+       
+        $service->employee_id = $user->id;
+        $service->update(); 
         $user->assignRole($request->role_id);
         $user->syncPermissions($request->permissions);
 
@@ -215,7 +219,8 @@ class UserController extends Controller
                 $users = User::with('permissions', 'roles','structure')->get();
                 $roles = Role::with('permissions')->get();
                 $structureTypes = StructureType::with('structures')->get();
-                return view('superadmin.users_list', compact('users', 'roles', 'structureTypes'));
+                $services = Service::all();
+                return view('superadmin.users_list', compact('users', 'roles', 'structureTypes','services'));
                 break;
             case 'admin':
                 $roles = Role::with('permissions')->whereNotIn('name', ['superadmin', 'admin', 'manager'])->get();
@@ -266,7 +271,7 @@ class UserController extends Controller
 
 
 
-
+        $service = Service::where('id',$request->service_id)->first();
 
 
 
@@ -290,7 +295,8 @@ class UserController extends Controller
         }
 
         $user->save();
-
+        $service->employee_id = $user->id;
+        $service->update(); 
         $user->syncRoles($request->role_id);
         $user->syncPermissions($request->permissions);
 
