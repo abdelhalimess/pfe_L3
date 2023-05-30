@@ -259,7 +259,7 @@
 
         },
         mounted() {
-            this.fetch_notifications();
+            // this.fetch_notifications();
         }
 
 

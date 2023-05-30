@@ -208,6 +208,7 @@ height: 40px;
                 notify('Success',response.data.success,'green', 'topCenter','bounceInDown');
                 app.fullname= response.data.user.fullname ;
                 app.email=response.data.user.email;
+                
                 app.telephone=response.data.user.telephone;
                 app.address=response.data.user.address;
                 app.reset_form();
@@ -267,7 +268,6 @@ height: 40px;
 
         },
         mounted() {
-            this.fetch_notifications();
         }
 
 

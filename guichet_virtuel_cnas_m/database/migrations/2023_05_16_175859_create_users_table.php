@@ -23,13 +23,19 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->unsignedInteger('structure_id')->nullable();
+            $table->foreign('structure_id')
+                ->references('id')
+                ->on('structures')
+                ->onDelete('set null');
+                $table->unsignedInteger('service_id')->nullable();
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onDelete('set null');
             $table->timestamps();
 
-            $table->unsignedInteger('commune_id')->nullable();
-            $table->foreign('commune_id')
-                ->references('id')
-                ->on('communes')
-                ->onDelete('set null');
+      
         });
     }
 

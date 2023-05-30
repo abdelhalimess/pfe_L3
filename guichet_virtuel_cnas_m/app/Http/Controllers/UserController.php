@@ -99,7 +99,7 @@ class UserController extends Controller
                 $permissions = Permission::all();
                 $services = Service::all();
                 $structureTypes = StructureType::with('structures')->get();
-                return view('superadmin.add_user', compact('roles', 'permissions', 'structureTypes','services'));
+                return view('superadmin.add_user', compact('roles', 'permissions', 'structureTypes', 'services'));
                 break;
             case 'admin':
                 $roles = Role::with('permissions')->whereNotIn('name', ['superadmin', 'admin', 'manager'])->get();
@@ -137,7 +137,7 @@ class UserController extends Controller
 
 
         $this->validate($request, [
-            'username' =>  'min:5|string|required',
+            // 'username' =>  'min:5|string|required',
             'password' => 'nullable|min:5|max:25|string|confirmed',
             'fullname' => 'required|min:5|max:150|string',
             'address' => 'required|max:150|string',
@@ -147,7 +147,7 @@ class UserController extends Controller
 
         ]);
 
-        $user->username = $request->username;
+        // $user->username = $request->username;
         $user->fullname = $request->fullname;
         $user->address = $request->address;
         $user->telephone = $request->telephone;
@@ -157,7 +157,7 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
         }
 
-        $user->save();
+        $user->update();
 
         return response()->json([
             'success' => 'Information updated successfully',
@@ -183,8 +183,8 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->telephone = $request->telephone;
         $user->email = $request->email;
-        $service = Service::where('id',$request->service_id)->first();
-        
+        $service = Service::where('id', $request->service_id)->first();
+
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
         if ($role != 'superadmin') {
@@ -198,9 +198,9 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
 
         $user->save();
-       
+
         $service->employee_id = $user->id;
-        $service->update(); 
+        $service->update();
         $user->assignRole($request->role_id);
         $user->syncPermissions($request->permissions);
 
@@ -216,11 +216,11 @@ class UserController extends Controller
         $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
-                $users = User::with('permissions', 'roles','structure')->get();
+                $users = User::with('permissions', 'roles', 'structure')->get();
                 $roles = Role::with('permissions')->get();
                 $structureTypes = StructureType::with('structures')->get();
                 $services = Service::all();
-                return view('superadmin.users_list', compact('users', 'roles', 'structureTypes','services'));
+                return view('superadmin.users_list', compact('users', 'roles', 'structureTypes', 'services'));
                 break;
             case 'admin':
                 $roles = Role::with('permissions')->whereNotIn('name', ['superadmin', 'admin', 'manager'])->get();
@@ -264,14 +264,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UserUpdateRequest $request, $id)
-     {
+    {
         $validated = $request->validated();
         $user = User::findOrFail($id);
         $this->authorize('update', $user);
 
 
 
-        $service = Service::where('id',$request->service_id)->first();
+        $service = Service::where('id', $request->service_id)->first();
 
 
 
@@ -296,7 +296,7 @@ class UserController extends Controller
 
         $user->save();
         $service->employee_id = $user->id;
-        $service->update(); 
+        $service->update();
         $user->syncRoles($request->role_id);
         $user->syncPermissions($request->permissions);
 
@@ -380,6 +380,5 @@ class UserController extends Controller
     {
         $users = User::role('user')->count();
         return compact('users');
-
     }
 }

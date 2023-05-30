@@ -880,7 +880,8 @@
                     axios.post('/createAppointment', {
                             selected_date: app.selectedDate,
                             selected_hour: app.selectedHour,
-                            selected_service_id: app.selectedService
+                            selected_service_id: app.selectedService,
+                            question_id: app.selectedQuestion,
                         })
                         .then(function(response) {
                             // console.log(response.data);
@@ -911,8 +912,8 @@
                         .then(response => {
                             // this.questions = response.data.questions;
                             this.questions = response.data.questions;
-                            // selectedQuestion = services[0].question;
-                            // this.selectedQuestion = question;
+                            // app.selectedQuestion = services[0].question;
+                            app.selectedQuestion = question.id;
                             console.log(response.data.questions);
                         })
                         .catch();
@@ -1092,6 +1093,7 @@
             mounted() {
                 this.fetch_services();
                 this.fetchAppointments();
+                this.selectedHour = '';
                 $('#demo').datetimepicker({
                     date: new Date(),
                     startDate: new Date()
