@@ -98,11 +98,11 @@ class AppointmentController extends Controller
     {
         // Validate the request data
         $request->validate([
-            'selected_date' => 'required',
+            'selected_date' => 'required|date',
         ]);
-
+    
         $selectedDate = $request->input('selected_date');
-
+    
         // Retrieve existing appointments for the selected date
         $existingAppointments = Appointment::whereDate('appointment_datetime', '=', $selectedDate)
             ->pluck('appointment_datetime')
@@ -110,36 +110,41 @@ class AppointmentController extends Controller
                 return Carbon::parse($datetime)->format('H:i');
             })
             ->toArray();
-
+    
         // Define available hours range
         $availableHoursRange = [
             '08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00',
         ];
-
-        // Remove the existing appointments from the available hours range
-        $availableHours = array_diff($availableHoursRange, $existingAppointments);
-
-        // Get the current booking time
-        $currentTime = Carbon::now();
-        $currentHour = $currentTime->hour;
-        $currentMinute = $currentTime->minute;
-
-        // Filter the available hours based on the current booking time
-        $availableHours = array_filter($availableHours, function ($hour) use ($currentHour, $currentMinute) {
-            $hourParts = explode(':', $hour);
-            $hourValue = (int) $hourParts[0];
-            $minuteValue = (int) $hourParts[1];
-
-            if ($hourValue > $currentHour) {
-                return true;
-            } elseif ($hourValue === $currentHour && $minuteValue > $currentMinute) {
-                return true;
-            }
-
-            return false;
-        });
-
-        return response()->json(['available_hours' => array_values($availableHours), 'currentTime' => $currentTime]);
+    
+        // Check if the selected date is the same as the current date
+        $isSameDay = Carbon::parse($selectedDate)->isSameDay(Carbon::now());
+    
+        // Filter the available hours based on the current booking time only if it's the same day
+        if ($isSameDay) {
+            $currentTime = Carbon::now();
+            $currentHour = $currentTime->hour;
+            $currentMinute = $currentTime->minute;
+    
+            // Filter the available hours based on the current booking time
+            $availableHours = array_filter($availableHoursRange, function ($hour) use ($currentHour, $currentMinute) {
+                $hourParts = explode(':', $hour);
+                $hourValue = (int) $hourParts[0];
+                $minuteValue = (int) $hourParts[1];
+    
+                if ($hourValue > $currentHour) {
+                    return true;
+                } elseif ($hourValue === $currentHour && $minuteValue > $currentMinute) {
+                    return true;
+                }
+    
+                return false;
+            });
+        } else {
+            // If it's not the same day, all hours are considered available
+            $availableHours = $availableHoursRange;
+        }
+    
+        return response()->json(['available_hours' => array_values($availableHours)]);
     }
 
     public function createAppointment(Request $request)
