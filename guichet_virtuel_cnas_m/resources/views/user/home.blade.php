@@ -50,8 +50,8 @@
                                 href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#footer-page">Contact</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                href="#" data-target="#user-profile-form" data-toggle="modal">My Profile</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#"
+                                data-target="#user-profile-form" data-toggle="modal">My Profile</a></li>
                     </ul>
                 </div>
             </div>
@@ -801,72 +801,95 @@
                     console.log('30/05/2023');
                 },
                 printDocuments() {
+                    //                 const doc = new jsPDF();
+                    //                 var img = new Image();
+                    //                 // img.src =  asset('assets/tickets/img/documents.png');
+                    //                 // doc.addImage(img, 'png', 10, 78, 12, 15);
+                    //                 // doc.text("Hello world!", 10, 10);
+                    //                 // doc.save("a4.pdf");
+                    //                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
+                    //                 const printWindow = window.open('', '', 'width=800,height=600');
+                    //                 printWindow.document.open();
+                    //                 printWindow.document.write(`
+                //   <html>
+                //     <head>
+                //       <title>Print</title>
+                //       <style>
+                //         @media print {
+                //           .hide-on-print {
+                //             display: none !important;
+                //           }
+                //           .checklist {
+                //             margin-bottom: 20px;
+                //             border: 1px solid #ccc;
+                //             padding: 10px;
+                //           }
+                //           .checklist-title {
+                //             font-size: 18px;
+                //             font-weight: bold;
+                //             margin-bottom: 10px;
+                //           }
+                //           .checklist-items {
+                //             margin-left: 20px;
+                //             list-style-type: none;
+                //           }
+                //           .checklist-items li {
+                //             margin-bottom: 5px;
+                //             position: relative;
+                //           }
+                //           .checklist-items li input[type="checkbox"] {
+                //             position: absolute;
+                //             left: -30px;
+                //             top: 3px;
+                //           }
+                //         }
+                //       </style>
+                //     </head>
+                //     <body>
+                //         <img src="{{ asset('images/documents.png') }}">
+                //       <div class="col-5 list-group"  style="position:absolute;    top: 175;
+                // left: 120;">
+
+                //         <div >
+
+                //           <ul >
+                //             ${printContents}
+                //           </ul>
+                //         </div>
+                //       </div>
+                //     </body>
+                //   </html>
+                // `);
+                    //                 printWindow.document.close();
+                    //                 printWindow.onload = function() {
+                    //                     printWindow.print();
+                    //                     printWindow.onafterprint = function() {
+                    //                         printWindow.close();
+                    //                     };
+                    //                 };
+                },
+                printAppointment() {
+
                     const doc = new jsPDF();
-                    var img = new Image();
-                    // img.src =  asset('assets/tickets/img/documents.png');
-                    // doc.addImage(img, 'png', 10, 78, 12, 15);
-                    // doc.text("Hello world!", 10, 10);
-                    // doc.save("a4.pdf");
-                    const printContents = document.querySelector('.col-4 .list-group').innerHTML;
-                    const printWindow = window.open('', '', 'width=800,height=600');
-                    printWindow.document.open();
-                    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Print</title>
-          <style>
-            @media print {
-              .hide-on-print {
-                display: none !important;
-              }
-              .checklist {
-                margin-bottom: 20px;
-                border: 1px solid #ccc;
-                padding: 10px;
-              }
-              .checklist-title {
-                font-size: 18px;
-                font-weight: bold;
-                margin-bottom: 10px;
-              }
-              .checklist-items {
-                margin-left: 20px;
-                list-style-type: none;
-              }
-              .checklist-items li {
-                margin-bottom: 5px;
-                position: relative;
-              }
-              .checklist-items li input[type="checkbox"] {
-                position: absolute;
-                left: -30px;
-                top: 3px;
-              }
-            }
-          </style>
-        </head>
-        <body>
-            <img src="{{ asset('images/documents.png') }}">
-          <div class="col-5 list-group"  style="position:absolute;    top: 175;
-    left: 120;">
 
-            <div >
+                    // Set the background image
+                    const backgroundImage = new Image();
+                    backgroundImage.src = 'images/appointment.png';
 
-              <ul >
-                ${printContents}
-              </ul>
-            </div>
-          </div>
-        </body>
-      </html>
-    `);
-                    printWindow.document.close();
-                    printWindow.onload = function() {
-                        printWindow.print();
-                        printWindow.onafterprint = function() {
-                            printWindow.close();
-                        };
-                    };
+                    // Wait for the image to load
+                    backgroundImage.onload = function() {
+                        // Calculate the desired width and height of the image in the PDF
+               
+
+                        // Add the background image to the PDF with the updated size and position
+                        doc.addImage(backgroundImage, 'png', 0, 0, 210, 140); // Adjust the coordinates and dimensions as needed
+
+                        // Add appointment details and other content to the PDF
+                        // ...
+
+                        // Save the PDF
+                        doc.save('appointment_ticket.pdf');
+                    }
                 },
                 select_service(service) {
                     this.questions = service.questions.filter(question => question.question_id == null);
@@ -885,12 +908,13 @@
                         })
                         .then(function(response) {
                             // console.log(response.data);
+
+                            // app.printAppointment();
+
                             app.notify('Booking Successful', 'Booking Successful', 'green', 'topCenter',
                                 'bounceInDown');
-                        })
-                        .catch(function(error) {
-                            app.notify('Booking Failed', 'You cannot book multiple appointments.', 'red',
-                                'topCenter',
+                        }).catch(function(error) {
+                            app.notify('Booking Failed', 'You cannot book multiple appointments', 'red', 'topCenter',
                                 'bounceInDown');
                         });
                 },
