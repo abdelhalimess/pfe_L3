@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StructureTypeStoreRequest;
+use App\Http\Requests\StructureTypeUpdateRequest;
 use App\Models\StructureType;
 use Illuminate\Http\Request;
 
@@ -33,7 +35,7 @@ class StructureTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StructureTypeStoreRequest $request)
     {
         $structuretype = new StructureType();
         $structuretype->name = $request->name;
@@ -76,7 +78,7 @@ class StructureTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StructureTypeUpdateRequest $request, $id)
     {
         $structuretype = StructureType::findOrFail($id);
         $structuretype->name = $request->name;

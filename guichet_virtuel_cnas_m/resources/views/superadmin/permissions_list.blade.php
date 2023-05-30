@@ -37,7 +37,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add a permission</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" v-on:click="errors = ''"class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -48,7 +48,7 @@
                 <p class="text-danger m-t-5" v-if="errors.name" >@{{errors.name.toString()}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" v-on:click="errors = ''"class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_permission()" >Save</button>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit a permission</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" v-on:click="errors = ''"class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -70,7 +70,7 @@
                 <p class="text-danger m-t-5" v-if="errors.name" >@{{errors.name.toString()}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" v-on:click="errors = ''"class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="update_permission(permissionName,selectedPermissionIndex)" >Save</button>
                 </div>
             </div>

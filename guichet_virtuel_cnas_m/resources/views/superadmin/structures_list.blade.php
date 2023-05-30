@@ -34,7 +34,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Add a structure</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" v-on:click="errors = ''"class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -62,20 +62,11 @@
                             </span>
                         </div>
                     </div>
-<<<<<<< HEAD
-
-                    {{-- {{-- <label for="structure-state">Structure State</label>
-                        <select class="form-control" id="structure-state" v-model="newStructureState" required>
-                          <option value="">Select State</option>
-                          <option v-for="state in states" :key="state.id" :value="state.id">@{{ state.name }}</option>
-                        </select> --}}
-=======
->>>>>>> aa6b6c237af6b5fbcb2f572fe467a6081e107495
                     <label for="structure-type1" class="col-sm-3 col-form-label">Type</label>
                     <div class="col-sm-10">
-                        <div :class="[errors.structure_id ? 'col-sm-10 m-b-5 input-group input-group-danger' : 'col-sm-10 m-b-5 input-group input-group-inverse']"
+                        <div :class="[errors.structure_type_id ? 'col-sm-10 m-b-5 input-group input-group-danger' : 'col-sm-10 m-b-5 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
-                        :data-original-title="errors.structure_id">
+                        :data-original-title="errors.structure_type_id">
                             <select id="structure-type1" class="selectpicker show-tick" title="Select Type..." v-model="newStructureType"
                             >
                                 @foreach ($structureTypes as $structureType)
@@ -88,7 +79,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        <button type="button" v-on:click="errors = ''" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light"
                             v-on:click="add_structure()">Save</button>
                     </div>
@@ -129,9 +120,9 @@
                         </div>
                         <label for="structure-type" class="col-sm-3 col-form-label">Type</label>
                         <div class="col-sm-10">
-                            <div :class="[errors.structure_id ? 'col-sm-10 m-b-5 input-group input-group-danger' : 'col-sm-10 m-b-5 input-group input-group-inverse']"
+                            <div :class="[errors.structure_type_id ? 'col-sm-10 m-b-5 input-group input-group-danger' : 'col-sm-10 m-b-5 input-group input-group-inverse']"
                             data-toggle="tooltip" data-placement="top"
-                            :data-original-title="errors.structure_id">
+                            :data-original-title="errors.structure_type_id">
                                 <select id="structure-type" class="selectpicker show-tick" title="Select Type..." v-model="structureType"
                                 >
                                     @foreach ($structureTypes as $structureType)
@@ -145,7 +136,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        <button type="button" v-on:click="errors = ''"class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light"
                             v-on:click="update_structure(structureName,structureState,structureType,selectedStructureIndex)">Save</button>
                     </div>

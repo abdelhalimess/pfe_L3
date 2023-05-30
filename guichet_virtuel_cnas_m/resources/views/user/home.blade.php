@@ -915,8 +915,8 @@
                                                 'bounceInDown');
                                                 app.employeeName = response.data.employee_name;
                                                 app.selectedServiceTemp = app.selectedService;
-                                                // localStorage.setItem('selectedServiceTemp', app.selectedServiceTemp);
-                                                // localStorage.setItem('employeeName', employeeName);
+                                                localStorage.setItem('selectedServiceTemp', app.selectedServiceTemp);
+                                                localStorage.setItem('employeeName', employeeName);
                                                 app.selectedDate = '';
                                                 app.selectedQuestion = '';
                                         })

@@ -37,7 +37,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add a commune</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" v-on:click="errors = ''"class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -49,7 +49,7 @@
                     <p class="text-danger m-t-5" v-if="errors.code">@{{errors.code.toString()}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                    <button type="button" v-on:click="errors = ''"class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="add_commune()">Save</button>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit commune</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" v-on:click="errors = ''"class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -68,11 +68,11 @@
                         <input type="text" :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']" maxlength="25" required v-on:input="errors.name=null" :placeholder="selectedCommuneName" v-model="communeName" />
                         <p class="text-danger m-t-5" v-if="errors.name">@{{errors.name.toString()}}</p>
                         <br>
-                        <input type="text" :class="[errors.code ? 'form-control form-control-danger' : 'form-control form-control-success']" maxlength="25" required v-on:input="errors.name=null" :placeholder="selectedCommuneCode" v-model="communeCode" />
+                        <input type="text" :class="[errors.code ? 'form-control form-control-danger' : 'form-control form-control-success']" maxlength="25" required v-on:input="errors.code=null" :placeholder="selectedCommuneCode" v-model="communeCode" />
                         <p class="text-danger m-t-5" v-if="errors.code">@{{errors.code.toString()}}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        <button type="button" v-on:click="errors = ''"class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light" v-on:click="update_commune(communeName,communeCode,selectedCommuneIndex)">Save</button>
                     </div>
                 </div>

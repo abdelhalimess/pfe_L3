@@ -151,7 +151,7 @@
                                             v-on:click="selectedAppointment = appointment.id,update_appointments('cancel')"
                                             data-toggle="tooltip" data-placement="top" data-original-title="Cancel" style="color: orange;">
                                         </i>
-                                        <i class="feather icon-eye f-22 clickable ml-1"
+                                        <i v-if="appointment.status == 'PENDING' || appointment.status == 'CONFIRMED' || appointment.status == 'CANCELED' "class="feather icon-eye f-22 clickable ml-1"
                                             v-on:click="documents=appointment.question.documents"
                                          data-placement="top" data-original-title="Cancel" style="color: rgb(137, 169, 206);"   data-toggle="modal"
                                             data-target="#documents-modal"> 

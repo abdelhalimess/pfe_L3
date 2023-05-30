@@ -87,7 +87,7 @@ class StateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StateUpdateRequest $request, $id)
     {
         // $validated = $request->validated();
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommuneStoreRequest;
+use App\Http\Requests\CommuneUpdateRequest;
 use App\Models\Commune;
 use Illuminate\Http\Request;
 
@@ -80,7 +81,7 @@ class CommuneController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommuneUpdateRequest $request, $id)
     {
        
         $commune = Commune::findOrFail($id);

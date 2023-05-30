@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StructureStoreRequest;
+use App\Http\Requests\StructureUpdateRequest;
 use App\Models\State;
 use App\Models\Structure;
 use App\Models\StructureType;
@@ -37,7 +39,7 @@ class StructureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StructureStoreRequest $request)
     {
         $structure = new Structure();
         $structure->name = $request->name;
@@ -48,7 +50,7 @@ class StructureController extends Controller
         $structure = Structure::with('state', 'structureType')->findOrFail($structure->id);
         // return compact('validated');
         return response()->json([
-            'success' => 'Information added with success',
+            'success' => 'Structure added with success',
             'structure' => $structure
         ]);
     }
@@ -82,7 +84,7 @@ class StructureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StructureUpdateRequest $request, $id)
     {
 
         $structure = Structure::with('state','structureType')->findOrFail($id);

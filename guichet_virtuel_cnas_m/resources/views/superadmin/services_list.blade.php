@@ -147,7 +147,7 @@
                     <input type="text"
                         :class="[errors.name ? 'form-control form-control-danger' : 'form-control form-control-success']"
                         maxlength="25" required v-on:input="errors.name=null" :placeholder="selectedServiceName"
-                        v-model="serviceName" />
+                        v-model="selectedServiceName" />
                     <p class="text-danger m-t-5" v-if="errors.name">@{{ errors.name.toString() }}</p>
                     <br>
                     <input type="text"
@@ -200,7 +200,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(service, index) in services" v-bind:key="index"
-                                    :class="{ 'selected-row': selectedServiceName === service.name }"
+                                    :class="{ 'selected-row': selectedService === service.id }"
                                     v-on:click="fetch_services_questions(service)">
                                     <td>@{{ index + 1 }}</td>
                                     <td>@{{ service.name }}</td>
@@ -210,7 +210,7 @@
                                             <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
                                                 <i class="feather icon-edit text-custom f-18 clickable md-trigger"
                                                     data-toggle="modal" data-target="#edit-service-modal"
-                                                    v-on:click="serviceName=service.name, serviceDescription=service.description">
+                                                    v-on:click="selectedServiceName=service.name, serviceDescription=service.description">
                                                 </i>
                                             </span>
                                             <i class="feather icon-trash text-danger f-18 clickable"

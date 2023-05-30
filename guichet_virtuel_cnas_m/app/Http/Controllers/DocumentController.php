@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DocumentStoreRequest;
+use App\Http\Requests\DocumentUpdateRequest;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +36,7 @@ class DocumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DocumentStoreRequest $request)
     {
         $document = new Document();
         if ($request->hasFile('document_file')) {
@@ -83,7 +85,7 @@ class DocumentController extends Controller
      * @return \Illuminate\Http\Response
      */
  
-    public function update(Request $request, $id)
+    public function update(DocumentUpdateRequest $request, $id)
     {
 
         $document = Document::where('id', '=', $id)->first();

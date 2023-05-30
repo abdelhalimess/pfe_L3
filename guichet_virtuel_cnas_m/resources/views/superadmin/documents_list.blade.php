@@ -34,7 +34,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Add a Document</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" v-on:click="errors = ''"class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -51,7 +51,7 @@
                             class="form-control form-control-success" v-on:change="handleFilesUpload()" />
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        <button type="button" v-on:click="errors = ''"class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light"
                             v-on:click="add_document()">Save</button>
                     </div>
@@ -63,7 +63,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Edit document</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" v-on:click="errors = ''"class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -81,7 +81,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                        <button type="button" v-on:click="errors = ''"class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light"
                             v-on:click="update_document(documentName,documentCode,selectedDocumentIndex)">Save</button>
                     </div>
