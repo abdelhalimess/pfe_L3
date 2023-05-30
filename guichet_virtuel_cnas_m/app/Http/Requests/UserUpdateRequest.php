@@ -30,7 +30,8 @@ class UserUpdateRequest extends FormRequest
             'address' => 'required|max:150|string',
             'telephone' => "required|numeric|digits:10|unique:users,telephone,$this->id",
             'email' => "required|email|unique:users,email,$this->id",
-            'structure_id' => 'nullable',
+            'structure_id' => 'required',
+            'structure_id' => 'required',
             'role_id' => 'required',
             'permissions' => 'required',
         ];

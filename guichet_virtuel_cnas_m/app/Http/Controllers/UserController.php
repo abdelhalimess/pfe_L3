@@ -95,7 +95,7 @@ class UserController extends Controller
         $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
-                $roles = Role::with('permissions')->get();
+                $roles = Role::with('permissions')->where('name', '!=', 'user')->get();
                 $permissions = Permission::all();
                 $services = Service::all();
                 $structureTypes = StructureType::with('structures')->get();
@@ -183,7 +183,7 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->telephone = $request->telephone;
         $user->email = $request->email;
-        $service = Service::where('id', $request->service_id)->first();
+        $user->service_id = $request->service_id;
 
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
@@ -199,8 +199,6 @@ class UserController extends Controller
 
         $user->save();
 
-        $service->employee_id = $user->id;
-        $service->update();
         $user->assignRole($request->role_id);
         $user->syncPermissions($request->permissions);
 
@@ -216,8 +214,12 @@ class UserController extends Controller
         $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
-                $users = User::with('permissions', 'roles', 'structure')->get();
-                $roles = Role::with('permissions')->get();
+                $roles = Role::with('permissions')->where('name', '!=', 'user')->get();
+                $users = User::with('permissions', 'roles', 'structure')
+            ->whereDoesntHave('roles', function ($query) {
+                $query->where('name', 'user');
+            })
+            ->get();
                 $structureTypes = StructureType::with('structures')->get();
                 $services = Service::all();
                 return view('superadmin.users_list', compact('users', 'roles', 'structureTypes', 'services'));
@@ -289,14 +291,13 @@ class UserController extends Controller
             $user->structure_id = $request->structure_id;
         }
 
+        $user->service_id = $request->service_id;
 
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
 
         $user->save();
-        $service->employee_id = $user->id;
-        $service->update();
         $user->syncRoles($request->role_id);
         $user->syncPermissions($request->permissions);
 
@@ -341,11 +342,11 @@ class UserController extends Controller
         $role = $authUser->getRoleNames()->first();
         switch ($role) {
             case 'superadmin':
-                $users = User::with('structure')->where('id', '!=', Auth::user()->id)->get();
+                $users = User::with('structure,service')->where('id', '!=', Auth::user()->id)->get();
                 return compact('users');
                 break;
             case 'admin':
-                $users = User::with('structure')->where('structure_id', Auth::user()->structure_id)->where('id', '!=', Auth::user()->id)->get();
+                $users = User::with('structure,service')->where('structure_id', Auth::user()->structure_id)->where('id', '!=', Auth::user()->id)->get();
                 return compact('users');
                 break;
         }
@@ -354,18 +355,15 @@ class UserController extends Controller
     public function landing()
     {
 
-
-
-        // $questions = Question::whereNull('question_id')
-        //     ->with('childrenQuestions')
-        //     ->get();
+        $user = Auth::user();
         $services = Service::all();
         $questionCount = Question::query()->count();
         $questions = Question::all();
         return view('user.home', compact(
             'services',
             'questionCount',
-            'questions'
+            'questions',
+            'user'
         ));
     }
 

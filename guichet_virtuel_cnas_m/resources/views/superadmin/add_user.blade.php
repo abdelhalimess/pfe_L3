@@ -73,25 +73,12 @@
                         </div>
                     </div>
                 </form>
+                <br><br>
                 <hr>
                 <h5 class="sub-title">Assignment and Credentials<span class="text-danger">(*)</span></h5>
                 <form>
                     <div class="form-group row">
-                        {{-- <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
-                        data-toggle="tooltip" data-placement="top"
-                        :data-original-title="errors.structure_id">
-                            <select id="structure-types" class="selectpicker show-tick" title="Structure type.."
-                            >
-                                @foreach ($structureTypes as $structureType)
-                                    <option value="{{$structureType->id}}">{{$structureType->name}}</option>
-                                @endforeach
-                            </select>
-                            <span class="input-group-addon">
-                                <i class="icofont icofont-listing-box"></i>
-                            </span>
-                        </div> --}}
-
-                        <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
+                        <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.structure_id">
                             <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
@@ -108,7 +95,7 @@
                                 <i class="icofont icofont-sub-listing"></i>
                             </span>
                         </div>
-                        <div :class="[errors.service_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
+                        <div :class="[errors.service_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.service_id">
                             <select id="services"  class="selectpicker show-tick" data-live-search="true" title="Service name.." data-width="100%" data-size="8">
@@ -149,6 +136,7 @@
                         </div>
                     </div>
                 </form>
+                <br><br>
                 <hr>
                 <h5 class="sub-title">Roles and permissions <span class="text-danger">(*)</span></h5>
                 <form class="row">
@@ -294,12 +282,14 @@ const app = new Vue({
                 this.password='';
                 this.password_confirmation='';
                 this.structure_id='';
+                this.service_id='';
                 this.role_id='';
                 this.permissions=[];
                 this.errors=[];
 
                 $('#structures').selectpicker('val',null);
                 $('#structure-types').selectpicker('val',null);
+                $('#services').selectpicker('val',null);
                 $('#permissions').multiSelect('deselect_all');
             },
 

@@ -30,7 +30,8 @@ class UserStoreRequest extends FormRequest
             'address' => 'required|max:150',
             'telephone' => "required|numeric|digits:10|unique:users,telephone",
             'email' => "required|email|unique:users,email",
-            'structure_id' => "nullable",
+            'structure_id' => "required",
+            'service_id' => "required",
             'role_id' => "required",
             'permissions' => "required"
         ];
@@ -41,12 +42,12 @@ class UserStoreRequest extends FormRequest
         return [
             // 'username' => "required|min:5|max:25|alpha_dash|unique:users,username",
             // 'password' => 'required|min:5|max:25|alpha_dash|confirmed',
-            'fullname.required' => "Le Nom et le Prénom sont obligatoires",
+            'fullname.required' => "Fullname is required",
             // 'address' => 'required|max:150|alpha_dash',
             // 'telephone' => "required|unique:users,telephone",
             // 'email' => "required|email|unique:users,email",
-             'role_id.required' => "Veuillez séléctionner un rôle",
-             'permissions.required' => "Veuillez séléctionner des permissions"
+             'role_id.required' => "Please select a role",
+             'permissions.required' => "Please choose permissions"
         ];
     }
 }

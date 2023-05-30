@@ -93,7 +93,7 @@
                                                 </span>
                                             </div> --}}
 
-                                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
+                                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
                                             data-toggle="tooltip" data-placement="top"
                                             :data-original-title="errors.structure_id">
                                                 {{-- <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
@@ -187,8 +187,12 @@
                     <ul class="list-unstyled card-option">
                         <li>
                             <span data-toggle="tooltip" data-placement="top" data-original-title="Add a User">
-                                <i class="feather icon-plus text-success md-trigger" data-toggle="modal" data-target="#add-user-modal">
-                                </i>
+                              
+                                <a href="{{ route('create-user') }}" class="btn btn-success btn-sm " style="border-radius: 50px; font-size: 15px;">
+                                    <i class="fa fa-plus-circle text-white"></i> Add User
+                                  </a>
+                                  
+                                
                             </span>
                         </li>
                     </ul>
@@ -207,7 +211,8 @@
                                 <th>Email</th>
                                 <th>Address</th>
                                 <th>Phone Number</th>
-
+                                <th>STRUCTURE</th>
+                                <th>SERVICE</th>
 
 
                                 <th class="text-center">Action</th>
@@ -222,20 +227,21 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->address }}</td>
                                 <td>{{ $user->telephone }}</td>
-
+                                <td>{{ $user->structure->name }}</td>
+                                <td>{{ $user->service->name }}</td>
 
 
 
                                 <td>
                                     <div class="text-center">
                                         {{-- <a href="{{ route('edit-user', $user->id) }}"> --}}
-                                            <i data-toggle="tooltip" data-placement="top" data-original-title="Modifier"
+                                            <i data-toggle="tooltip" data-placement="top" data-original-title="Edit"
                                              class="feather icon-edit text-custom f-18 clickable md-trigger"
                                              v-on:click="edit_user({{ $user }})">
                                             </i>
                                         {{-- </a> --}}
                                         <i class="feather icon-trash text-danger f-18 clickable" v-on:click="delete_user({{$user->id}},{{$index}})"
-                                            data-toggle="tooltip" data-placement="top" data-original-title="Supprimer">
+                                            data-toggle="tooltip" data-placement="top" data-original-title="Delete">
                                         </i>
                                     </div>
                                 </td>
@@ -311,7 +317,7 @@
                                 </span>
                             </div> --}}
 
-                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
+                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
                             data-toggle="tooltip" data-placement="top"
                             :data-original-title="errors.structure_id">
                             <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
@@ -328,7 +334,7 @@
                                     <i class="icofont icofont-sub-listing"></i>
                                 </span>
                             </div>
-                            <div :class="[errors.service_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-9 input-group input-group-inverse']"
+                            <div :class="[errors.service_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
                         data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.service_id">
                             <select id="services"  class="selectpicker show-tick" data-live-search="true" title="Service name.." data-width="100%" data-size="8">
@@ -525,7 +531,7 @@ const app = new Vue({
                     'password':app.password,
                     'password_confirmation':app.password_confirmation,
                     'structure_id': app.structure_id,
-                    'service_id': app.structure_id,
+                    'service_id': app.service_id,
                     'role_id':app.role_id,
                     'permissions':app.permissions
                 })

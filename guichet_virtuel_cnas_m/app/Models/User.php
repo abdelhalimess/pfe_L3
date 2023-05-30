@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Cache;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Cache as FacadesCache;
@@ -53,8 +54,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Appointment::class);
     }
-    public function service(): HasOne
+    public function service(): BelongsTo
     {
-        return $this->hasOne(Service::class);
+        return $this->belongsTo(Service::class);
     }
 }

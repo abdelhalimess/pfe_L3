@@ -188,7 +188,10 @@ class AppointmentController extends Controller
             'status' => 'PENDING'
         ]);
 
-        return response()->json(['message' => 'Appointment created successfully']);
+        return response()->json([
+            'message' => 'Appointment created successfully',
+            'employee_name' => $employee->fullname
+        ]);
     }
 
     public function getAppointments()

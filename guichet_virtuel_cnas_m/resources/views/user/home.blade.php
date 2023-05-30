@@ -42,17 +42,25 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
-                                href="#portfolio">Services</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#"
-                                data-toggle="modal" data-target="#appointmentsModal" v-on:click="fetchAppointments()">My
+                                href="#services">Services</a></li>
+                        <li v-if="fullname != ''" class="nav-item mx-0 mx-lg-1"><a
+                                class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-toggle="modal"
+                                data-target="#appointmentsModal" v-on:click="fetchAppointments()">My
                                 Appointments</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#footer-page">Contact</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#"
+                        <li v-if="fullname != ''" class="nav-item mx-0 mx-lg-1"><a
+                                class="nav-link py-3 px-0 px-lg-3 rounded" href="#"
                                 data-target="#user-profile-form" data-toggle="modal">My Profile</a></li>
                     </ul>
+
+                    <form v-if="fullname != ''" id="logout-form" action="{{ route('logout') }}" method="POST"
+                        style="display: true;">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -87,7 +95,8 @@
                 <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="appointmentsModalLabel">My Appointments</h5>
+                            <h5 class="modal-title" id="appointmentsModalLabel">My Appointments
+                            </h5>
                             {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button> --}}
@@ -97,21 +106,27 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Day</th>
                                         <th>Date And Time</th>
-                                        {{-- <th>Service</th> --}}
+                                        <th>Service</th>
+                                        <th>Employee</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(appointment, index) in appointments" v-bind:key="index">
                                         <td>@{{ index + 1 }}</td>
+                                        <td>@{{ getDayOfWeek(appointment.appointment_datetime) }}</td>
                                         <td>@{{ appointment.appointment_datetime }}</td>
+                                        <td>@{{ selectedServiceTemp.name }}</td>
+                                        <td>@{{ employeeName }}</td>
                                         <td :class="getStatusClass(appointment.status)">@{{ appointment.status }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="window.print()">Print</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -120,7 +135,7 @@
         </div>
 
         <!-- Services Section-->
-        <section class="page-section portfolio" id="portfolio"
+        <section class="page-section portfolio" id="services"
             style="background: linear-gradient(340deg, #ffffff 0%, #5899e2 74%);">
             <div class="container">
                 <!-- Portfolio Section Heading-->
@@ -155,7 +170,7 @@
                                     <p class="card-text">@{{ service.description }}</p>
                                     <a class="btn btn-primary"
                                         v-on:click="selectedService=service,select_service(service)"
-                                        data-bs-toggle="modal" data-bs-target="#portfolioModal1">Select service</a>
+                                        data-bs-toggle="modal" data-bs-target="#servicesModal">Select service</a>
                                 </div>
                                 <div class="card-footer text-muted">
                                     Appointments available
@@ -365,8 +380,8 @@
         </section>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1"
-            aria-labelledby="portfolioModal1" aria-hidden="true">
+        <div class="portfolio-modal modal fade" id="servicesModal" tabindex="-1" aria-labelledby="servicesModal"
+            aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered" id="modal-appointment">
                 <div class="modal-content">
                     <div class="modal-header border-0 " style="padding-bottom: 7px">
@@ -544,10 +559,10 @@
             <div class="modal-dialog  modal-xl" role="document">
                 <div class="modal-content ">
                     <div class="modal-header">
-                        <h5 class="text-danger" id="text-danger-color">My Profile</h5>
+                        <h5 class="text-default">My Profile</h5>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: true;">
                             @csrf
-                            <button type="submit" class="btn btn-default">Logout</button>
+                            <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
                         {{-- <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
@@ -555,262 +570,248 @@
                             </a> --}}
 
                     </div>
-                    <div class="modal-body">
-
-                        <h6 class="sub-title">Personal Information<span class="text-danger">(*)</span> </h6>
-                        <form>
-                            <div class="row">
-                                <div class="form-group col-sm-5" id="form-group1">
-                                    <label for="username" class="block">Username</label>
-                                    <div
-                                        :class="[errors.username ? 'input-group input-group-danger' :
-                                            'input-group input-group-inverse'
-                                        ]">
-                                        <input type="text" class="form-control" placeholder="Username"
-                                            data-toggle="tooltip" data-placement="top"
-                                            :data-original-title="errors.username" v-model="username">
-                                        <span class="input-group-addon">
-                                            <i class="icofont icofont-business-man-alt-2"></i>
-                                        </span>
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <h6 class="sub-title">Personal Information<span class="text-danger">(*)</span></h6>
+                                <form>
+                                    <div class="row">
+                                        <div class="form-group col-sm-5" id="form-group2">
+                                            <label for="fullname" class="block">Fullname <span
+                                                    class="text-danger">(*)</span></label>
+                                            <div
+                                                :class="[errors.fullname ? 'input-group input-group-danger' :
+                                                    'input-group input-group-inverse'
+                                                ]">
+                                                <input id="fullname" type="text" class="form-control"
+                                                    placeholder="Fullname..." v-model="fullname"
+                                                    data-toggle="tooltip" data-placement="top"
+                                                    :data-original-title="errors.fullname">
+                                                <span class="input-group-addon">
+                                                    <i class="icofont icofont-user" data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        :data-original-title="errors.fullname"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-5" id="form-group3">
+                                            <label for="email" class="block">Email <span
+                                                    class="text-danger">(*)</span></label>
+                                            <div
+                                                :class="[errors.email ? 'input-group input-group-danger' :
+                                                    'input-group input-group-inverse'
+                                                ]">
+                                                <input type="text" class="form-control" placeholder="Email"
+                                                    v-model="email" data-toggle="tooltip" data-placement="top"
+                                                    :data-original-title="errors.email">
+                                                <span class="input-group-addon">
+                                                    <i class="icofont icofont-mail"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-sm-5" id="form-group4">
+                                            <label for="telephone" class="block">Phone Number<span
+                                                    class="text-danger">(*)</span></label>
+                                            <div
+                                                :class="[errors.telephone ? 'input-group input-group-danger' :
+                                                    'input-group input-group-inverse'
+                                                ]">
+                                                <input type="text" class="form-control" placeholder="Phone Number"
+                                                v-model="telephone" data-toggle="tooltip" data-placement="top"
+                                                    :data-original-title="errors.telephone">
+                                                <span class="input-group-addon">
+                                                    <i class="icofont icofont-telephone"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-5" id="form-group6">
+                                            <label for="address" class="block">Address <span
+                                                class="text-danger">(*)</span></label>
+                                                <div
+                                                :class="[errors.address ? 'input-group input-group-danger' :
+                                                    'input-group input-group-inverse'
+                                                    ]">
+                                                <input type="text" class="form-control" placeholder="Address"
+                                                v-model="address" data-toggle="tooltip" data-placement="top"
+                                                :data-original-title="errors.address">
+                                                <span class="input-group-addon">
+                                                    <i class="icofont icofont-location-pin"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group col-sm-5" id="form-group5">
+                                            <label for="password" class="block">Password <span
+                                                class="text-danger">(*)</span></label>
+                                            <div :class="[errors.password ? 'input-group input-group-danger' :
+                                                'input-group input-group-inverse'
+                                                ]"
+                                                data-toggle="tooltip" data-placement="top"
+                                                :data-original-title="errors.password">
+                                                <input type="password" class="form-control" placeholder="Password"
+                                                v-model="password">
+                                                <span class="input-group-addon">
+                                                    <i class="icofont icofont-lock"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-5" id="form-group7">
+                                            <label for="password" class="block">Confirmation <span
+                                                    class="text-danger">(*)</span></label>
+                                            <div :class="[errors.password ? 'input-group input-group-danger' :
+                                                'input-group input-group-inverse'
+                                            ]"
+                                                data-toggle="tooltip" data-placement="top"
+                                                :data-original-title="errors.password">
+                                                <input type="password" class="form-control"
+                                                    placeholder="Password Confirmation"
+                                                    v-model="password_confirmation">
+                                                <span class="input-group-addon">
+                                                    <i class="icofont icofont-lock"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
-                                </div>
-                                <div class="form-group col-sm-4" id="form-group2">
-                                    <label for="fullname" class="block">Fullname <span
-                                            class="text-danger">(*)</span></label>
-                                    <div
-                                        :class="[errors.fullname ? 'input-group input-group-danger' :
-                                            'input-group input-group-inverse'
-                                        ]">
-                                        <input id="fullname" type="text" class="form-control"
-                                            placeholder="Fullname..." v-model="fullname" data-toggle="tooltip"
-                                            data-placement="top" :data-original-title="errors.fullname">
-                                        <span class="input-group-addon">
-                                            <i class="icofont icofont-user" data-toggle="tooltip"
-                                                data-placement="top" :data-original-title="errors.fullname"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-5" id="form-group3">
-                                    <label for="email" class="block">Email <span
-                                            class="text-danger">(*)</span></label>
-                                    <div
-                                        :class="[errors.email ? 'input-group input-group-danger' :
-                                            'input-group input-group-inverse'
-                                        ]">
-                                        <input type="text" class="form-control" placeholder="Email"
-                                            v-model="email" data-toggle="tooltip" data-placement="top"
-                                            :data-original-title="errors.email">
-                                        <span class="input-group-addon">
-                                            <i class="icofont icofont-mail"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-4" id="form-group4">
-                                    <label for="telephone" class="block">Phone Number<span
-                                            class="text-danger">(*)</span></label>
-                                    <div
-                                        :class="[errors.telephone ? 'input-group input-group-danger' :
-                                            'input-group input-group-inverse'
-                                        ]">
-                                        <input type="text" class="form-control" placeholder="Phone Number"
-                                            v-model="telephone" data-toggle="tooltip" data-placement="top"
-                                            :data-original-title="errors.telephone">
-                                        <span class="input-group-addon">
-                                            <i class="icofont icofont-telephone"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-sm-5" id="form-group5">
-                                    <label for="password" class="block">Password <span
-                                            class="text-danger">(*)</span></label>
-                                    <div :class="[errors.password ? 'input-group input-group-danger' :
-                                        'input-group input-group-inverse'
-                                    ]"
-                                        data-toggle="tooltip" data-placement="top"
-                                        :data-original-title="errors.password">
-                                        <input type="password" class="form-control" placeholder="Password"
-                                            v-model="password">
-                                        <span class="input-group-addon">
-                                            <i class="icofont icofont-lock"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-4" id="form-group6">
-                                    <label for="address" class="block">Address <span
-                                            class="text-danger">(*)</span></label>
-                                    <div
-                                        :class="[errors.address ? 'input-group input-group-danger' :
-                                            'input-group input-group-inverse'
-                                        ]">
-                                        <input type="text" class="form-control" placeholder="Address"
-                                            v-model="address" data-toggle="tooltip" data-placement="top"
-                                            :data-original-title="errors.address">
-                                        <span class="input-group-addon">
-                                            <i class="icofont icofont-location-pin"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-5" id="form-group7">
-                                    <label for="password" class="block">Confirmation <span
-                                            class="text-danger">(*)</span></label>
-                                    <div :class="[errors.password ? 'input-group input-group-danger' :
-                                        'input-group input-group-inverse'
-                                    ]"
-                                        data-toggle="tooltip" data-placement="top"
-                                        :data-original-title="errors.password">
-                                        <input type="password" class="form-control"
-                                            placeholder="Password Confirmation" v-model="password_confirmation">
-                                        <span class="input-group-addon">
-                                            <i class="icofont icofont-lock"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
+                                </form>
                             </div>
-                        </form>
-                    </div>
-                    <div class="card-footer " style="margin-top: 7px; padding-left:13px ; margin-bottom:10px">
-                        <div class="row">
-                            <div class="col-sm-12 text-right">
-                                <button type="submit" class="btn btn-primary m-r-10"
-                                    v-on:click="update_information()">
-                                    Save
-                                </button>
-                                <button type="submit" class="btn btn-default"
-                                    v-on:click="reset_form()">Restore</button>
+
+                            </form>
+                            <div class="modal-footer">
+                                <div class="col-sm-12 text-right">
+                                    <button type="submit" class="btn btn-primary" @click="update_information()">
+                                        Save
+                                    </button>
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Close
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        {{-- <button type="submit" class="btn btn-primary m-r-10" v-on:click="update_information()"> --}}
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-                    </div>
+
+
+
+
+
+
                 </div>
-            </div>
-        </div>
+                <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('bower_components/jquery/js/jquery.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('bower_components/popper.js/js/popper.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('js/iziToast.min.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('bower_components/bootstrap/js/bootstrap.min.js') }}"></script>
+                <!-- Bootstrap core JS-->
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+                <script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.min.js') }}"></script>
+                <script src="{{ asset('js/jspdf.debug.js') }}"></script>
+                {{-- <script src="{{ asset('js/jsCalendar.js') }}"></script> --}}
+
+                <!-- Core theme JS-->
+                <script src="{{ asset('pages/user/js/scripts.js') }}"></script>
+                <script type="text/javascript" src="{{ asset('js/animation.js') }}"></script>
+                <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+                <!-- * *                               SB Forms JS                               * *-->
+                <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+                <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+                {{-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> --}}
+
+                <script>
+                    //    var myCalendar = jsCalendar.new("#my-calendar");
+                    const app = new Vue({
+                        el: '#app',
+                        data() {
+                            return {
+
+                                fullname: '<?php echo Auth::user()->fullname; ?>',
+                                email: '<?php echo Auth::user()->email; ?>',
+                                telephone: '<?php echo Auth::user()->telephone; ?>',
+                                address: '<?php echo Auth::user()->address; ?>',
+                                username: '<?php echo Auth::user()->username; ?>',
+                                password: '',
+                                password_confirmation: '',
 
 
 
+                                appointments: [],
+                                selectedHourIndex: '',
+                                selectedHour: '',
+                                showBookingForm: false,
+                                show_edit: false,
+                                // myCalendar : jsCalendar.new("#my-calendar"),
+                                services: [],
+                                questions: [],
+                                selectedQuestion: '',
+                                previousQuestions: [],
+                                selectedService: '',
+                                selectedServiceTemp: '',
+                                employeeName: '',
+                                password: '',
+                                documents: [],
+                                question_documents: '',
+                                password_confirmation: '',
+                                errors: [],
+                                notifications: [],
+                                available_hours: [],
+                                selectedDate: '',
+                                notifications_fetched: false,
 
+                                photos: ['cnasfond.png', 'undraw_interview_re_e5jn.svg', 'Woman-booking-appointment.svg'],
+                                currentPhotoIndex: 0,
+                            }
+                        },
+                        methods: {
+                            getStatusClass(status) {
+                                if (status === 'PENDING') {
+                                    return 'text-primary font-weight-bold';
+                                } else if (status === 'CONFIRMED') {
+                                    return 'text-success font-weight-bold'; 
+                                } else if (status === 'CANCELED') {
+                                    return 'text-danger font-weight-bold'; 
+                                } else if (status === 'DONE') {
+                                    return 'text-primary font-weight-bold'; 
+                                } else if (status === 'DISMISSED') {
+                                    return 'font-weight-bold'; 
+                                }
+                                return '';
+                            },
+                            getDayOfWeek(dateString) {
+                                const dateObj = new Date(dateString);
+                                const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+                                    'Saturday'
+                                ];
+                                return daysOfWeek[dateObj.getDay()];
+                            },
 
+                            fetchAppointments() {
+                                // Make an API call to fetch appointments data
+                                axios.get('/getMyAppointments')
+                                    .then(response => {
+                                        this.appointments = response.data.appointments; // Update the appointments data
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                            },
+                            setDate() {
 
-    </div>
-    <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/axios.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/jquery/js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/popper.js/js/popper.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/iziToast.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bower_components/bootstrap/js/bootstrap.min.js') }}"></script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery.datetimepicker.min.js') }}"></script>
-    <script src="{{ asset('js/jspdf.debug.js') }}"></script>
-    {{-- <script src="{{ asset('js/jsCalendar.js') }}"></script> --}}
-
-    <!-- Core theme JS-->
-    <script src="{{ asset('pages/user/js/scripts.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/animation.js') }}"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    {{-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> --}}
-
-    <script>
-        //    var myCalendar = jsCalendar.new("#my-calendar");
-        const app = new Vue({
-            el: '#app',
-            data() {
-                return {
-
-                    fullname: '<?php echo Auth::user()->fullname; ?>',
-                    email: '<?php echo Auth::user()->email; ?>',
-                    telephone: '<?php echo Auth::user()->telephone; ?>',
-                    address: '<?php echo Auth::user()->address; ?>',
-                    username: '<?php echo Auth::user()->username; ?>',
-                    password: '',
-                    password_confirmation: '',
-
-
-
-
-                    appointments: [],
-                    selectedHourIndex: '',
-                    selectedHour: '',
-                    showBookingForm: false,
-                    show_edit: false,
-                    // myCalendar : jsCalendar.new("#my-calendar"),
-                    services: [],
-                    questions: [],
-                    selectedQuestion: '',
-                    previousQuestions: [],
-                    selectedService: '',
-                    password: '',
-                    documents: [],
-                    question_documents: '',
-                    password_confirmation: '',
-                    errors: [],
-                    notifications: [],
-                    available_hours: [],
-                    selectedDate: '',
-                    notifications_fetched: false,
-
-                    photos: ['cnasfond.png', 'undraw_interview_re_e5jn.svg', 'Woman-booking-appointment.svg'],
-                    currentPhotoIndex: 0,
-                }
-            },
-            methods: {
-                getStatusClass(status) {
-                    if (status === 'PENDING') {
-                        return 'text-primary font-weight-bold'; // Blue color for pending status
-                    } else if (status === 'CONFIRMED') {
-                        return 'text-success font-weight-bold'; // Green color for confirmed status
-                    } else if (status === 'CANCELED') {
-                        return 'text-danger font-weight-bold'; // Red color for canceled status
-                    } else if (status === 'DONE') {
-                        return 'text-primary font-weight-bold'; // Red color for canceled status
-                    } else if (status === 'DISMISSED') {
-                        return 'font-weight-bold'; // Red color for canceled status
-                    }
-                    return ''; // Default class if status is not recognized
-                },
-                getDayOfWeek(dateString) {
-                    const dateObj = new Date(dateString);
-                    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
-                        'Saturday'
-                    ];
-                    return daysOfWeek[dateObj.getDay()];
-                },
-
-                fetchAppointments() {
-                    // Make an API call to fetch appointments data
-                    axios.get('/getMyAppointments')
-                        .then(response => {
-                            this.appointments = response.data.appointments; // Update the appointments data
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
-                },
-                setDate() {
-
-                    app.myCalendar.set("31/05/2023");
-                    console.log('30/05/2023');
-                },
-                printDocuments() {
-                    //                 const doc = new jsPDF();
-                    //                 var img = new Image();
-                    //                 // img.src =  asset('assets/tickets/img/documents.png');
-                    //                 // doc.addImage(img, 'png', 10, 78, 12, 15);
-                    //                 // doc.text("Hello world!", 10, 10);
-                    //                 // doc.save("a4.pdf");
-                    //                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
-                    //                 const printWindow = window.open('', '', 'width=800,height=600');
-                    //                 printWindow.document.open();
-                    //                 printWindow.document.write(`
+                                app.myCalendar.set("31/05/2023");
+                                console.log('30/05/2023');
+                            },
+                            printDocuments() {
+                                //                 const doc = new jsPDF();
+                                //                 var img = new Image();
+                                //                 // img.src =  asset('assets/tickets/img/documents.png');
+                                //                 // doc.addImage(img, 'png', 10, 78, 12, 15);
+                                //                 // doc.text("Hello world!", 10, 10);
+                                //                 // doc.save("a4.pdf");
+                                //                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
+                                //                 const printWindow = window.open('', '', 'width=800,height=600');
+                                //                 printWindow.document.open();
+                                //                 printWindow.document.write(`
                 //   <html>
                 //     <head>
                 //       <title>Print</title>
@@ -860,313 +861,327 @@
                 //     </body>
                 //   </html>
                 // `);
-                    //                 printWindow.document.close();
-                    //                 printWindow.onload = function() {
-                    //                     printWindow.print();
-                    //                     printWindow.onafterprint = function() {
-                    //                         printWindow.close();
-                    //                     };
-                    //                 };
-                },
-                printAppointment() {
+                                //                 printWindow.document.close();
+                                //                 printWindow.onload = function() {
+                                //                     printWindow.print();
+                                //                     printWindow.onafterprint = function() {
+                                //                         printWindow.close();
+                                //                     };
+                                //                 };
+                            },
+                            printAppointment() {
 
-                    const doc = new jsPDF();
+                                const doc = new jsPDF();
 
-                    // Set the background image
-                    const backgroundImage = new Image();
-                    backgroundImage.src = 'images/appointment.png';
+                                // Set the background image
+                                const backgroundImage = new Image();
+                                backgroundImage.src = 'images/appointment.png';
 
-                    // Wait for the image to load
-                    backgroundImage.onload = function() {
-                        // Calculate the desired width and height of the image in the PDF
-               
-
-                        // Add the background image to the PDF with the updated size and position
-                        doc.addImage(backgroundImage, 'png', 0, 0, 210, 140); // Adjust the coordinates and dimensions as needed
-
-                        // Add appointment details and other content to the PDF
-                        // ...
-
-                        // Save the PDF
-                        doc.save('appointment_ticket.pdf');
-                    }
-                },
-                select_service(service) {
-                    this.questions = service.questions.filter(question => question.question_id == null);
+                                // Wait for the image to load
+                                backgroundImage.onload = function() {
+                                    // Calculate the desired width and height of the image in the PDF
 
 
-                },
-                clear_documents() {
-                    this.documents = [];
-                },
-                book_appointment() {
-                    axios.post('/createAppointment', {
-                            selected_date: app.selectedDate,
-                            selected_hour: app.selectedHour,
-                            selected_service_id: app.selectedService,
-                            question_id: app.selectedQuestion,
-                        })
-                        .then(function(response) {
-                            // console.log(response.data);
+                                    // Add the background image to the PDF with the updated size and position
+                                    doc.addImage(backgroundImage, 'png', 0, 0, 210,
+                                        140); // Adjust the coordinates and dimensions as needed
 
-                            // app.printAppointment();
+                                    // Add appointment details and other content to the PDF
+                                    // ...
 
-                            app.notify('Booking Successful', 'Booking Successful', 'green', 'topCenter',
-                                'bounceInDown');
-                        }).catch(function(error) {
-                            app.notify('Booking Failed', 'You cannot book multiple appointments', 'red', 'topCenter',
-                                'bounceInDown');
-                        });
-                },
-                fetch_services() {
-                    return axios.get('/getServices')
-                        .then(response => {
-                            this.services = response.data.services;
-                            // selectedQuestion = services[0].question;
-                            console.log('Services fetched successfully');
-                            console.log(this.services);
-                            console.log(response.data.questions);
-                        })
-                        .catch();
-                },
-
-                fetch_questions(question) {
-                    this.previousQuestions.push(question.id);
-                    return axios.get('/getQuestions/' + question.id)
-                        .then(response => {
-                            // this.questions = response.data.questions;
-                            this.questions = response.data.questions;
-                            // app.selectedQuestion = services[0].question;
-                            app.selectedQuestion = question.id;
-                            console.log(response.data.questions);
-                        })
-                        .catch();
-                },
-                fetch_documents(question) {
-                    return axios.get('/getQuestionDocuments/' + question.id)
-                        .then(response => {
-                            app.documents = response.data.question.documents;
-                            // selectedQuestion = services[0].question;
-                            console.log('Documents fetched successfully');
-                            console.log(app.documents);
-                            console.log(response.data);
-                        })
-                        .catch();
-                },
-
-                fetch_previous_questions() {
-                    console.log(this.previousQuestions);
-                    this.previousQuestions.pop();
-                    this.documents = [];
-                    console.log(this.previousQuestions);
-                    if (this.previousQuestions.length == 0) {
-                        this.select_service(this.selectedService);
-                        return;
-                    }
-                    return axios.get('/getQuestions/' + this.previousQuestions[this.previousQuestions.length - 1])
-                        .then(response => {
-
-                            // this.questions = response.data.questions;
-                            this.questions = response.data.questions;
-                            // selectedQuestion = services[0].question;
-                            // this.selectedQuestion = question;
-                            console.log(response.data.questions);
-                        })
-                        .catch();
-                },
-                fetch_notifications() {
-                    var app = this;
-
-                    app.notifications_fetched = false;
-                    return axios.get('/getNotifications')
-                        .then(function(response) {
-                            app.notifications = response.data.notifications;
-                            app.notifications_fetched = true;
-                            if (app.notifications.length > 0) {
-
-                            }
-                        });
-                },
-                update_information() {
-                    var app = this;
-
-                    axios.put('/update_information', {
-                            'username': app.username,
-                            'fullname': app.fullname,
-                            'email': app.email,
-                            'telephone': app.telephone,
-                            'address': app.address,
-                            'password': app.password,
-                            'password_confirmation': app.password_confirmation,
-                        })
-                        .then(function(response) {
-                            app.notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
-                            app.fullname = response.data.user.fullname;
-                            app.email = response.data.user.email;
-                            app.telephone = response.data.user.telephone;
-                            app.address = response.data.user.address;
-                            app.reset_form();
-
-                            app.fullname = response.data.user.fullname;
-                            app.email = response.data.user.email;
-                            app.telephone = response.data.user.telephone;
-                            app.address = response.data.user.address;
-                            app.reset_form();
-
-                        })
-                        .catch(function(error) {
-                            if (error.response) {
-                                //app.errors = error.response.data.errors;
-                                console.log(error.response.data.errors);
-
-                                app.$set(app, 'errors', error.response.data.errors);
-                                app.notify('Erreurs!', 'Veuillez vérifier les informations introduites', 'red',
-                                    'topCenter', 'bounceInDown');
-                            } else if (error.request) {
-                                console.log(error.request);
-                            } else {
-                                console.log('Error', error.message);
-                            }
-                        });
-                },
-
-                reset_form() {
-                    // this.fullname:'';
-                    // this.email:'';
-                    // this.telephone:'';
-                    // this.address:'';
-                    // this.username:'';
+                                    // Save the PDF
+                                    doc.save('appointment_ticket.pdf');
+                                }
+                            },
+                            select_service(service) {
+                                this.questions = service.questions.filter(question => question.question_id == null);
 
 
-                    this.password = '';
-                    this.password_confirmation = '';
-                    this.errors = [];
+                            },
+                            clear_documents() {
+                                this.documents = [];
+                            },
+                            book_appointment() {
+                                if (app.fullname != '') {
+                                    axios.post('/createAppointment', {
+                                        
+                                            selected_date: app.selectedDate,
+                                            selected_hour: app.selectedHour,
+                                            selected_service_id: app.selectedService,
+                                            question_id: app.selectedQuestion,
+                                        })
+                                        .then(function(response) {
+                                            app.notify('Booking Successful', 'Booking Successful', 'green', 'topCenter',
+                                                'bounceInDown');
+                                                app.employeeName = response.data.employee_name;
+                                                app.selectedServiceTemp = app.selectedService;
+                                                // localStorage.setItem('selectedServiceTemp', app.selectedServiceTemp);
+                                                // localStorage.setItem('employeeName', employeeName);
+                                                app.selectedDate = '';
+                                                app.selectedQuestion = '';
+                                        })
+                                        .catch(function(error) {
+                                            app.notify('Booking Failed', 'You cannot book multiple appointments', 'red',
+                                                'topCenter', 'bounceInDown');
+                                                app.selectedDate = '';
+                                                app.selectedQuestion = '';
+                                        });
+                                } else {
+                                    // Handle the case when the user is not authenticated
+                                    window.location.href = '/register';
+                                }
+                            },
+                            fetch_services() {
+                                return axios.get('/getServices')
+                                    .then(response => {
+                                        this.services = response.data.services;
+                                        // selectedQuestion = services[0].question;
+                                        console.log('Services fetched successfully');
+                                        console.log(this.services);
+                                        console.log(response.data.questions);
+                                    })
+                                    .catch();
+                            },
 
-                },
+                            fetch_questions(question) {
+                                this.previousQuestions.push(question.id);
+                                return axios.get('/getQuestions/' + question.id)
+                                    .then(response => {
+                                        // this.questions = response.data.questions;
+                                        this.questions = response.data.questions;
+                                        // app.selectedQuestion = services[0].question;
+                                        app.selectedQuestion = question.id;
+                                        console.log(response.data.questions);
+                                    })
+                                    .catch();
+                            },
+                            fetch_documents(question) {
+                                return axios.get('/getQuestionDocuments/' + question.id)
+                                    .then(response => {
+                                        app.documents = response.data.question.documents;
+                                        // selectedQuestion = services[0].question;
+                                        console.log('Documents fetched successfully');
+                                        console.log(app.documents);
+                                        console.log(response.data);
+                                    })
+                                    .catch();
+                            },
 
-                handleFilesUpload() {
-                    this.decision_file = this.$refs.files.files;
-                    this.decision_file_name = this.decision_file[0].name;
-                    $('#decision-file').val(this.decision_file_name);
+                            fetch_previous_questions() {
+                                console.log(this.previousQuestions);
+                                this.previousQuestions.pop();
+                                this.documents = [];
+                                console.log(this.previousQuestions);
+                                if (this.previousQuestions.length == 0) {
+                                    this.select_service(this.selectedService);
+                                    return;
+                                }
+                                return axios.get('/getQuestions/' + this.previousQuestions[this.previousQuestions.length - 1])
+                                    .then(response => {
 
-                },
-                block(element) {
-                    $('#' + element).block({
-                        message: '<div class="preloader3 loader-block">' +
-                            '<div class="circ1 loader-info"></div>' +
-                            '<div class="circ2 loader-info"></div>' +
-                            '<div class="circ3 loader-info"></div>' +
-                            '<div class="circ4 loader-info"></div>' +
-                            '</div>',
-                        css: {
-                            border: 'none',
-                            padding: '15px',
-                            backgroundColor: '',
-                            '-webkit-border-radius': '10px',
-                            '-moz-border-radius': '10px',
-                            opacity: 0.5,
-                            showOverlay: false,
+                                        // this.questions = response.data.questions;
+                                        this.questions = response.data.questions;
+                                        // selectedQuestion = services[0].question;
+                                        // this.selectedQuestion = question;
+                                        console.log(response.data.questions);
+                                    })
+                                    .catch();
+                            },
+                            fetch_notifications() {
+                                var app = this;
+
+                                app.notifications_fetched = false;
+                                return axios.get('/getNotifications')
+                                    .then(function(response) {
+                                        app.notifications = response.data.notifications;
+                                        app.notifications_fetched = true;
+                                        if (app.notifications.length > 0) {
+
+                                        }
+                                    });
+                            },
+                            update_information() {
+                                var app = this;
+
+                                axios.put('/update_information', {
+                                        'username': app.username,
+                                        'fullname': app.fullname,
+                                        'email': app.email,
+                                        'telephone': app.telephone,
+                                        'address': app.address,
+                                        'password': app.password,
+                                        'password_confirmation': app.password_confirmation,
+                                    })
+                                    .then(function(response) {
+                                        app.notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                                        app.fullname = response.data.user.fullname;
+                                        app.email = response.data.user.email;
+                                        app.telephone = response.data.user.telephone;
+                                        app.address = response.data.user.address;
+                                        app.reset_form();
+
+                                        app.fullname = response.data.user.fullname;
+                                        app.email = response.data.user.email;
+                                        app.telephone = response.data.user.telephone;
+                                        app.address = response.data.user.address;
+                                        app.reset_form();
+
+                                    })
+                                    .catch(function(error) {
+                                        if (error.response) {
+                                            //app.errors = error.response.data.errors;
+                                            console.log(error.response.data.errors);
+
+                                            app.$set(app, 'errors', error.response.data.errors);
+                                            app.notify('Erreurs!', 'Veuillez vérifier les informations introduites', 'red',
+                                                'topCenter', 'bounceInDown');
+                                        } else if (error.request) {
+                                            console.log(error.request);
+                                        } else {
+                                            console.log('Error', error.message);
+                                        }
+                                    });
+                            },
+
+                            reset_form() {
+                                // this.fullname:'';
+                                // this.email:'';
+                                // this.telephone:'';
+                                // this.address:'';
+                                // this.username:'';
+
+
+                                this.password = '';
+                                this.password_confirmation = '';
+                                this.errors = [];
+
+                            },
+
+                            handleFilesUpload() {
+                                this.decision_file = this.$refs.files.files;
+                                this.decision_file_name = this.decision_file[0].name;
+                                $('#decision-file').val(this.decision_file_name);
+
+                            },
+                            block(element) {
+                                $('#' + element).block({
+                                    message: '<div class="preloader3 loader-block">' +
+                                        '<div class="circ1 loader-info"></div>' +
+                                        '<div class="circ2 loader-info"></div>' +
+                                        '<div class="circ3 loader-info"></div>' +
+                                        '<div class="circ4 loader-info"></div>' +
+                                        '</div>',
+                                    css: {
+                                        border: 'none',
+                                        padding: '15px',
+                                        backgroundColor: '',
+                                        '-webkit-border-radius': '10px',
+                                        '-moz-border-radius': '10px',
+                                        opacity: 0.5,
+                                        showOverlay: false,
+                                    }
+                                });
+                            },
+
+                            notify(title, message, color, position, transition) {
+                                iziToast.show({
+                                    title: title,
+                                    message: message,
+                                    position: position,
+                                    color: color,
+                                    transitionIn: transition,
+                                    timeout: 3000,
+                                    zindex: 9999999,
+                                    'z-index': 9999999,
+                                    targetFirst: true,
+                                });
+
+
+
+                            },
+                            unblock(element) {
+                                $('#' + element).unblock();
+                            },
+
+                            // getAssetUrl() {
+                            //         return "{{ asset('pages/user/assets/img/" + currentPhotoIndex + "') }}";
+                            //         },
+
+                            onClose() {
+                                // Perform any actions you need when the modal is closed
+                                console.log('Modal closed');
+                                // Clear any data or reset state variables
+
+                                // Reset showModal to hide the modal
+                                this.showBookingForm = false;
+                                this.documents = '';
+                            },
+
+                        },
+
+                        computed: {
+                            currentPhoto() {
+                                return this.photos[this.currentPhotoIndex];
+                            },
+                            getAssetUrl() {
+                                return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
+                            },
+                        },
+                        mounted() {
+                            this.fetch_services();
+                            this.fetchAppointments();
+                            this.selectedServiceTemp = localStorage.getItem('selectedServiceTemp');
+                            this.selectedHour = '';
+                            $('#demo').datetimepicker({
+                                date: new Date(),
+                                startDate: new Date()
+
+                                    ,
+                                onDateChange: function() {
+
+                                    console.log(this.getText('YYYY-MM-DD'));
+                                    app.selectedDate = this.getText('YYYY-MM-DD');
+                                    axios.post('/getAvailableHours', {
+                                            selected_date: this.getText('YYYY-MM-DD')
+                                        })
+                                        .then(response => {
+                                            // Handle the response data
+                                            console.log(response.data);
+                                            app.available_hours = response.data.available_hours;
+                                            app.selectedHour = '';
+                                        })
+                                        .catch(error => {
+                                            // Handle any errors
+                                            console.error(error);
+                                        });
+
+
+                                }
+                            }, );
+                            // Get the button
+
+                            // Add a button event
+
+                            setInterval(() => {
+                                this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
+                            }, 5000);
+                            // Default export is a4 paper, portrait, using millimeters for units
+
+
+                            // this.fetch_documents();
+                            const modalElement = document.querySelector('#servicesModal');
+                            modalElement.addEventListener('hidden.bs.modal', this.onClose);
+                        },
+                        created() {
+                            this.fetch_services();
+                            this.fetchAppointments();
+                            this.selectedServiceTemp = localStorage.getItem('selectedServiceTemp');
                         }
+
+
                     });
-                },
-
-                notify(title, message, color, position, transition) {
-                    iziToast.show({
-                        title: title,
-                        message: message,
-                        position: position,
-                        color: color,
-                        transitionIn: transition,
-                        timeout: 3000,
-                        zindex: 9999999,
-                        'z-index': 9999999,
-                        targetFirst: true,
-                    });
-
-
-
-                },
-                unblock(element) {
-                    $('#' + element).unblock();
-                },
-
-                // getAssetUrl() {
-                //         return "{{ asset('pages/user/assets/img/" + currentPhotoIndex + "') }}";
-                //         },
-
-                onClose() {
-                    // Perform any actions you need when the modal is closed
-                    console.log('Modal closed');
-                    // Clear any data or reset state variables
-
-                    // Reset showModal to hide the modal
-                    this.showBookingForm = false;
-                    this.documents = '';
-                },
-
-            },
-
-            computed: {
-                currentPhoto() {
-                    return this.photos[this.currentPhotoIndex];
-                },
-                getAssetUrl() {
-                    return `{{ asset('pages/user/assets/img/${this.photos[this.currentPhotoIndex]} ') }}`;
-                },
-            },
-            mounted() {
-                this.fetch_services();
-                this.fetchAppointments();
-                this.selectedHour = '';
-                $('#demo').datetimepicker({
-                    date: new Date(),
-                    startDate: new Date()
-
-                        ,
-                    onDateChange: function() {
-
-                        console.log(this.getText('YYYY-MM-DD'));
-                        app.selectedDate = this.getText('YYYY-MM-DD');
-                        axios.post('/getAvailableHours', {
-                                selected_date: this.getText('YYYY-MM-DD')
-                            })
-                            .then(response => {
-                                // Handle the response data
-                                console.log(response.data);
-                                app.available_hours = response.data.available_hours;
-                                app.selectedHour = '';
-                            })
-                            .catch(error => {
-                                // Handle any errors
-                                console.error(error);
-                            });
-
-
-                    }
-                }, );
-                // Get the button
-
-                // Add a button event
-
-                setInterval(() => {
-                    this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
-                }, 5000);
-                // Default export is a4 paper, portrait, using millimeters for units
-
-
-                // this.fetch_documents();
-                const modalElement = document.querySelector('#portfolioModal1');
-                modalElement.addEventListener('hidden.bs.modal', this.onClose);
-            },
-            created() {
-                this.fetch_services();
-                this.fetchAppointments();
-            }
-
-
-        });
-    </script>
-    </div>
+                </script>
+            </div>
 </body>
 
 </html>
