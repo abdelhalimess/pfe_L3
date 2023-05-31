@@ -136,9 +136,10 @@
                                         <td>@{{ myAppointment.employee.service.name }}</td>
                                         <td>@{{ myAppointment.employee.fullname }}</td>
                                         <td :class="getStatusClass(myAppointment.status)">@{{ myAppointment.status }}</td>
-                                       
-                                        <td  >
-                                            <button type="button" class="btn btn-primary btn-sm">Download</button>
+
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                v-on:click="printAppointment(myAppointment)">Download</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -452,15 +453,15 @@
                                                         <div class="col-4">
                                                             <div class="list-group" v-if="documents.length > 0">
                                                                 <div class="list-group-item list-group-item-action"
-                                                                v-for="(document, index) in documents"
-                                                                :key="index">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input"
-                                                                    type="checkbox"
-                                                                    :id="'document-checkbox-' + index" disabled>
-                                                                    <label class="form-check-label"
-                                                                    :for="'document-checkbox-' + index">
-                                                                    @{{ document.name }}
+                                                                    v-for="(document, index) in documents"
+                                                                    :key="index">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input"
+                                                                            type="checkbox"
+                                                                            :id="'document-checkbox-' + index" disabled>
+                                                                        <label class="form-check-label"
+                                                                            :for="'document-checkbox-' + index">
+                                                                            @{{ document.name }}
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -474,33 +475,32 @@
                                                     <div class="row justify-content-between">
                                                         <div class="col-auto">
                                                             <button class="btn btn-primary"
-                                                            v-on:click="fetch_previous_questions()">
-                                                            <i class="fas fa-arrow-left"></i>
-                                                            Back
-                                                        </button>
+                                                                v-on:click="fetch_previous_questions()">
+                                                                <i class="fas fa-arrow-left"></i>
+                                                                Back
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <button class="btn btn-primary"
+                                                                v-if="documents.length > 0 && fullname!=''"
+                                                                v-on:click="showBookingForm=true">
+                                                                <i class="fas fa-book"></i>
+                                                                Book
+                                                            </button>
+                                                            <button class="btn btn-primary"
+                                                                v-on:click="printDocuments"
+                                                                v-if="documents.length > 0">
+                                                                <i class="fas fa-print"></i>
+                                                                Print
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-auto">
-                                                        <button class="btn btn-primary"
-                                                        v-if="documents.length > 0 && fullname!=''"
-                                                        v-on:click="showBookingForm=true">
-                                                        <i class="fas fa-book"></i>
-                                                        Book
-                                                    </button>
-                                                    <button class="btn btn-primary"
-                                                    v-on:click="printDocuments"
-                                                    v-if="documents.length > 0">
-                                                    <i class="fas fa-print"></i>
-                                                    Print
-                                                </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div v-if="fullname == '' "
-                                class="list-group-item text-danger">
-                                LOGIN TO BOOK AN APPOINTMENT
-                            </div>
+                                        <div v-if="fullname == '' " class="list-group-item text-danger">
+                                            LOGIN TO BOOK AN APPOINTMENT
+                                        </div>
                                         <div class="col-10"
                                             :class=" [showBookingForm ? 'col-10 animated fadeInDown' :
                                                  'col-10 animated fadeOutDown'
@@ -837,16 +837,16 @@
                                 console.log('30/05/2023');
                             },
                             printDocuments() {
-                //                                 const doc = new jsPDF();
-                //                                 var img = new Image();
-                //                                 img.src =  asset('assets/tickets/img/documents.png');
-                //                                 doc.addImage(img, 'png', 10, 78, 12, 15);
-                //                                 doc.text("Hello world!", 10, 10);
-                //                                 doc.save("a4.pdf");
-                //                                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
-                //                                 const printWindow = window.open('', '', 'width=800,height=600');
-                //                                 printWindow.document.open();
-                //                                 printWindow.document.write(`
+                                //                                 const doc = new jsPDF();
+                                //                                 var img = new Image();
+                                //                                 img.src =  asset('assets/tickets/img/documents.png');
+                                //                                 doc.addImage(img, 'png', 10, 78, 12, 15);
+                                //                                 doc.text("Hello world!", 10, 10);
+                                //                                 doc.save("a4.pdf");
+                                //                                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
+                                //                                 const printWindow = window.open('', '', 'width=800,height=600');
+                                //                                 printWindow.document.open();
+                                //                                 printWindow.document.write(`
                 //   <html>
                 //     <head>
                 //       <title>Print</title>
@@ -896,17 +896,20 @@
                 //     </body>
                 //   </html>
                 // `);
-                //                                 printWindow.document.close();
-                //                                 printWindow.onload = function() {
-                //                                     printWindow.print();
-                //                                     printWindow.onafterprint = function() {
-                //                                         printWindow.close();
-                //                                     };
-                //                                 };
+                                //                                 printWindow.document.close();
+                                //                                 printWindow.onload = function() {
+                                //                                     printWindow.print();
+                                //                                     printWindow.onafterprint = function() {
+                                //                                         printWindow.close();
+                                //                                     };
+                                //                                 };
                             },
-                            printAppointment() {
+                            printAppointment(appointment) {
 
                                 const doc = new jsPDF();
+                                doc.setFontSize(11);
+                                doc.setFontType("bold");
+
 
                                 // Set the background image
                                 const backgroundImage = new Image();
@@ -919,12 +922,19 @@
 
                                     // Add the background image to the PDF with the updated size and position
                                     doc.addImage(backgroundImage, 'png', 0, 0, 210,
-                                        140); // Adjust the coordinates and dimensions as needed
+                                        135);
 
-                                    // Add appointment details and other content to the PDF
-                                    // ...
-
-                                    // Save the PDF
+                                    doc.text(123, 96.5, appointment.employee.fullname.toString());
+                                    doc.text(132, 50, appointment.user.fullname.toString());
+                                    doc.text(112, 57, appointment.user.email.toString());
+                                    doc.text(155, 64, appointment.user.telephone.toString());
+                                    doc.text(108, 83, appointment.user.structure.address.toString());
+                                    doc.text(150, 90, appointment.employee.service.name.toString());
+                                    doc.text(166, 104, appointment.appointment_datetime.toString().split(' ')[0]);
+                                    doc.text(166, 111.6, appointment.appointment_datetime.toString().split(' ')[1]);
+                                    doc.text(166, 111.6, appointment.appointment_datetime.toString().split(' ')[1]);
+                                    var height = 60;
+                                    appointment.question.documents.map( (document,index) => doc.text(10,  height + (index * 5), '- ' +document.name.toString() ));
                                     doc.save('appointment_ticket.pdf');
                                 }
                             },
@@ -947,11 +957,11 @@
                                         })
                                         .then(function(response) {
 
-    
+
                                             app.notify('Booking Successful', 'Your Appointment is booked', 'green',
                                                 'topCenter',
                                                 'bounceInDown');
-                                          
+
                                             app.selectedDate = '';
                                             app.selectedQuestion = '';
                                             return;
@@ -961,8 +971,7 @@
                                                 'topCenter', 'bounceInDown');
                                             app.selectedDate = '';
                                             app.selectedQuestion = '';
-                                        })
-                                        ;
+                                        });
                                 } else {
                                     // Handle the case when the user is not authenticated
                                     window.location.href = '/login';
