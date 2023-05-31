@@ -969,12 +969,12 @@
                                             app.selectedQuestion = '';
 
                                         })
-                                    // .catch(function(error) {
-                                    //     app.notify('Booking Failed', 'You cannot book multiple appointments', 'red',
-                                    //         'topCenter', 'bounceInDown');
-                                    //     app.selectedDate = '';
-                                    //     app.selectedQuestion = '';
-                                    // })
+                                    .catch(function(error) {
+                                        app.notify('Booking Failed', 'You cannot book multiple appointments', 'red',
+                                            'topCenter', 'bounceInDown');
+                                        app.selectedDate = '';
+                                        app.selectedQuestion = '';
+                                    })
                                     ;
                                 } else {
                                     // Handle the case when the user is not authenticated

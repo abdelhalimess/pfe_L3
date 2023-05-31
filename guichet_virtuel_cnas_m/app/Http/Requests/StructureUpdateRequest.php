@@ -24,9 +24,10 @@ class StructureUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4|',
+            'name' => "required|min:4|",
             'state_id' => 'numeric|required',
             'structure_type_id' => 'numeric|required',
+            'address' => 'required|min:10|max:100',
         ];
     }
 
@@ -38,6 +39,7 @@ class StructureUpdateRequest extends FormRequest
         'state_id.required' => 'The state ID is required.',
         'structure_type_id.numeric' => 'The structure type ID must be numeric.',
         'structure_type_id.required' => 'The structure type ID is required.',
+        'structure_type_id.required' => 'The structure address is required.',
     ];
 }
 }

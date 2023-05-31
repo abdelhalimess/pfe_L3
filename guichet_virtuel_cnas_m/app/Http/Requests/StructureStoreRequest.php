@@ -27,6 +27,7 @@ class StructureStoreRequest extends FormRequest
             'name' => 'min:4|required|alpha|unique:structures',
             'state_id' => 'required|integer',
             'structure_type_id' => 'required|integer',
+            'address' => 'required|min:10|max:100',
         ];
     }
 
@@ -39,6 +40,7 @@ class StructureStoreRequest extends FormRequest
         'state_id.integer' => 'The state ID field must be an integer.',
         'structure_type_id.required' => 'The structure type ID field is required.',
         'structure_type_id.integer' => 'The structure type ID field must be an integer.',
+        'address.required' => 'The structure address field is required.',
     ];
 }
 }

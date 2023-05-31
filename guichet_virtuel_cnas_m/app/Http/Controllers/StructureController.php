@@ -45,6 +45,7 @@ class StructureController extends Controller
         $structure->name = $request->name;
         $structure->state_id = $request->state_id;
         $structure->structure_type_id = $request->structure_type_id;
+        $structure->address = $request->address;
 
         $structure->save();
         $structure = Structure::with('state', 'structureType')->findOrFail($structure->id);
@@ -91,6 +92,7 @@ class StructureController extends Controller
         $structure->name = $request->name;
         $structure->state_id = $request->state_id;
         $structure->structure_type_id = $request->structure_type_id;
+        $structure->address = $request->address;
 
         $structure->save();
         $structure = Structure::with('state','structureType')->findOrFail($id);

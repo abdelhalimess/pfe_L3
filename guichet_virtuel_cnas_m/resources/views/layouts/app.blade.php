@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Register | CNAS - TAYSEER</title>
+    <title>Register | CNAS - VIRTUAL COUNTER</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -31,7 +31,7 @@
                         <img src="{{ asset('images\favicon.ico') }}" alt="CNAS-LOGO"
                             style="width: 40px ; hieght:40px ; margin-right:10px ; margin-bottom:10px;">
 
-                        Register | CNAS - TAYSEER
+                        Register | CNAS - VIRTUAL COUNTER
                     </a>
                 </div>
                 {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

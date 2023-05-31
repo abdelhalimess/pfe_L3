@@ -78,6 +78,13 @@
                             </span>
                         </div>
                     </div>
+                    <div class="modal-body">
+                        <input type="text"
+                            :class="[errors.address ? 'form-control form-control-danger' : 'form-control form-control-success']"
+                            placeholder="Enter structure address..." maxlength="25" v-model="newStructureAddress" required
+                            v-on:input="errors.address=null" />
+                        <p class="text-danger m-t-5" v-if="errors.address">@{{ errors.address.toString() }}</p>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" v-on:click="errors = ''" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light"
@@ -134,11 +141,18 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="modal-body">
+                            <input type="text"
+                                :class="[errors.address ? 'form-control form-control-danger' : 'form-control form-control-success']"
+                                placeholder="Enter structure address..." maxlength="25" v-model="selectedStructureAddress" required
+                                v-on:input="errors.address=null" />
+                            <p class="text-danger m-t-5" v-if="errors.address">@{{ errors.address.toString() }}</p>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" v-on:click="errors = ''"class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-primary waves-effect waves-light"
-                            v-on:click="update_structure(structureName,structureState,structureType,selectedStructureIndex)">Save</button>
+                            v-on:click="update_structure(structureName,structureState,structureType,selectedStructureAddress,selectedStructureIndex)">Save</button>
                     </div>
                 </div>
             </div>
@@ -176,6 +190,7 @@
                                 <th>Structure</th>
                                 <th class="text-center">State</th>
                                 <th class="text-center">Structure Type</th>
+                                <th class="text-center">Structure Address</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -188,13 +203,14 @@
                                 <td v-if="structure.structure_type != null" class="text-center">@{{ structure.structure_type.name }}
                                 </td>
                                 <td v-else class="text-center">/</td>
+                                <td>@{{ structure.address }}</td>
                                 <td>
                                     <div class="text-center">
                                         <span data-toggle="tooltip" data-placement="top" data-original-title="Edit">
                                             <i class="feather icon-edit text-custom f-18 clickable md-trigger"
                                                 data-toggle="modal" data-target="#edit-structure-modal"
                                                 v-on:click="structureName=structure.name,
-                                                
+                                                selectedStructureAddress=structure.address,
                                                  structureState=structure.state_id,
                                                  structure.structure_type != null ?  $('#structure-type').selectpicker('val',structure.structure_type.id):$('#structure-type').selectpicker('val',''), 
                                                  selectedStructure=structure.id,
@@ -254,10 +270,12 @@
                     newStructureName: '',
                     newStructureState: '',
                     newStructureType: '',
+                    newStructureAddress:'',
                     selectedStructureName: '',
                     selectedStructureState: '',
                     selectedStructureIndex: '',
                     selectedStructureType:'',
+                    selectedStructureAddress:'',
                     structures: [],
                     states: [],
                     types: [],
@@ -338,6 +356,7 @@
                             'name': app.newStructureName,
                             'state_id': app.newStructureState,
                             'structure_type_id': app.newStructureType,
+                            'address': app.newStructureAddress,
                         })
                         .then(function(response) {
                             app.structures.push(response.data.structure);
@@ -349,6 +368,7 @@
                             app.newStructureType = '';
                             app.selectedStructureName = '';
                             app.selectedStructureIndex = '';
+                            app.newStructureAddress = '';
                             notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                         })
                         .catch(function(error) {
@@ -361,11 +381,12 @@
                             }
                         });
                 },
-                update_structure(name, state_id, structure_type_id, index) {
+                update_structure(name, state_id, structure_type_id,address, index) {
                     axios.put('/structures/' + this.selectedStructure, {
                             'name': name,
                             'state_id': state_id,
                             'structure_type_id': structure_type_id,
+                            'address': address,
                         })
                         .then(function(response) {
                             app.$set(app.structures, index, response.data.structure);
@@ -373,6 +394,7 @@
                             app.structureName = '';
                             app.structureState = '';
                             app.structureType = '';
+                            app.selectedStructureAddress = '';
                             notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                         })
                         .catch(function(error) {
