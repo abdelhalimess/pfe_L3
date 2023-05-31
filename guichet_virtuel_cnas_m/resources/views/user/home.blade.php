@@ -43,39 +43,38 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#services">Services</a></li>
-                       
-                         @if(Auth::user())      
-                         <li  class="nav-item mx-0 mx-lg-1"><a
-                            class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-toggle="modal"
-                            data-target="#appointmentsModal" v-on:click="fetchAppointments()">My
-                            Appointments</a></li>
-                     @endif    
 
-                         @if(Auth::user())      
-                         <li  class="nav-item mx-0 mx-lg-1"><a
-                            class="nav-link py-3 px-0 px-lg-3 rounded" href="#"
-                            data-target="#user-profile-form" data-toggle="modal">My Profile</a></li>
-                     @endif        
-                       
+                        @if (Auth::user())
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                    href="#" data-toggle="modal" data-target="#appointmentsModal"
+                                    v-on:click="fetchAppointments()">My
+                                    Appointments</a></li>
+                        @endif
+
+                        @if (Auth::user())
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+                                    href="#" data-target="#user-profile-form" data-toggle="modal">My Profile</a>
+                            </li>
+                        @endif
+
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#footer-page">Contact</a></li>
-                       
+
                     </ul>
-                    @if(Auth::user())      
-                    <form  id="logout-form" action="{{ route('logout') }}" method="POST"
-                        style="display: true;">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Logout</button>
-                    </form>
-                @endif   
-                    @if(!Auth::user())      
-                    <li class="nav-item mx-0 mx-lg-1"><a href="/login" class="btn btn-info">
-                        <span class="pcoded-mtext text-white">Login</span>
-                    </a></li>
-                @endif   
-                   
+                    @if (Auth::user())
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: true;">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    @endif
+                    @if (!Auth::user())
+                        <li class="nav-item mx-0 mx-lg-1"><a href="/login" class="btn btn-info">
+                                <span class="pcoded-mtext text-white">Login</span>
+                            </a></li>
+                    @endif
+
                 </div>
             </div>
         </nav>
@@ -442,20 +441,21 @@
                                                                     class="list-group-item">
                                                                     Here is the list of the required documents.
                                                                 </div>
+                                                                <br><br><br><br>
                                                             </div>
                                                         </div>
                                                         <div class="col-4">
                                                             <div class="list-group" v-if="documents.length > 0">
                                                                 <div class="list-group-item list-group-item-action"
-                                                                    v-for="(document, index) in documents"
-                                                                    :key="index">
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input"
-                                                                            type="checkbox"
-                                                                            :id="'document-checkbox-' + index" disabled>
-                                                                        <label class="form-check-label"
-                                                                            :for="'document-checkbox-' + index">
-                                                                            @{{ document.name }}
+                                                                v-for="(document, index) in documents"
+                                                                :key="index">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input"
+                                                                    type="checkbox"
+                                                                    :id="'document-checkbox-' + index" disabled>
+                                                                    <label class="form-check-label"
+                                                                    :for="'document-checkbox-' + index">
+                                                                    @{{ document.name }}
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -469,29 +469,33 @@
                                                     <div class="row justify-content-between">
                                                         <div class="col-auto">
                                                             <button class="btn btn-primary"
-                                                                v-on:click="fetch_previous_questions()">
-                                                                <i class="fas fa-arrow-left"></i>
-                                                                Back
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <button class="btn btn-primary"
-                                                                v-on:click="printDocuments"
-                                                                v-if="documents.length > 0">
-                                                                <i class="fas fa-print"></i>
-                                                                Print
-                                                            </button>
-                                                            <button class="btn btn-primary"
-                                                                v-if="documents.length > 0"
-                                                                v-on:click="showBookingForm=true">
-                                                                <i class="fas fa-book"></i>
-                                                                Book
-                                                            </button>
-                                                        </div>
+                                                            v-on:click="fetch_previous_questions()">
+                                                            <i class="fas fa-arrow-left"></i>
+                                                            Back
+                                                        </button>
                                                     </div>
-                                                </div>
+                                                    <div class="col-auto">
+                                                        <button class="btn btn-primary"
+                                                        v-if="documents.length > 0 && fullname!=''"
+                                                        v-on:click="showBookingForm=true">
+                                                        <i class="fas fa-book"></i>
+                                                        Book
+                                                    </button>
+                                                    <button class="btn btn-primary"
+                                                    v-on:click="printDocuments"
+                                                    v-if="documents.length > 0">
+                                                    <i class="fas fa-print"></i>
+                                                    Print
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="fullname == '' "
+                                class="list-group-item text-danger">
+                                LOGIN TO BOOK AN APPOINTMENT
+                            </div>
                                         <div class="col-10"
                                             :class=" [showBookingForm ? 'col-10 animated fadeInDown' :
                                                  'col-10 animated fadeOutDown'
@@ -624,7 +628,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group col-sm-5" id="form-group4">
                                             <label for="telephone" class="block">Phone Number<span
                                                     class="text-danger">(*)</span></label>
@@ -633,7 +637,7 @@
                                                     'input-group input-group-inverse'
                                                 ]">
                                                 <input type="text" class="form-control" placeholder="Phone Number"
-                                                v-model="telephone" data-toggle="tooltip" data-placement="top"
+                                                    v-model="telephone" data-toggle="tooltip" data-placement="top"
                                                     :data-original-title="errors.telephone">
                                                 <span class="input-group-addon">
                                                     <i class="icofont icofont-telephone"></i>
@@ -642,30 +646,30 @@
                                         </div>
                                         <div class="form-group col-sm-5" id="form-group6">
                                             <label for="address" class="block">Address <span
-                                                class="text-danger">(*)</span></label>
-                                                <div
+                                                    class="text-danger">(*)</span></label>
+                                            <div
                                                 :class="[errors.address ? 'input-group input-group-danger' :
                                                     'input-group input-group-inverse'
-                                                    ]">
+                                                ]">
                                                 <input type="text" class="form-control" placeholder="Address"
-                                                v-model="address" data-toggle="tooltip" data-placement="top"
-                                                :data-original-title="errors.address">
+                                                    v-model="address" data-toggle="tooltip" data-placement="top"
+                                                    :data-original-title="errors.address">
                                                 <span class="input-group-addon">
                                                     <i class="icofont icofont-location-pin"></i>
                                                 </span>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group col-sm-5" id="form-group5">
                                             <label for="password" class="block">Password <span
-                                                class="text-danger">(*)</span></label>
+                                                    class="text-danger">(*)</span></label>
                                             <div :class="[errors.password ? 'input-group input-group-danger' :
                                                 'input-group input-group-inverse'
-                                                ]"
+                                            ]"
                                                 data-toggle="tooltip" data-placement="top"
                                                 :data-original-title="errors.password">
                                                 <input type="password" class="form-control" placeholder="Password"
-                                                v-model="password">
+                                                    v-model="password">
                                                 <span class="input-group-addon">
                                                     <i class="icofont icofont-lock"></i>
                                                 </span>
@@ -687,7 +691,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </form>
                             </div>
@@ -741,11 +745,21 @@
                         data() {
                             return {
 
-                                fullname: '<?php if(Auth::user()) echo Auth::user()->fullname; ?>',
-                                email: '<?php if(Auth::user()) echo Auth::user()->email; ?>',
-                                telephone: '<?php if(Auth::user()) echo Auth::user()->telephone; ?>',
-                                address: '<?php if(Auth::user()) echo Auth::user()->address; ?>',
-                                username: '<?php if(Auth::user()) echo Auth::user()->username; ?>',
+                                fullname: '<?php if (Auth::user()) {
+                                    echo Auth::user()->fullname;
+                                } ?>',
+                                email: '<?php if (Auth::user()) {
+                                    echo Auth::user()->email;
+                                } ?>',
+                                telephone: '<?php if (Auth::user()) {
+                                    echo Auth::user()->telephone;
+                                } ?>',
+                                address: '<?php if (Auth::user()) {
+                                    echo Auth::user()->address;
+                                } ?>',
+                                username: '<?php if (Auth::user()) {
+                                    echo Auth::user()->username;
+                                } ?>',
                                 password: '',
                                 password_confirmation: '',
 
@@ -783,13 +797,13 @@
                                 if (status === 'PENDING') {
                                     return 'text-primary font-weight-bold';
                                 } else if (status === 'CONFIRMED') {
-                                    return 'text-success font-weight-bold'; 
+                                    return 'text-success font-weight-bold';
                                 } else if (status === 'CANCELED') {
-                                    return 'text-danger font-weight-bold'; 
+                                    return 'text-danger font-weight-bold';
                                 } else if (status === 'DONE') {
-                                    return 'text-primary font-weight-bold'; 
+                                    return 'text-primary font-weight-bold';
                                 } else if (status === 'DISMISSED') {
-                                    return 'font-weight-bold'; 
+                                    return 'font-weight-bold';
                                 }
                                 return '';
                             },
@@ -818,16 +832,16 @@
                                 console.log('30/05/2023');
                             },
                             printDocuments() {
-                                //                 const doc = new jsPDF();
-                                //                 var img = new Image();
-                                //                 // img.src =  asset('assets/tickets/img/documents.png');
-                                //                 // doc.addImage(img, 'png', 10, 78, 12, 15);
-                                //                 // doc.text("Hello world!", 10, 10);
-                                //                 // doc.save("a4.pdf");
-                                //                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
-                                //                 const printWindow = window.open('', '', 'width=800,height=600');
-                                //                 printWindow.document.open();
-                                //                 printWindow.document.write(`
+                //                                 const doc = new jsPDF();
+                //                                 var img = new Image();
+                //                                 img.src =  asset('assets/tickets/img/documents.png');
+                //                                 doc.addImage(img, 'png', 10, 78, 12, 15);
+                //                                 doc.text("Hello world!", 10, 10);
+                //                                 doc.save("a4.pdf");
+                //                                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
+                //                                 const printWindow = window.open('', '', 'width=800,height=600');
+                //                                 printWindow.document.open();
+                //                                 printWindow.document.write(`
                 //   <html>
                 //     <head>
                 //       <title>Print</title>
@@ -877,13 +891,13 @@
                 //     </body>
                 //   </html>
                 // `);
-                                //                 printWindow.document.close();
-                                //                 printWindow.onload = function() {
-                                //                     printWindow.print();
-                                //                     printWindow.onafterprint = function() {
-                                //                         printWindow.close();
-                                //                     };
-                                //                 };
+                //                                 printWindow.document.close();
+                //                                 printWindow.onload = function() {
+                //                                     printWindow.print();
+                //                                     printWindow.onafterprint = function() {
+                //                                         printWindow.close();
+                //                                     };
+                //                                 };
                             },
                             printAppointment() {
 
@@ -920,31 +934,32 @@
                             book_appointment() {
                                 if (app.fullname != '') {
                                     axios.post('/createAppointment', {
-                                        
+
                                             selected_date: app.selectedDate,
                                             selected_hour: app.selectedHour,
                                             selected_service_id: app.selectedService,
                                             question_id: app.selectedQuestion,
                                         })
                                         .then(function(response) {
-                                            app.notify('Booking Successful', 'Booking Successful', 'green', 'topCenter',
+                                            app.notify('Booking Successful', 'Your Appointment is booked', 'green',
+                                                'topCenter',
                                                 'bounceInDown');
-                                                app.employeeName = response.data.employee_name;
-                                                app.selectedServiceTemp = app.selectedService;
-                                                localStorage.setItem('selectedServiceTemp', app.selectedServiceTemp);
-                                                localStorage.setItem('employeeName', employeeName);
-                                                app.selectedDate = '';
-                                                app.selectedQuestion = '';
+                                            app.employeeName = response.data.employee_name;
+                                            app.selectedServiceTemp = app.selectedService;
+                                            localStorage.setItem('selectedServiceTemp', app.selectedServiceTemp);
+                                            localStorage.setItem('employeeName', employeeName);
+                                            app.selectedDate = '';
+                                            app.selectedQuestion = '';
                                         })
                                         .catch(function(error) {
                                             app.notify('Booking Failed', 'You cannot book multiple appointments', 'red',
                                                 'topCenter', 'bounceInDown');
-                                                app.selectedDate = '';
-                                                app.selectedQuestion = '';
+                                            app.selectedDate = '';
+                                            app.selectedQuestion = '';
                                         });
                                 } else {
                                     // Handle the case when the user is not authenticated
-                                    window.location.href = '/register';
+                                    window.location.href = '/login';
                                 }
                             },
                             fetch_services() {
@@ -1029,7 +1044,7 @@
                                         'password_confirmation': app.password_confirmation,
                                     })
                                     .then(function(response) {
-                                        app.notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
+                                        app.notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                                         app.fullname = response.data.user.fullname;
                                         app.email = response.data.user.email;
                                         app.telephone = response.data.user.telephone;
