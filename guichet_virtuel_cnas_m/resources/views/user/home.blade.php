@@ -843,66 +843,66 @@
                                 //                                 doc.addImage(img, 'png', 10, 78, 12, 15);
                                 //                                 doc.text("Hello world!", 10, 10);
                                 //                                 doc.save("a4.pdf");
-                                //                                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
-                                //                                 const printWindow = window.open('', '', 'width=800,height=600');
-                                //                                 printWindow.document.open();
-                                //                                 printWindow.document.write(`
-                //   <html>
-                //     <head>
-                //       <title>Print</title>
-                //       <style>
-                //         @media print {
-                //           .hide-on-print {
-                //             display: none !important;
-                //           }
-                //           .checklist {
-                //             margin-bottom: 20px;
-                //             border: 1px solid #ccc;
-                //             padding: 10px;
-                //           }
-                //           .checklist-title {
-                //             font-size: 18px;
-                //             font-weight: bold;
-                //             margin-bottom: 10px;
-                //           }
-                //           .checklist-items {
-                //             margin-left: 20px;
-                //             list-style-type: none;
-                //           }
-                //           .checklist-items li {
-                //             margin-bottom: 5px;
-                //             position: relative;
-                //           }
-                //           .checklist-items li input[type="checkbox"] {
-                //             position: absolute;
-                //             left: -30px;
-                //             top: 3px;
-                //           }
-                //         }
-                //       </style>
-                //     </head>
-                //     <body>
-                //         <img src="{{ asset('images/documents.png') }}">
-                //       <div class="col-5 list-group"  style="position:absolute;    top: 175;
-                // left: 120;">
+                                const printContents = document.querySelector('.col-4 .list-group').innerHTML;
+                                const printWindow = window.open('', '', 'width=800,height=600');
+                                printWindow.document.open();
+                                printWindow.document.write(`
+                  <html>
+                    <head>
+                      <title>Print</title>
+                      <style>
+                        @media print {
+                          .hide-on-print {
+                            display: none !important;
+                          }
+                          .checklist {
+                            margin-bottom: 20px;
+                            border: 1px solid #ccc;
+                            padding: 10px;
+                          }
+                          .checklist-title {
+                            font-size: 18px;
+                            font-weight: bold;
+                            margin-bottom: 10px;
+                          }
+                          .checklist-items {
+                            margin-left: 20px;
+                            list-style-type: none;
+                          }
+                          .checklist-items li {
+                            margin-bottom: 5px;
+                            position: relative;
+                          }
+                          .checklist-items li input[type="checkbox"] {
+                            position: absolute;
+                            left: -30px;
+                            top: 3px;
+                          }
+                        }
+                      </style>
+                    </head>
+                    <body>
+                        <img src="{{ asset('images/documents.png') }}">
+                      <div class="col-5 list-group"  style="position:absolute;    top: 175;
+                left: 120;">
 
-                //         <div >
+                        <div >
 
-                //           <ul >
-                //             ${printContents}
-                //           </ul>
-                //         </div>
-                //       </div>
-                //     </body>
-                //   </html>
-                // `);
-                                //                                 printWindow.document.close();
-                                //                                 printWindow.onload = function() {
-                                //                                     printWindow.print();
-                                //                                     printWindow.onafterprint = function() {
-                                //                                         printWindow.close();
-                                //                                     };
-                                //                                 };
+                          <ul >
+                            ${printContents}
+                          </ul>
+                        </div>
+                      </div>
+                    </body>
+                  </html>
+                `);
+                                printWindow.document.close();
+                                printWindow.onload = function() {
+                                    printWindow.print();
+                                    printWindow.onafterprint = function() {
+                                        printWindow.close();
+                                    };
+                                };
                             },
                             printAppointment(appointment) {
 
@@ -959,25 +959,27 @@
                                         .then(function(response) {
 
                                             console.log(response.status);
-                                            if (response.status === 200) 
+                                            if (response.status === 200)
                                                 app.notify('Booking Successful', 'Your Appointment is booked', 'green',
                                                     'topCenter',
                                                     'bounceInDown');
 
-                                                app.printAppointment(response.data.appointment);
-                                                console.log(response.data.appointment);
-                                                app.selectedDate = '';
-                                                app.selectedQuestion = '';
-                                            
+                                            app.printAppointment(response.data.appointment);
+                                            console.log(response.data.appointment);
+                                            app.selectedDate = '';
+                                            app.selectedQuestion = '';
+
 
                                         }).catch(function(error) {
                                             // Error handling for "Bad Request" or any other network or server error
-                                           
+
                                             if (error.response && error.response.data && error.response.data.message) {
-        app.notify('Booking Failed', error.response.data.message, 'red', 'topCenter', 'bounceInDown');
-      } else {
-        app.notify('Booking Failed', 'An error occurred. Please try again.', 'red', 'topCenter', 'bounceInDown');
-      }
+                                                app.notify('Booking Failed', error.response.data.message, 'red',
+                                                    'topCenter', 'bounceInDown');
+                                            } else {
+                                                app.notify('Booking Failed', 'An error occurred. Please try again.', 'red',
+                                                    'topCenter', 'bounceInDown');
+                                            }
                                             app.selectedDate = '';
                                             app.selectedQuestion = '';
                                         })

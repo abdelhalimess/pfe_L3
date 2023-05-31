@@ -109,21 +109,23 @@ class AppointmentController extends Controller
             ->map(function ($datetime) {
                 return Carbon::parse($datetime)->format('H:i');
             })
-            ->toArray();
+            ->toArray(); // convert to array so we can compare result later..
 
-        // Define available hours range
+        // Define available hours range - each appointment takes one hour
         $availableHoursRange = [
             '08:00', '09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00',
         ];
 
-        // Check if the selected date is the same as the current date
-        $isSameDay = Carbon::parse($selectedDate)->isSameDay(Carbon::now());
+        // Get the current date and time
+        $currentDateTime = Carbon::now();
 
-        // Filter the available hours based on the current booking time only if it's the same day
+        // Check if the selected date is the same as the current date
+        $isSameDay = Carbon::parse($selectedDate)->isSameDay($currentDateTime);
+
+        // If it's the same day, filter the available hours based on the current hour
         if ($isSameDay) {
-            $currentTime = Carbon::now();
-            $currentHour = $currentTime->hour;
-            $currentMinute = $currentTime->minute;
+            $currentHour = $currentDateTime->hour;
+            $currentMinute = $currentDateTime->minute;
 
             // Filter the available hours based on the current booking time
             $availableHours = array_filter($availableHoursRange, function ($hour) use ($currentHour, $currentMinute) {
@@ -144,9 +146,11 @@ class AppointmentController extends Controller
             $availableHours = $availableHoursRange;
         }
 
+        // Filter the available hours based on existing appointments
+        $availableHours = array_diff($availableHours, $existingAppointments);
+
         return response()->json(['available_hours' => array_values($availableHours)]);
     }
-
     public function createAppointment(Request $request)
     {
         // Validate the request data
