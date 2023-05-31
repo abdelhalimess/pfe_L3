@@ -958,23 +958,30 @@
                                         })
                                         .then(function(response) {
 
+                                            console.log(response.status);
+                                            if (response.status === 200) 
+                                                app.notify('Booking Successful', 'Your Appointment is booked', 'green',
+                                                    'topCenter',
+                                                    'bounceInDown');
 
-                                            app.notify('Booking Successful', 'Your Appointment is booked', 'green',
-                                                'topCenter',
-                                                'bounceInDown');
+                                                app.printAppointment(response.data.appointment);
+                                                console.log(response.data.appointment);
+                                                app.selectedDate = '';
+                                                app.selectedQuestion = '';
+                                            
 
-                                            app.printAppointment(response.data.appointment);    
-                                            console.log(response.data.appointment);
+                                        }).catch(function(error) {
+                                            // Error handling for "Bad Request" or any other network or server error
+                                           
+                                            if (error.response && error.response.data && error.response.data.message) {
+        app.notify('Booking Failed', error.response.data.message, 'red', 'topCenter', 'bounceInDown');
+      } else {
+        app.notify('Booking Failed', 'An error occurred. Please try again.', 'red', 'topCenter', 'bounceInDown');
+      }
                                             app.selectedDate = '';
                                             app.selectedQuestion = '';
-
                                         })
-                                    .catch(function(error) {
-                                        app.notify('Booking Failed', 'You cannot book multiple appointments', 'red',
-                                            'topCenter', 'bounceInDown');
-                                        app.selectedDate = '';
-                                        app.selectedQuestion = '';
-                                    })
+
                                     ;
                                 } else {
                                     // Handle the case when the user is not authenticated
