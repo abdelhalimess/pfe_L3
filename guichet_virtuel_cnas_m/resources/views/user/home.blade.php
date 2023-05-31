@@ -125,6 +125,7 @@
                                         <th>Service</th>
                                         <th>Employee</th>
                                         <th>Status</th>
+                                        <th>Print</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,12 +136,16 @@
                                         <td>@{{ myAppointment.employee.service.name }}</td>
                                         <td>@{{ myAppointment.employee.fullname }}</td>
                                         <td :class="getStatusClass(myAppointment.status)">@{{ myAppointment.status }}</td>
+                                       
+                                        <td  >
+                                            <button type="button" class="btn btn-primary btn-sm">Download</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" onclick="window.print()">Print</button>
+                            {{-- <button type="button" class="btn btn-primary" onclick="window.print()">Print</button> --}}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -941,22 +946,23 @@
                                             question_id: app.selectedQuestion,
                                         })
                                         .then(function(response) {
+
+    
                                             app.notify('Booking Successful', 'Your Appointment is booked', 'green',
                                                 'topCenter',
                                                 'bounceInDown');
-                                            app.employeeName = response.data.employee_name;
-                                            app.selectedServiceTemp = app.selectedService;
-                                            localStorage.setItem('selectedServiceTemp', app.selectedServiceTemp);
-                                            localStorage.setItem('employeeName', employeeName);
+                                          
                                             app.selectedDate = '';
                                             app.selectedQuestion = '';
+                                            return;
                                         })
                                         .catch(function(error) {
                                             app.notify('Booking Failed', 'You cannot book multiple appointments', 'red',
                                                 'topCenter', 'bounceInDown');
                                             app.selectedDate = '';
                                             app.selectedQuestion = '';
-                                        });
+                                        })
+                                        ;
                                 } else {
                                     // Handle the case when the user is not authenticated
                                     window.location.href = '/login';
