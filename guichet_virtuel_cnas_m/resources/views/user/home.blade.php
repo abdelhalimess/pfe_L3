@@ -43,24 +43,39 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#services">Services</a></li>
-                        <li v-if="fullname != ''" class="nav-item mx-0 mx-lg-1"><a
-                                class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-toggle="modal"
-                                data-target="#appointmentsModal" v-on:click="fetchAppointments()">My
-                                Appointments</a></li>
+                       
+                         @if(Auth::user())      
+                         <li  class="nav-item mx-0 mx-lg-1"><a
+                            class="nav-link py-3 px-0 px-lg-3 rounded" href="#" data-toggle="modal"
+                            data-target="#appointmentsModal" v-on:click="fetchAppointments()">My
+                            Appointments</a></li>
+                     @endif    
+
+                         @if(Auth::user())      
+                         <li  class="nav-item mx-0 mx-lg-1"><a
+                            class="nav-link py-3 px-0 px-lg-3 rounded" href="#"
+                            data-target="#user-profile-form" data-toggle="modal">My Profile</a></li>
+                     @endif        
+                       
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#about">About</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="#footer-page">Contact</a></li>
-                        <li v-if="fullname != ''" class="nav-item mx-0 mx-lg-1"><a
-                                class="nav-link py-3 px-0 px-lg-3 rounded" href="#"
-                                data-target="#user-profile-form" data-toggle="modal">My Profile</a></li>
+                       
                     </ul>
-
-                    <form v-if="fullname != ''" id="logout-form" action="{{ route('logout') }}" method="POST"
+                    @if(Auth::user())      
+                    <form  id="logout-form" action="{{ route('logout') }}" method="POST"
                         style="display: true;">
                         @csrf
                         <button type="submit" class="btn btn-danger">Logout</button>
                     </form>
+                @endif   
+                    @if(!Auth::user())      
+                    <li class="nav-item mx-0 mx-lg-1"><a href="/login" class="btn btn-info">
+                        <span class="pcoded-mtext text-white">Login</span>
+                    </a></li>
+                @endif   
+                   
                 </div>
             </div>
         </nav>
@@ -726,11 +741,11 @@
                         data() {
                             return {
 
-                                fullname: '<?php echo Auth::user()->fullname; ?>',
-                                email: '<?php echo Auth::user()->email; ?>',
-                                telephone: '<?php echo Auth::user()->telephone; ?>',
-                                address: '<?php echo Auth::user()->address; ?>',
-                                username: '<?php echo Auth::user()->username; ?>',
+                                fullname: '<?php if(Auth::user()) echo Auth::user()->fullname; ?>',
+                                email: '<?php if(Auth::user()) echo Auth::user()->email; ?>',
+                                telephone: '<?php if(Auth::user()) echo Auth::user()->telephone; ?>',
+                                address: '<?php if(Auth::user()) echo Auth::user()->address; ?>',
+                                username: '<?php if(Auth::user()) echo Auth::user()->username; ?>',
                                 password: '',
                                 password_confirmation: '',
 
