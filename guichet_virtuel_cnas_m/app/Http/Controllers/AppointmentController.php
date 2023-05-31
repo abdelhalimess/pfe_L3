@@ -179,7 +179,7 @@ class AppointmentController extends Controller
         // $service = Service::where('id', '=', $selectedService)->with("employee")->firstOrFail();
         $employee = User::where('service_id', '=', $selectedService)->firstOrFail();
         // Save the appointment to the database
-        Appointment::create([
+      $appointment =   Appointment::create([
             'appointment_datetime' => $selectedDateTime,
             'user_id' => $authUser->id,
             'employee_id' => $employee->id,
@@ -187,10 +187,12 @@ class AppointmentController extends Controller
 
             'status' => 'PENDING'
         ]);
+        $theAppointment = Appointment::with('user.structure', 'question.documents','employee.service')->where('id','=',$appointment->id)->firstOrFail();
+
 
         return response()->json([
             'message' => 'Appointment created successfully',
-            'employee_name' => $employee->fullname
+            'appointment' =>  $theAppointment
         ]);
     }
 

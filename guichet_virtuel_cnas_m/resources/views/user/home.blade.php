@@ -934,7 +934,8 @@
                                     doc.text(166, 111.6, appointment.appointment_datetime.toString().split(' ')[1]);
                                     doc.text(166, 111.6, appointment.appointment_datetime.toString().split(' ')[1]);
                                     var height = 60;
-                                    appointment.question.documents.map( (document,index) => doc.text(10,  height + (index * 5), '- ' +document.name.toString() ));
+                                    appointment.question.documents.map((document, index) => doc.text(10, height + (index *
+                                        5), '- ' + document.name.toString()));
                                     doc.save('appointment_ticket.pdf');
                                 }
                             },
@@ -962,16 +963,19 @@
                                                 'topCenter',
                                                 'bounceInDown');
 
+                                            app.printAppointment(response.data.appointment);    
+                                            console.log(response.data.appointment);
                                             app.selectedDate = '';
                                             app.selectedQuestion = '';
-                                            return;
+
                                         })
-                                        .catch(function(error) {
-                                            app.notify('Booking Failed', 'You cannot book multiple appointments', 'red',
-                                                'topCenter', 'bounceInDown');
-                                            app.selectedDate = '';
-                                            app.selectedQuestion = '';
-                                        });
+                                    // .catch(function(error) {
+                                    //     app.notify('Booking Failed', 'You cannot book multiple appointments', 'red',
+                                    //         'topCenter', 'bounceInDown');
+                                    //     app.selectedDate = '';
+                                    //     app.selectedQuestion = '';
+                                    // })
+                                    ;
                                 } else {
                                     // Handle the case when the user is not authenticated
                                     window.location.href = '/login';
