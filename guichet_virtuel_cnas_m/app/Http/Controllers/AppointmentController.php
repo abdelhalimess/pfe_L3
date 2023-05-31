@@ -204,7 +204,7 @@ class AppointmentController extends Controller
 
     public function getMyAppointments()
     {
-        $appointments = Appointment::with('user', 'question')->where('user_id', Auth::user()->id)
+        $appointments = Appointment::with('user', 'question','employee.service')->where('user_id', Auth::user()->id)
             ->orderBy('appointment_datetime', 'asc')
             ->get();
         return response()->json(['appointments' => $appointments]);

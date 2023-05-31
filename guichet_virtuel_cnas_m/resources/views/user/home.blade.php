@@ -114,13 +114,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(appointment, index) in appointments" v-bind:key="index">
+                                    <tr v-for="(myAppointment, index) in appointments" v-bind:key="index">
                                         <td>@{{ index + 1 }}</td>
-                                        <td>@{{ getDayOfWeek(appointment.appointment_datetime) }}</td>
-                                        <td>@{{ appointment.appointment_datetime }}</td>
-                                        <td>@{{ selectedServiceTemp.name }}</td>
-                                        <td>@{{ employeeName }}</td>
-                                        <td :class="getStatusClass(appointment.status)">@{{ appointment.status }}</td>
+                                        <td>@{{ getDayOfWeek(myAppointment.appointment_datetime) }}</td>
+                                        <td>@{{ myAppointment.appointment_datetime }}</td>
+                                        <td>@{{ myAppointment.employee.service.name }}</td>
+                                        <td>@{{ myAppointment.employee.fullname }}</td>
+                                        <td :class="getStatusClass(myAppointment.status)">@{{ myAppointment.status }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -791,6 +791,7 @@
                                 axios.get('/getMyAppointments')
                                     .then(response => {
                                         this.appointments = response.data.appointments; // Update the appointments data
+                                        console.log(response.data.appointments);
                                     })
                                     .catch(error => {
                                         console.error(error);
