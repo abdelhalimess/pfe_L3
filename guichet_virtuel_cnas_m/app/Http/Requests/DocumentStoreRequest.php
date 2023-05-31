@@ -24,7 +24,7 @@ class DocumentStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:documents|min:4|alpha_num',
+            'name' => 'required|unique:documents|min:4|',
         ];
     }
 }

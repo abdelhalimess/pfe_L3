@@ -8,7 +8,7 @@ class Structure extends Model
 {
     protected $table = 'structures';
 
-    protected $fillable = ['name', 'state_id','structure_type_id' ];
+    protected $fillable = ['name', 'state_id','structure_type_id','address' ];
     
     public function state()
     {

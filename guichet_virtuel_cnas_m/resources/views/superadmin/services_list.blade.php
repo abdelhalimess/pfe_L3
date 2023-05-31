@@ -159,7 +159,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary waves-effect waves-light"
-                        v-on:click="update_service(serviceName,serviceDescription,selectedServiceIndex)">Save</button>
+                        v-on:click="update_service(selectedServiceName,serviceDescription,selectedServiceIndex)">Save</button>
                 </div>
             </div>
         </div>

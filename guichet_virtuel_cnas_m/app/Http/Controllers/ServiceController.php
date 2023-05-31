@@ -34,7 +34,7 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ServiceStoreRequest $request)
+    public function store(Request $request)
     {
         $service = new Service();
         $service->name = $request->name;

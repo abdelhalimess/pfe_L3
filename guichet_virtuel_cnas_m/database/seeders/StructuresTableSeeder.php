@@ -63,7 +63,7 @@ class StructuresTableSeeder extends Seeder
             ['name' => 'Aïn Témouchent AGENCY', 'state_id' =>  '46', 'structure_type_id' => 1,'address'=>'Downtown,Aïn Témouchent, Algeria', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Ghardaïa AGENCY', 'state_id' =>  '47', 'structure_type_id' => 1,'address'=>'Downtown,Ghardaïa, Algeria', 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'Relizane AGENCY', 'state_id' =>  '48', 'structure_type_id' => 1,'address'=>'Downtown,Relizane, Algeria', 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'HEAD OFFICE', 'state_id' =>  '16', 'structure_type_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'HEAD OFFICE', 'state_id' =>  '16', 'structure_type_id' => 2,'address'=>'Downtown,Algeirs, Algeria', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
