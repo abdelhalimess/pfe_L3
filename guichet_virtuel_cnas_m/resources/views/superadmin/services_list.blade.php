@@ -234,7 +234,7 @@
         </div>
         <div class="col-md-4">
 
-       
+
             <div class="card">
                 <div class="card-header table-card-header">
                     <h5>Showing questions for service :  <span class="label label-info" v-if="selectedService"><strong>@{{service.name.trim(" ")}} </strong> </span></h5>
@@ -250,30 +250,22 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="card-block">
-                    {{-- <div id="nestable-menu" class="m-b-10">
-                        <button type="button" class="btn btn-primary waves-effect waves-light m-b-10 m-r-20"
-                            data-action="expand-all">Expand All</button>
-                        <button type="button" class="btn btn-success waves-effect waves-light m-b-10"
-                            data-action="collapse-all">Collapse All</button>
-                    </div> --}}
                     <div class="row">
-    
-    
                         <div class="col-lg-12 col-sm-12">
                             <div class="cf nestable-lists">
                                 <div class="dd" id="nestable2">
                                     <tree-component :tree="tree"></tree-component>
-    
+
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
-    
+
         </div>
     </div>
 
@@ -321,7 +313,7 @@ $(document).ready(function() {
                 flex-direction: row;
                 justify-content: space-between;">
                 <div class="dropdown-secondary dropdown ">
-                    <button class="btn btn-inverse btn-mini dropdown-toggle waves-light b-none txt-muted " type="button" 
+                    <button class="btn btn-inverse btn-mini dropdown-toggle waves-light b-none txt-muted " type="button"
                     style="margin-top: -5px"
                         id="dropdown11" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                             class="icofont icofont-options f-16"></i></button>
@@ -413,7 +405,7 @@ $(document).ready(function() {
                             app.tree = response.data.tree;
                             console.log(app.tree);
 
-                            
+
                         })
                         .catch();
                 },
@@ -423,10 +415,9 @@ $(document).ready(function() {
                     app.selectedServiceName = service.name;
                     return axios.get('/getServicesQuestions/' + service.id)
                         .then(function(response) {
-                            // this.questions = response.data.questions;
                             console.log("hna");
                             app.tree = response.data.tree;
-                           
+
                             console.log(app.tree);
                             var updateOutput = function(e) {
                                 var list = e.length ? e : $(e.target),
@@ -442,7 +433,6 @@ $(document).ready(function() {
 
 
 
-                            // activate Nestable for list 2
                             $('#nestable2').nestable({
                                     group: 1,
                                     handleClass: '123',
@@ -451,7 +441,6 @@ $(document).ready(function() {
 
 
 
-                            // output initial serialised data
                             updateOutput($('#nestable2').data('output', $('#nestable2-output')));
 
                             $('#nestable-menu').on('click', function(e) {
@@ -465,14 +454,6 @@ $(document).ready(function() {
 
                                 }
                             });
-                            // this.questions.forEach(question => {
-                            //     $('#test').multiSelect(
-                            //         'addOption', {
-                            //             value: question.id,
-                            //             text: question.question
-                            //         },
-                            //     );
-                            // });
                         })
                         .catch();
                 },
@@ -530,7 +511,6 @@ $(document).ready(function() {
                             'question_id': app.selectedQuestion.id,
                         })
                         .then(function(response) {
-                            // app.service.questions.push(response.data.question);
                             app.fetch_services_questions(app.service);
                             $('#add-question-modal').modal('toggle');
                             app.newQuestion = '';
@@ -559,8 +539,6 @@ $(document).ready(function() {
                             'documents': documents
                         })
                         .then(function(response) {
-                            // app.$set(app.questions,index,response.data.role);
-                            // app.fetch_questions();
                             $('#assign-documents-modal').modal('toggle');
                             app.question_documents = response.data.documents;
                             console.log(response.data.questions);
@@ -649,7 +627,6 @@ $(document).ready(function() {
                             'description': description,
                         })
                         .then(function(response) {
-                            // app.$set(app.services, index, response.data.service);
                             app.services = response.data.services;
                             console.log(response.data.service);
                             $('#edit-service-modal').modal('toggle');
@@ -674,14 +651,14 @@ $(document).ready(function() {
                             'content': app.newContent,
                             'service_id': app.selectedService,
                             'question_id': app.selectedQuestion.id,
-                            
+
                         })
                         .then(function(response) {
                            app.fetch_services_questions(app.service);
                             $('#edit-question-modal').modal('toggle');
-                            
+
                             app.newContent = '';
-                           
+
                             notify('Success', response.data.success, 'green', 'topCenter', 'bounceInDown');
                         })
                         .catch(function(error) {
@@ -697,20 +674,18 @@ $(document).ready(function() {
                 },
                 fetch_question_documents(question) {
                 return axios.get('/getQuestionDocuments/'+question.id)
-                    // .then(response => this.permissions = response.data.permissions)
                     .then(function(response) {
                         app.question_documents = response.data.question.documents;
                         app.get_selected_documents();
-                      
+
                     })
                     .catch();
             },
                 fetch_documents(question) {
                 return axios.get('/getDocuments')
-                    // .then(response => this.permissions = response.data.permissions)
                     .then(function(response) {
                         app.documents = response.data.documents;
-                    
+
                         app.documents.forEach(document => {
                             $('#test').multiSelect(
                                 'addOption', {
@@ -729,7 +704,6 @@ $(document).ready(function() {
             },
             created() {
                 this.fetch_services();
-                // this.fetch_questions();
 
 
 

@@ -18,12 +18,7 @@
                     <span class="pcoded-mtext">My profile</span>
                 </a>
             </li>
-            {{-- <li class=" ">
-                <a href="notifications_v">
-                    <span class="pcoded-mtext">Notifications</span>
-                    <span class="pcoded-badge label label-danger">NOUVEAU</span>
-                </a>
-            </li> --}}
+
 
         </ul>
     </li>
@@ -45,23 +40,6 @@
 
         </ul>
     </li>
-    {{-- <li class="pcoded-hasmenu {{ (\Request::route()->getName() == 'users-list' || \Request::route()->getName() == 'create-user' ) ? 'pcoded-trigger' : '' }}">
-        <a href="javascript:void(0)">
-            <span class="pcoded-micon"><i class="fa fa-users"></i></span>
-            <span class="pcoded-mtext">Utilisateur</span>
-        </a>
-        <ul class="pcoded-submenu">
-            <li class="{{ (\Request::route()->getName() == 'create-user') ? 'active' : '' }}">
-                <a href="/create_user">
-                    <span class="pcoded-mtext">Ajouter un utilisateur</span>
-                </a>
-            </li>
-            <li class="{{ (\Request::route()->getName() == 'users-list') ? 'active' : '' }}">
-                <a href="/users_list">
-                    <span class="pcoded-mtext">Liste des utilisateurs</span>
-                </a>
-            </li>
-        </ul>
-    </li> --}}
+
 </ul>
 @endsection

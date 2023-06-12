@@ -44,11 +44,9 @@ class DocumentController extends Controller
             $document->url =$document_file;
         }
         $document->name = $request->name;
-        // $document->url = $request->url;
-
         $document->save();
 
-        // return compact('validated');
+
         return response()->json([
             'success' => 'Information added with success',
             'document' => $document
@@ -84,7 +82,7 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
- 
+
     public function update(DocumentUpdateRequest $request, $id)
     {
 

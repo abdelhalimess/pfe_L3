@@ -40,7 +40,7 @@
                 <form >
                     <div class="form-group row">
                         <div :class="[errors.fullname ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">
-                            {{-- <i class="text-danger m-t-5" v-if="errors.fullname" >@{{errors.fullname.toString()}}</i> --}}
+
                             <input id="fullname" type="text" class="form-control" placeholder="Fullname" v-model="fullname" data-toggle="tooltip" data-placement="top"
                         :data-original-title="errors.fullname" >
                             <span class="input-group-addon">
@@ -100,11 +100,11 @@
                         :data-original-title="errors.service_id">
                             <select id="services"  class="selectpicker show-tick" data-live-search="true" title="Service name.." data-width="100%" data-size="8">
 
-                              
+
                                         @foreach ($services as $service)
                                             <option value="{{$service->id}}" v-model="service_id"> {{$service->name}}</option>
                                         @endforeach
-                             
+
                             </select>
                             <span class="input-group-addon">
                                 <i class="icofont icofont-sub-listing"></i>
@@ -164,12 +164,7 @@
                                     @endforeach
                                 </optgroup>
                             @endforeach
-                            {{-- <optgroup label="lool">
-                                <option value="1">1</option>
-                                <option value="3">2</option>
-                                <option value="4">3</option>
-                                <option value="2">4</option>
-                            </optgroup> --}}
+
                         </select>
                     </div>
                 </form>

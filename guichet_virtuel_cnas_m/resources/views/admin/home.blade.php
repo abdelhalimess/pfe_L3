@@ -16,25 +16,6 @@
 
 
 @section('page_content')
-{{-- <div class="row" >
-    <div class="col-xl-3 col-md-6">
-        <div class="card">
-            <div class="card-block">
-                <div class="row align-items-center m-l-0">
-                    <div class="col-auto">
-                        <i class="icofont icofont-user-alt-1 f-42 text-c-lite-green"></i>
-                    </div>
-                    <div class="col-auto">
-                        <h6 class="text-muted m-b-10 "># UTILISATEURS</h6>
-                        <h2 class="m-b-0">@{{users.length}}</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection --}}
-
 
 @section('page_scripts')
 
@@ -74,7 +55,7 @@
                          .then(function (response) {
                              app.notifications = response.data.notifications;
                              if (app.notifications.length > 0 ) {
-                                 
+
                              }
                          });
                  },

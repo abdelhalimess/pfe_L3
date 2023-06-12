@@ -79,33 +79,9 @@
                                     <h5 class="sub-title">Assignment and Credentials<span class="text-danger">(*)</span></h5>
                                     <form>
                                         <div class="form-group row">
-                                            {{-- <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
+                                        <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
                                             data-toggle="tooltip" data-placement="top"
                                             :data-original-title="errors.structure_id">
-                                                <select id="structure-types" class="selectpicker show-tick" title="Structure type.."
-                                                >
-                                                    @foreach ($structureTypes as $structureType)
-                                                        <option value="{{$structureType->id}}">{{$structureType->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                <span class="input-group-addon">
-                                                    <i class="icofont icofont-listing-box"></i>
-                                                </span>
-                                            </div> --}}
-
-                                            <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
-                                            data-toggle="tooltip" data-placement="top"
-                                            :data-original-title="errors.structure_id">
-                                                {{-- <select id="structures"  class="selectpicker show-tick" data-live-search="true" title="Structure name.." data-width="100%" data-size="8">
-
-                                                    @foreach ($structureTypes as $structureType)
-                                                        <optgroup label="{{$structureType->name}}" >
-                                                            @foreach ($structureType->structures as $structure)
-                                                                <option value="{{$structure->id}}" v-model="structure_id1"> {{$structure->name}}</option>
-                                                            @endforeach
-                                                        </optgroup>
-                                                    @endforeach
-                                                </select> --}}
                                                 <span class="input-group-addon">
                                                     <i class="icofont icofont-sub-listing"></i>
                                                 </span>
@@ -187,12 +163,12 @@
                     <ul class="list-unstyled card-option">
                         <li>
                             <span data-toggle="tooltip" data-placement="top" data-original-title="Add a User">
-                              
+
                                 <a href="{{ route('create-user') }}" class="btn btn-success btn-sm " style="border-radius: 50px; font-size: 15px;">
                                     <i class="fa fa-plus-circle text-white"></i> Add User
                                   </a>
-                                  
-                                
+
+
                             </span>
                         </li>
                     </ul>
@@ -266,7 +242,6 @@
                     <form >
                         <div class="form-group row">
                             <div :class="[errors.fullname ? 'col-sm-4 m-b-5 input-group input-group-danger' : 'col-sm-4 m-b-5 input-group input-group-inverse']">
-                                {{-- <i class="text-danger m-t-5" v-if="errors.fullname" >@{{errors.fullname.toString()}}</i> --}}
                                 <input id="fullname" type="text" class="form-control" placeholder="Nom et Prénom" v-model="fullname" data-toggle="tooltip" data-placement="top"
                             :data-original-title="errors.fullname" >
                                 <span class="input-group-addon">
@@ -303,20 +278,6 @@
                     <h5 class="sub-title">Assignment and Credentials <span class="text-danger">(*)</span></h5>
                     <form>
                         <div class="form-group row">
-                            {{-- <div :class="[errors.structure_id ? 'col-sm-3 m-b-5 input-group input-group-danger' : 'col-sm-3 m-b-5 input-group input-group-inverse']"
-                            data-toggle="tooltip" data-placement="top"
-                            :data-original-title="errors.structure_id">
-                                <select id="structure-types" class="selectpicker show-tick" title="Structure type..."
-                                >
-                                    @foreach ($structureTypes as $structureType)
-                                        <option value="{{$structureType->id}}">{{$structureType->name}}</option>
-                                    @endforeach
-                                </select>
-                                <span class="input-group-addon">
-                                    <i class="icofont icofont-listing-box"></i>
-                                </span>
-                            </div> --}}
-
                             <div :class="[errors.structure_id ? 'col-sm-6 input-group input-group-danger' : 'col-sm-6 input-group input-group-inverse']"
                             data-toggle="tooltip" data-placement="top"
                             :data-original-title="errors.structure_id">
@@ -499,7 +460,6 @@ const app = new Vue({
                         axios.delete('/user_delete/' + id)
                             .then(function (response) {
                                 if (response.data.error) {
-                                    // app.users.splice(index,1)
                                     notify('Erreur', response.data.error, 'red', 'topCenter', 'bounceInDown');
                                 } else {
                                     $('#tr_' + index).remove();
@@ -537,8 +497,6 @@ const app = new Vue({
                 })
                 .then(function (response) {
                     this.errors=[];
-                    // notify('Succès',response.data.success,'green', 'topCenter','bounceInDown');
-                  //  app.show_edit =false;
                     swal({
                     title: "Success",
                     text: "Information updated successfully!",
@@ -558,7 +516,6 @@ const app = new Vue({
                 })
                 .catch(function (error) {
                     if (error.response) {
-                        //app.errors = error.response.data.errors;
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
@@ -580,13 +537,11 @@ const app = new Vue({
             });
 
             $('#permissions').multiSelect('select',app.permissions);
-            // $('#structure-types').selectpicker('val',user.structure.structure_type_id);
             $('#structures').selectpicker('val',user.structure_id);
             $('#services').selectpicker('val',user.service_id);
 
 
             console.log('rferferf ===> '+user.structure_id);
-            // $('#state').val(user.structure.state);
             app.fullname = user.fullname;
             app.email = user.email;
             app.telephone = user.telephone;
@@ -628,7 +583,6 @@ const app = new Vue({
                 })
                 .catch(function (error) {
                     if (error.response) {
-                        //app.errors = error.response.data.errors;
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);

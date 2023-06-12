@@ -42,10 +42,7 @@ class QuestionController extends Controller
         $question->content = $request->content;
         $question->service_id = $request->service_id;
         $question->question_id = $request->question_id;
-
         $question->save();
-
-        // return compact('validated');
         return response()->json([
             'success' => 'Information added with success',
             'question' => $question
@@ -100,7 +97,7 @@ class QuestionController extends Controller
         $questions = Question::where('question_id',$id)->get();
         foreach ($questions as $question) {
             $question->delete();
-           
+
         }
         Question::Where("id",$id)->delete();
         return response()->json(['success' => 'The question has been deleted']);
@@ -112,38 +109,25 @@ class QuestionController extends Controller
         $qts = Question::tree()->get();
 
         $tree = $qts->toTree();
-       
+
         $questions = Question::all();
         return  compact('questions','tree');
 
-
-
-        // $questions = Question::with('')->get();
-        // return compact('questions');
     }
-    // public function getServicesQuestions($id)
-    // {
 
-    //     $query = Question::where('service_id', $id)->orderBy('id');
-
-    //     $tree = $query->get()->toTree();
-    
-    //     return compact('tree');
-
-    // }
     public function getServicesQuestions($id)
     {
         $qts = Question::with('children')->where('service_id', $id)->get();
-    
+
         $tree = $this->buildTree($qts, null);
-    
+
         return compact('tree');
     }
-    
+
     private function buildTree($questions, $parentId = null)
     {
         $tree = [];
-    
+
         foreach ($questions as $question) {
             if ($question->question_id === $parentId) {
                 $children = $this->buildTree($questions, $question->id);
@@ -153,10 +137,10 @@ class QuestionController extends Controller
                 $tree[] = $question;
             }
         }
-    
+
         return collect($tree);
     }
-    
+
     public function attachDocuments(Request $request, $id)
     {
 
@@ -169,11 +153,6 @@ class QuestionController extends Controller
         $question = Question::where("id", "=", $id)->with("documents")->firstOrFail();
         $documents = $request->documents;
         $question->documents()->sync($documents);
-
-
-
-
-
         $questions = Question::with('documents')->get();
         return response()->json([
             'success' => 'Information modifée avec succès',
@@ -191,7 +170,6 @@ class QuestionController extends Controller
     public function getQuestionDocuments($id)
     {
         $question = Question::where("id", "=", $id)->with("documents")->firstOrFail();
-        // $question = Question::with('documents')->where('id',$id)->get();
         return compact('question');
     }
 
@@ -203,8 +181,6 @@ class QuestionController extends Controller
     $question->question_id = $request->question_id;
 
     $question->save();
-
-    // return compact('validated');
     return response()->json([
         'success' => 'Information added with success',
         'question' => $question

@@ -232,7 +232,7 @@ const app = new Vue({
                 })
                 .catch(function (error) {
                     if (error.response) {
-                        //app.errors = error.response.data.errors;
+
                         console.log(error.response.data.errors);
 
                         app.$set(app,'errors', error.response.data.errors);
@@ -255,7 +255,7 @@ const app = new Vue({
                 this.structure_id='<?php echo $user->structure_id ?>';
                 this.role_id='<?php echo $user->role_id ?>';
                 this.errors=[];
-               // $('#permissions').multiSelect('deselect_all');
+
 
             },
 

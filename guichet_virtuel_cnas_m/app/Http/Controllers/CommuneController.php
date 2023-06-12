@@ -45,7 +45,6 @@ class CommuneController extends Controller
 
         $commune->save();
 
-        // return compact('validated');
         return response()->json([
             'success' => 'Information added with success',
             'commune' => $commune
@@ -83,7 +82,7 @@ class CommuneController extends Controller
      */
     public function update(CommuneUpdateRequest $request, $id)
     {
-       
+
         $commune = Commune::findOrFail($id);
         $commune->name = $request->name;
         $commune->code = $request->code;
@@ -104,12 +103,12 @@ class CommuneController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $commune = Commune::where('id', '=', $id);
         $commune->delete();
         return response()->json(['success' => 'The commune has been deleted']);
     }
-    
+
     public function getCommunes()
     {
         $communes = Commune::all();

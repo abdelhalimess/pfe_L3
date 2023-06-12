@@ -84,7 +84,6 @@ class ServiceController extends Controller
         $service = Service::findOrFail($id);
         $service->name = $request->name;
         $service->description = $request->description;
-
         $service->save();
         $services = Service::with('questions')->get();
         return response()->json([

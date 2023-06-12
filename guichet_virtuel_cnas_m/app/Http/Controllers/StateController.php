@@ -43,15 +43,10 @@ class StateController extends Controller
     public function store(StateStoreRequest $request)
     {
         $validated = $request->validated();
-
-
         $state = new State();
         $state->name = $request->name;
         $state->code = $request->code;
-
         $state->save();
-
-        // return compact('validated');
         return response()->json([
             'success' => 'Information added with success',
             'state' => $state
@@ -89,8 +84,6 @@ class StateController extends Controller
      */
     public function update(StateUpdateRequest $request, $id)
     {
-        // $validated = $request->validated();
-
 
         $state = State::with("communes")->findOrFail($id);
         $state->name = $request->name;
@@ -138,14 +131,12 @@ class StateController extends Controller
         $state->communes()->update(['state_id' => null]);
         $communes = $request->communes;
         $communes = Commune::find($communes);
-        // $communes->update(['state_id' => $state->id]);
         for ($i = 0; $i < sizeof($communes); $i++) {
-            // $state->communes->associate($communes);
             $communes[$i]->state_id =  $id;
             $communes[$i]->save();
         }
 
-        
+
 
         $states = State::with('communes')->get();
         return response()->json([

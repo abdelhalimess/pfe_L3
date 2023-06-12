@@ -9,17 +9,13 @@
     <title>CNAS - VIRTUAL COUNTER</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
         type="text/css" />
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/jsCalendar.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.datetimepicker.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/animate.css/css/animate.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/iziToast.min.css') }}">
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{ asset('pages/user/css/styles.css') }}" rel="stylesheet" />
 </head>
 
@@ -98,10 +94,6 @@
                         <div class="divider-custom-line"></div>
                         <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
                         <div class="divider-custom-line"></div>
-                        {{-- </div>
-                <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">Consult our services ... Book an appointment! <br> What are you wating for ? </p>
-              </div> --}}
                     </div>
         </header>
         <div class="row">
@@ -111,9 +103,6 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="appointmentsModalLabel">My Appointments
                             </h5>
-                            {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button> --}}
                         </div>
                         <div class="modal-body">
                             <table class="table table-hover">
@@ -146,7 +135,6 @@
                             </table>
                         </div>
                         <div class="modal-footer">
-                            {{-- <button type="button" class="btn btn-primary" onclick="window.print()">Print</button> --}}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -166,17 +154,6 @@
                     <div class="divider-custom-icon"><i class="fas fa-minus"></i></div>
                     <div class="divider-custom-line"></div>
                 </div>
-
-                {{-- <div class="container mb-5 mb-md-6">
-                    <div class="row justify-content-md-center">
-                        <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6 text-center">
-                            <h2 class="mb-4 display-5">Services</h2>
-                            <p class="text-secondary mb-4 mb-md-5">Choose a service to answer a questionnaire</p>
-                            <hr class="w-50 mx-auto mb-0 text-secondary">
-                        </div>
-                    </div>
-                </div> --}}
-
                 <div class="container overflow-hidden">
                     <div class="row gy-5 gy-md-6 gx-xl-6" v-show="services!=null">
                         <div class="bs-component col-md-4" v-for="(service, index) in services"
@@ -252,94 +229,6 @@
                     </div>
                 </div>
         </section>
-        <!-- Contact Section-->
-        {{-- <section class="page-section" id="contact">
-            <div class="container">
-                <!-- Contact Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
-                <!-- Icon Divider-->
-                <div class="divider-custom">
-                    <div class="divider-custom-line"></div>
-                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                    <div class="divider-custom-line"></div>
-                </div>
-                <!-- Contact Section Form-->
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 col-xl-7">
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- * * SB Forms Contact Form * *-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- This form is pre-integrated with SB Forms.-->
-                        <!-- To make this form functional, sign up at-->
-                        <!-- https://startbootstrap.com/solution/contact-forms-->
-                        <!-- to get an API token!-->
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                            <!-- Name input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text"
-                                    placeholder="Enter your name..." data-sb-validations="required" />
-                                <label for="name">Full name</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.
-                                </div>
-                            </div>
-                            <!-- Email address input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="email" type="email"
-                                    placeholder="name@example.com" data-sb-validations="required,email" />
-                                <label for="email">Email address</label>
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.
-                                </div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                            </div>
-                            <!-- Phone number input-->
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="phone" type="tel"
-                                    placeholder="(123) 456-7890" data-sb-validations="required" />
-                                <label for="phone">Phone number</label>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is
-                                    required.</div>
-                            </div>
-                            <!-- Message input-->
-                            <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" type="text" placeholder="Enter your message here..."
-                                    style="height: 10rem" data-sb-validations="required"></textarea>
-                                <label for="message">Message</label>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is
-                                    required.</div>
-                            </div>
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a
-                                        href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
-                            <div class="d-none" id="submitErrorMessage">
-                                <div class="text-center text-danger mb-3">Error sending message!</div>
-                            </div>
-                            <!-- Submit Button-->
-                            <button class="btn btn-primary btn-xl disabled" id="submitButton"
-                                type="submit">Send</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
-        <!-- Footer-->
-
-        <!-- About Section Heading-->
-
-        <!-- Icon Divider-->
         <section class="page-section" id="contact">
             <footer class="footer text-center" id="footer-page">
                 <h2 class="page-section-heading text-center text-uppercase text-white">Contact</h2>
@@ -364,13 +253,9 @@
                             <h4 class="text-uppercase mb-4">Around the Web</h4>
                             <a class="btn btn-outline-light btn-social mx-1"
                                 href="https://www.facebook.com/dg.cnas"><i class="fab fa-fw fa-facebook-f "></i></a>
-                            {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-web"></i></a> --}}
                             <a class="btn btn-outline-light btn-social mx-1"
                                 href="https://www.linkedin.com/company/cnas-direction-g%C3%A9n%C3%A9rale/"
                                 target="_blank"><i class="fab fa-fw fa-linkedin-in "></i></a>
-                            {{-- <a class="btn btn-outline-light btn-social mx-1" href="#!"><i
-                                class="fab fa-fw fa-dribbble"></i></a> --}}
                         </div>
                         <div class="col-lg-4 ">
                             <h4>Contact</h4>
@@ -550,12 +435,6 @@
                                                             </button>
                                                         </div>
                                                         <div class="col-auto">
-                                                            {{-- <button class="btn btn-primary"
-                                                                v-on:click="printDocuments"
-                                                                v-if="documents.length > 0">
-                                                                <i class="fas fa-print"></i>
-                                                                Print
-                                                            </button> --}}
                                                             <button class="btn btn-primary"
                                                                 v-on:click="book_appointment()"
                                                                 :disabled="selectedHour == '' || selectedDate == ''"
@@ -588,11 +467,6 @@
                             @csrf
                             <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
-                        {{-- <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                                 Logout
-                            </a> --}}
-
                     </div>
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
@@ -741,10 +615,8 @@
                 <!-- * *                               SB Forms JS                               * *-->
                 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
                 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-                {{-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> --}}
 
                 <script>
-                    //    var myCalendar = jsCalendar.new("#my-calendar");
                     const app = new Vue({
                         el: '#app',
                         data() {
@@ -775,7 +647,6 @@
                                 selectedHour: '',
                                 showBookingForm: false,
                                 show_edit: false,
-                                // myCalendar : jsCalendar.new("#my-calendar"),
                                 services: [],
                                 questions: [],
                                 selectedQuestion: '',
@@ -821,10 +692,9 @@
                             },
 
                             fetchAppointments() {
-                                // Make an API call to fetch appointments data
                                 axios.get('/getMyAppointments')
                                     .then(response => {
-                                        this.appointments = response.data.appointments; // Update the appointments data
+                                        this.appointments = response.data.appointments;
                                         console.log(response.data.appointments);
                                     })
                                     .catch(error => {
@@ -837,12 +707,6 @@
                                 console.log('30/05/2023');
                             },
                             printDocuments() {
-                                //                                 const doc = new jsPDF();
-                                //                                 var img = new Image();
-                                //                                 img.src =  asset('assets/tickets/img/documents.png');
-                                //                                 doc.addImage(img, 'png', 10, 78, 12, 15);
-                                //                                 doc.text("Hello world!", 10, 10);
-                                //                                 doc.save("a4.pdf");
                                 const printContents = document.querySelector('.col-4 .list-group').innerHTML;
                                 const printWindow = window.open('', '', 'width=800,height=600');
                                 printWindow.document.open();
@@ -917,10 +781,6 @@
 
                                 // Wait for the image to load
                                 backgroundImage.onload = function() {
-                                    // Calculate the desired width and height of the image in the PDF
-
-
-                                    // Add the background image to the PDF with the updated size and position
                                     doc.addImage(backgroundImage, 'png', 0, 0, 210,
                                         135);
 
@@ -971,7 +831,6 @@
 
 
                                         }).catch(function(error) {
-                                            // Error handling for "Bad Request" or any other network or server error
 
                                             if (error.response && error.response.data && error.response.data.message) {
                                                 app.notify('Booking Failed', error.response.data.message, 'red',
@@ -986,7 +845,6 @@
 
                                     ;
                                 } else {
-                                    // Handle the case when the user is not authenticated
                                     window.location.href = '/login';
                                 }
                             },
@@ -994,7 +852,6 @@
                                 return axios.get('/getServices')
                                     .then(response => {
                                         this.services = response.data.services;
-                                        // selectedQuestion = services[0].question;
                                         console.log('Services fetched successfully');
                                         console.log(this.services);
                                         console.log(response.data.questions);
@@ -1006,9 +863,7 @@
                                 this.previousQuestions.push(question.id);
                                 return axios.get('/getQuestions/' + question.id)
                                     .then(response => {
-                                        // this.questions = response.data.questions;
                                         this.questions = response.data.questions;
-                                        // app.selectedQuestion = services[0].question;
                                         app.selectedQuestion = question.id;
                                         console.log(response.data.questions);
                                     })
@@ -1018,7 +873,6 @@
                                 return axios.get('/getQuestionDocuments/' + question.id)
                                     .then(response => {
                                         app.documents = response.data.question.documents;
-                                        // selectedQuestion = services[0].question;
                                         console.log('Documents fetched successfully');
                                         console.log(app.documents);
                                         console.log(response.data);
@@ -1037,11 +891,7 @@
                                 }
                                 return axios.get('/getQuestions/' + this.previousQuestions[this.previousQuestions.length - 1])
                                     .then(response => {
-
-                                        // this.questions = response.data.questions;
                                         this.questions = response.data.questions;
-                                        // selectedQuestion = services[0].question;
-                                        // this.selectedQuestion = question;
                                         console.log(response.data.questions);
                                     })
                                     .catch();
@@ -1088,7 +938,6 @@
                                     })
                                     .catch(function(error) {
                                         if (error.response) {
-                                            //app.errors = error.response.data.errors;
                                             console.log(error.response.data.errors);
 
                                             app.$set(app, 'errors', error.response.data.errors);
@@ -1103,13 +952,6 @@
                             },
 
                             reset_form() {
-                                // this.fullname:'';
-                                // this.email:'';
-                                // this.telephone:'';
-                                // this.address:'';
-                                // this.username:'';
-
-
                                 this.password = '';
                                 this.password_confirmation = '';
                                 this.errors = [];
@@ -1162,16 +1004,9 @@
                                 $('#' + element).unblock();
                             },
 
-                            // getAssetUrl() {
-                            //         return "{{ asset('pages/user/assets/img/" + currentPhotoIndex + "') }}";
-                            //         },
-
                             onClose() {
-                                // Perform any actions you need when the modal is closed
-                                console.log('Modal closed');
-                                // Clear any data or reset state variables
 
-                                // Reset showModal to hide the modal
+                                console.log('Modal closed');
                                 this.showBookingForm = false;
                                 this.documents = '';
                             },
@@ -1204,30 +1039,25 @@
                                             selected_date: this.getText('YYYY-MM-DD')
                                         })
                                         .then(response => {
-                                            // Handle the response data
                                             console.log(response.data);
                                             app.available_hours = response.data.available_hours;
                                             app.selectedHour = '';
                                         })
                                         .catch(error => {
-                                            // Handle any errors
                                             console.error(error);
                                         });
 
 
                                 }
                             }, );
-                            // Get the button
 
                             // Add a button event
 
                             setInterval(() => {
                                 this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.photos.length;
                             }, 5000);
-                            // Default export is a4 paper, portrait, using millimeters for units
 
 
-                            // this.fetch_documents();
                             const modalElement = document.querySelector('#servicesModal');
                             modalElement.addEventListener('hidden.bs.modal', this.onClose);
                         },

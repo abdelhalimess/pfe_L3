@@ -45,8 +45,6 @@
                             v-on:input="errors.name=null" />
                         <p class="text-danger m-t-5" v-if="errors.name">@{{ errors.name.toString() }}</p>
                         <br>
-                        {{-- <input type="text" :class="[errors.url ? 'form-control form-control-danger' : 'form-control form-control-success']" placeholder="Enter document url..." maxlength="25" v-model="newDocumentUrl" required v-on:input="errors.url=null" />
-                    <p class="text-danger m-t-5" v-if="errors.code">@{{ errors.url.toString() }}</p> --}}
                         <input type="file" id="files" ref="files" name="document_file"
                             class="form-control form-control-success" v-on:change="handleFilesUpload()" />
                     </div>
@@ -74,10 +72,10 @@
                             v-model="documentName" />
                         <p class="text-danger m-t-5" v-if="errors.name">@{{ errors.name.toString() }}</p>
                         <br>
-                       
+
 
                        <input type="file" id="filess" ref="filess" name="document_file_"
-                            class="form-control form-control-success" v-on:change="handleFilesUpload_()" /> 
+                            class="form-control form-control-success" v-on:change="handleFilesUpload_()" />
 
                     </div>
                     <div class="modal-footer">
@@ -183,7 +181,7 @@
                     notifications_fetched: false,
                     document_file: '',
                     document_file_name: '',
-                   
+
                 }
             },
             methods: {

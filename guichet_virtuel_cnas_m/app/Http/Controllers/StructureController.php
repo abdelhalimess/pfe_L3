@@ -93,7 +93,6 @@ class StructureController extends Controller
         $structure->state_id = $request->state_id;
         $structure->structure_type_id = $request->structure_type_id;
         $structure->address = $request->address;
-
         $structure->save();
         $structure = Structure::with('state','structureType')->findOrFail($id);
         return response()->json([
@@ -126,5 +125,5 @@ class StructureController extends Controller
         $structures = Structure::count();
         return compact('structures');
     }
-    
+
 }

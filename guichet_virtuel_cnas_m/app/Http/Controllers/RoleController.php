@@ -47,14 +47,9 @@ class RoleController extends Controller
     public function store(RoleStoreRequest $request)
     {
         $validated = $request->validated();
-
-
         $role = new Role();
         $role->name = $request->name;
-
         $role->save();
-
-        // return compact('validated');
         return response()->json([
             'success' => 'Information added with success',
             'role' => $role

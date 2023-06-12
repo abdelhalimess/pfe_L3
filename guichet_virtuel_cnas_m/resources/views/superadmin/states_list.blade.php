@@ -250,7 +250,7 @@
                 app.state_communes = communes;
                 console.log(communes);
                 app.selectedState = state.id;
-               
+
                 app.selectedStateName = state.name;
                 console.log(app.selectedState);
             },
@@ -266,7 +266,6 @@
             },
             fetch_communes() {
                 return axios.get('/getCommunes')
-                    // .then(response => this.permissions = response.data.permissions)
                     .then(function(response) {
                         this.communes = response.data.communes;
                         this.communes.forEach(commune => {
@@ -311,12 +310,9 @@
                         'communes': communes
                     })
                     .then(function(response) {
-                        // app.$set(app.roles,index,response.data.role);
-                        // app.fetch_roles();
                         $('#assign-communes-modal').modal('toggle');
                         app.state_communes = response.data.communes;
-                        // console.log(response.data.states);
-                        // console.log(app.states);
+
 
                         app.states = response.data.states;
                         console.log(response.data);

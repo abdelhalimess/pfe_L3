@@ -239,10 +239,6 @@
             }
         },
         computed: {
-            //  ...mapGetters ({
-            //     allroles :'ALL_ROLES',
-            //     //'role_permissions',
-            //  })
             get_roles() {
                 return this.roles;
             }
@@ -295,7 +291,6 @@
             },
             fetch_permissions() {
                 return axios.get('/getPermissions')
-                    // .then(response => this.permissions = response.data.permissions)
                     .then(function(response) {
                         this.permissions = response.data.permissions;
                         this.permissions.forEach(permission => {
@@ -360,8 +355,6 @@
                         'permissions': permissions
                     })
                     .then(function(response) {
-                        // app.$set(app.roles,index,response.data.role);
-                        // app.fetch_roles();
                         $('#assign-permissions-modal').modal('toggle');
                         app.role_permissions = response.data.permissions;
                         console.log(response.data.roles);
@@ -399,8 +392,6 @@
 
 
                         app.roles[app.selectedRoleIndex].permissions.slice(index, 1);
-                        //app.fetch_roles();
-                        // app.selectedRole = '';
                         notify('Succès', response.data.success, 'green', 'topCenter', 'bounceInDown');
                     })
                     .catch(function(error) {
@@ -422,9 +413,9 @@
          this.fetch_roles();
             this.fetch_permissions()
             console.log('RolesList created..');
-          
-           
-           
+
+
+
         },
         mounted() {
             $('#optgroup').multiSelect();

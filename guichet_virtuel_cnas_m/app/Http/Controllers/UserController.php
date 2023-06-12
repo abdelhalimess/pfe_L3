@@ -37,7 +37,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-       
+
     }
 
     /**
@@ -47,16 +47,6 @@ class UserController extends Controller
      */
     public function index()
     {
-
-
-        // $affectation = Affectation::findOrFail(3);
-        // // AGENCE Tiaret/DECISIONS-AFFECTATION/4P47N1Kd0o8poGn5SWgnFkbAkz2kYvRdduUnr8AP.pdf
-
-        // unlink(public_path('storage/'."AGENCE Tiaret/DECISIONS-AFFECTATION/4P47N1Kd0o8poGn5SWgnFkbAkz2kYvRdduUnr8AP.pdf"));
-        // if (Auth::user()->hasRole('admin')) {
-
-        // return view('admin.home');
-        //} else return 'load the manager home';
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
 
@@ -65,19 +55,11 @@ class UserController extends Controller
                 return view('superadmin.home');
                 break;
             case 'user':
-                //$agents = Agent::where('structure_id',Auth::user()->structure_id)->get();
                 return view('user.home');
                 break;
             case 'admin':
                 return view('admin.home');
                 break;
-            case 'responsable_patrimoine':
-                return view('parc_manager.home');
-                break;
-            case 'superviseur':
-                return view('parc_manager.home');
-                break;
-
             default:
                 # code...
                 break;
@@ -102,7 +84,7 @@ class UserController extends Controller
                 return view('superadmin.add_user', compact('roles', 'permissions', 'structureTypes', 'services'));
                 break;
             case 'admin':
-                $roles = Role::with('permissions')->whereNotIn('name', ['superadmin', 'admin', 'manager'])->get();
+                $roles = Role::with('permissions')->whereNotIn('name', ['superadmin', 'admin'])->get();
                 $permissions = Permission::all();
                 return view('admin.add_user', compact('roles', 'permissions'));
                 break;
@@ -123,21 +105,14 @@ class UserController extends Controller
             case 'user':
                 return view('user.user_profile');
                 break;
-            case 'superviseur':
-                return view('parc_manager.user_profile');
-                break;
+
         }
     }
 
     public function update_information(Request $request)
     {
-        // $validated = $request->validated();
         $user = User::find(Auth::user()->id);
-
-
-
         $this->validate($request, [
-            // 'username' =>  'min:5|string|required',
             'password' => 'nullable|min:5|max:25|string|confirmed',
             'fullname' => 'required|min:5|max:150|string',
             'address' => 'required|max:150|string',
@@ -146,8 +121,6 @@ class UserController extends Controller
 
 
         ]);
-
-        // $user->username = $request->username;
         $user->fullname = $request->fullname;
         $user->address = $request->address;
         $user->telephone = $request->telephone;
@@ -270,19 +243,12 @@ class UserController extends Controller
         $validated = $request->validated();
         $user = User::findOrFail($id);
         $this->authorize('update', $user);
-
-
-
         $service = Service::where('id', $request->service_id)->first();
-
-
-
         $user->username = $request->username;
         $user->fullname = $request->fullname;
         $user->address = $request->address;
         $user->telephone = $request->telephone;
         $user->email = $request->email;
-
         $authUser = User::find(Auth::user()->id);
         $role = $authUser->getRoleNames()->first();
         if ($role != 'superadmin') {
